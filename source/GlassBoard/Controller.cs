@@ -1309,6 +1309,47 @@ public class Controller
 		SyncStartupSetting();
 		ApplyFullscreenHide();
 		IdleTrim.Start(ReleaseIdleCaches, null);
+		StartIconWarmup();
+	}
+
+	private DispatcherTimer iconWarmTimer;
+
+	private int iconWarmIndex;
+
+	/// <summary>启动后在空闲时段分批预取图标，避免第一次打开大面板时同步抠图卡住界面。</summary>
+	private void StartIconWarmup()
+	{
+		iconWarmIndex = 0;
+		iconWarmTimer = new DispatcherTimer(DispatcherPriority.Background)
+		{
+			Interval = TimeSpan.FromMilliseconds(120.0)
+		};
+		iconWarmTimer.Tick += delegate
+		{
+			try
+			{
+				int num = 0;
+				while (iconWarmIndex < Prefs.Apps.Count && num < 2)
+				{
+					Entry entry = Prefs.Apps[iconWarmIndex++];
+					if (entry == null || entry.IsFolder)
+					{
+						continue;
+					}
+					FeatureUi.Icon(entry, Prefs.Dock.ShowShortcutOverlays, Prefs.Dock.SharperIcons);
+					num++;
+				}
+				if (iconWarmIndex >= Prefs.Apps.Count)
+				{
+					iconWarmTimer.Stop();
+				}
+			}
+			catch
+			{
+				iconWarmTimer.Stop();
+			}
+		};
+		iconWarmTimer.Start();
 	}
 
 	/// <summary>让配置里的开机自启开关与真实的登录计划任务保持一致；首次运行时按默认值开启。</summary>

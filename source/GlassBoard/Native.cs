@@ -28,7 +28,7 @@ public static class Native
 
 	public const int RestoreMessage = 32815;
 
-	private static readonly BoundedCache<string, ImageSource> icons = new BoundedCache<string, ImageSource>(192, StringComparer.OrdinalIgnoreCase);
+	private static readonly BoundedCache<string, ImageSource> icons = new BoundedCache<string, ImageSource>(512, StringComparer.OrdinalIgnoreCase);
 
 	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 	private static extern IntPtr FindWindow(string cls, string title);
