@@ -65,12 +65,6 @@ public sealed class WidgetManager : IDisposable
 				lastWeatherCheck = DateTime.UtcNow;
 				Weather.Update();
 			}
-			List<string> list = ClockRules.Check(C.Prefs.Widgets, DateTime.Now, DateTime.UtcNow);
-			if (list.Count > 0)
-			{
-				C.Save();
-				ShowReminder(list);
-			}
 			foreach (WidgetWindow value2 in windows.Values)
 			{
 				if (value2.IsVisible)
@@ -80,74 +74,6 @@ public sealed class WidgetManager : IDisposable
 			}
 		};
 		timer.Start();
-	}
-
-	private void ShowReminder(List<string> messages)
-	{
-		Window w = FeatureUi.Dialog("时间到了", null, 380.0, 230.0);
-		w.Topmost = true;
-		w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-		StackPanel stackPanel = new StackPanel
-		{
-			Margin = new Thickness(24.0)
-		};
-		w.Content = stackPanel;
-		stackPanel.Children.Add(new TextBlock
-		{
-			Text = string.Join("\n", messages),
-			FontSize = 20.0,
-			TextWrapping = TextWrapping.Wrap,
-			Margin = new Thickness(0.0, 0.0, 0.0, 20.0)
-		});
-		WrapPanel wrapPanel = new WrapPanel();
-		stackPanel.Children.Add(wrapPanel);
-		wrapPanel.Children.Add(FeatureUi.Button("5 分钟后提醒", delegate
-		{
-			DateTime dueLocal = DateTime.Now.AddMinutes(5.0);
-			C.Prefs.Widgets.Alarms.Add(new ClockAlarm
-			{
-				Label = string.Join(" · ", messages),
-				DueLocal = dueLocal,
-				Hour = dueLocal.Hour,
-				Minute = dueLocal.Minute,
-				Enabled = true
-			});
-			C.Save();
-			w.Close();
-		}));
-		wrapPanel.Children.Add(FeatureUi.Button("知道了", delegate
-		{
-			w.Close();
-		}));
-		DispatcherTimer sound = new DispatcherTimer
-		{
-			Interval = TimeSpan.FromSeconds(2.0)
-		};
-		DateTime until = DateTime.UtcNow.AddSeconds(30.0);
-		sound.Tick += delegate
-		{
-			if (DateTime.UtcNow >= until)
-			{
-				sound.Stop();
-			}
-			else
-			{
-				SystemSounds.Exclamation.Play();
-			}
-		};
-		w.Closed += delegate
-		{
-			sound.Stop();
-			reminderWindows.Remove(w);
-		};
-		reminderWindows.Add(w);
-		w.Show();
-		SystemSounds.Exclamation.Play();
-		sound.Start();
-		if (C.Tray != null)
-		{
-			C.Tray.ShowBalloonTip(5000, "GlassBoard 时间提醒", string.Join(" · ", messages), ToolTipIcon.Info);
-		}
 	}
 
 	public void QueueSync()
@@ -273,7 +199,7 @@ public sealed class WidgetManager : IDisposable
 				LastError = "组件 " + ((item.Key >= 0 && item.Key < WidgetRules.Names.Length) ? WidgetRules.Names[item.Key] : item.Key.ToString()) + " 打开失败：" + ex.Message;
 			}
 		}
-		timer.Interval = TimeSpan.FromSeconds((dictionary.Count != 0 || !widgetOptions.Alarms.All((ClockAlarm a) => !a.Enabled) || widgetOptions.TimerDueUtc.HasValue) ? 1 : 30);
+		timer.Interval = TimeSpan.FromSeconds((dictionary.Count != 0) ? 1 : 30);
 		Weather.Update();
 	}
 

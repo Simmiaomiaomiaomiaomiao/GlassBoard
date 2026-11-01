@@ -1791,7 +1791,7 @@ public class DockWindow : GlassWindow
 				}
 			}
 		}
-		System.Windows.Media.Color color = Accent(dock.Accent);
+		System.Windows.Media.Color color = Accent();
 		Surface.BorderBrush = ((GlassPercent == 0.0) ? ((System.Windows.Media.Brush)System.Windows.Media.Brushes.Transparent) : ((System.Windows.Media.Brush)new LinearGradientBrush(System.Windows.Media.Color.FromArgb((byte)Math.Min(255.0, 160.0 * EdgeStrength), color.R, color.G, color.B), System.Windows.Media.Color.FromArgb((byte)Math.Min(255.0, 30.0 * EdgeStrength), byte.MaxValue, byte.MaxValue, byte.MaxValue), 90.0)));
 		UpdateRunning();
 		if (!capture)
@@ -1840,17 +1840,9 @@ public class DockWindow : GlassWindow
 		}
 	}
 
-	private static System.Windows.Media.Color Accent(int index)
+	private static System.Windows.Media.Color Accent()
 	{
-		return (new System.Windows.Media.Color[6]
-		{
-			System.Windows.Media.Color.FromRgb(121, 185, 250),
-			System.Windows.Media.Color.FromRgb(183, 149, 245),
-			System.Windows.Media.Color.FromRgb(105, 218, 183),
-			System.Windows.Media.Color.FromRgb(242, 193, 104),
-			System.Windows.Media.Color.FromRgb(244, 150, 178),
-			System.Windows.Media.Color.FromRgb(194, 203, 217)
-		})[index];
+		return System.Windows.Media.Color.FromRgb(194, 203, 217);
 	}
 
 	private System.Windows.Controls.Button DockButton(string text, ImageSource icon, Action action, string tip, Entry entry = null)
@@ -1901,13 +1893,13 @@ public class DockWindow : GlassWindow
 		}
 		else
 		{
-			System.Windows.Media.Color endColor = Accent(o.Accent);
+			System.Windows.Media.Color endColor = Accent();
 			Grid grid = new Grid
 			{
 				Width = 44.0,
 				Height = 44.0
 			};
-			bool flag = o.ComputerStyle == 0;
+			bool flag = false;
 			if (flag)
 			{
 				grid.Children.Add(new Border

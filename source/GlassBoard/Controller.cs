@@ -2318,16 +2318,6 @@ public class Controller
 				draft.ShowPower = showPower;
 				live();
 			});
-			func4(stackPanel3, "此电脑图标样式", new string[2] { "渐变徽章", "简洁线框" }, draft.ComputerStyle, delegate(int computerStyle)
-			{
-				draft.ComputerStyle = computerStyle;
-				live();
-			});
-			func4(stackPanel3, "强调色", new string[6] { "晴空蓝", "雾紫", "薄荷绿", "暖金", "玫瑰粉", "月光灰" }, draft.Accent, delegate(int accent)
-			{
-				draft.Accent = accent;
-				live();
-			});
 			func3(stackPanel3, "显示分隔线", draft.ShowSeparator, delegate(bool showSeparator)
 			{
 				draft.ShowSeparator = showSeparator;
@@ -2455,7 +2445,7 @@ public class Controller
 				Text = "桌面组件 · 默认关闭",
 				FontSize = 18.0
 			});
-			stackPanel5.Children.Add(FeatureUi.Button("组件外观 DIY · 颜色 / 无框 / 时钟样式", delegate
+			stackPanel5.Children.Add(FeatureUi.Button("组件外观 DIY · 颜色 / 无框", delegate
 			{
 				CustomizeWidgets(null, w);
 			}));
@@ -3180,10 +3170,6 @@ public class Controller
 				});
 				if (k == "clock")
 				{
-					action2("时钟样式 · 共 13 款", ClockCatalog.Names, s.ClockStyle, delegate(int v)
-					{
-						s.ClockStyle = v;
-					});
 					editor.Children.Add(FeatureUi.Button("使用无框推荐效果", delegate
 					{
 						s.Frameless = true;

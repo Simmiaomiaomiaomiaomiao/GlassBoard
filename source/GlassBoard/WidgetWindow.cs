@@ -19,25 +19,15 @@ namespace GlassBoard;
 
 public sealed class WidgetWindow : GlassWindow
 {
-	private TextBlock posterDay;
 
-	private TextBlock posterMonth;
 
-	private TextBlock orbitLabel;
 
-	private RotateTransform hourRotation;
 
-	private RotateTransform minuteRotation;
 
-	private System.Windows.Shapes.Path orbitArc;
 
-	private string clockStamp = "";
 
-	private TextBlock weekday;
 
-	private TextBlock clockHours;
 
-	private TextBlock clockMinutes;
 
 	private FrameworkElement weatherIcon;
 
@@ -73,7 +63,6 @@ public sealed class WidgetWindow : GlassWindow
 
 	private TextBlock date;
 
-	private TextBlock clockStatus;
 
 	private TextBlock weatherTemperature;
 
@@ -91,347 +80,6 @@ public sealed class WidgetWindow : GlassWindow
 
 	private bool ControlsHidden => M.C.Prefs.Widgets.Position(PanelId).HideControls ?? M.C.Prefs.Widgets.HideControls;
 
-	private void ResetAdvancedClock()
-	{
-		posterDay = (posterMonth = (orbitLabel = null));
-		hourRotation = (minuteRotation = null);
-		orbitArc = null;
-		clockStamp = "";
-	}
-
-	private TextBlock ClockText(double size, string font = null)
-	{
-		TextBlock textBlock = new TextBlock
-		{
-			FontSize = size,
-			Foreground = StyleInk("clock"),
-			FontWeight = FontWeights.Light
-		};
-		if (!string.IsNullOrEmpty(font))
-		{
-			textBlock.FontFamily = new FontFamily(font);
-		}
-		return textBlock;
-	}
-
-	private Border ClockRule(double width = 40.0)
-	{
-		return new Border
-		{
-			Width = width,
-			Height = 1.0,
-			Background = StyleInk("clock"),
-			Opacity = 0.45,
-			Margin = new Thickness(0.0, 10.0, 0.0, 10.0),
-			HorizontalAlignment = HorizontalAlignment.Center
-		};
-	}
-
-	private void AdvancedClock(StackPanel body, WidgetStyle s)
-	{
-		string text = (string.IsNullOrEmpty(s.Font) ? null : s.Font);
-		if (s.ClockStyle == 5)
-		{
-			weekday = ClockText(34.0);
-			weekday.FontWeight = FontWeights.SemiBold;
-			body.Children.Add(new Viewbox
-			{
-				Child = weekday,
-				Stretch = Stretch.Uniform,
-				MaxHeight = 45.0,
-				Margin = new Thickness(0.0, 4.0, 0.0, 4.0)
-			});
-			body.Children.Add(ClockRule(34.0));
-			TextBlock textBlock = date;
-			HorizontalAlignment horizontalAlignment = (clock.HorizontalAlignment = HorizontalAlignment.Center);
-			textBlock.HorizontalAlignment = horizontalAlignment;
-			date.FontSize = 12.0;
-			clock.FontSize = s.ClockSize * 0.68;
-			body.Children.Add(date);
-			body.Children.Add(clock);
-		}
-		else if (s.ClockStyle == 6 || s.ClockStyle == 12)
-		{
-			Grid grid = new Grid();
-			grid.ColumnDefinitions.Add(new ColumnDefinition
-			{
-				Width = new GridLength((s.ClockStyle == 6) ? 125 : 90)
-			});
-			grid.ColumnDefinitions.Add(new ColumnDefinition
-			{
-				Width = new GridLength(18.0)
-			});
-			grid.ColumnDefinitions.Add(new ColumnDefinition());
-			StackPanel stackPanel = new StackPanel
-			{
-				VerticalAlignment = VerticalAlignment.Center
-			};
-			posterMonth = ClockText(12.0);
-			posterMonth.HorizontalAlignment = HorizontalAlignment.Center;
-			posterDay = ClockText((s.ClockStyle == 6) ? 84 : 56, (s.ClockStyle == 6) ? "Georgia" : null);
-			posterDay.HorizontalAlignment = HorizontalAlignment.Center;
-			stackPanel.Children.Add(posterMonth);
-			stackPanel.Children.Add(posterDay);
-			grid.Children.Add(stackPanel);
-			Border border = new Border
-			{
-				Width = 1.0,
-				Background = StyleInk("clock"),
-				Opacity = 0.3,
-				Margin = new Thickness(0.0, 12.0, 0.0, 12.0)
-			};
-			Grid.SetColumn(border, 1);
-			grid.Children.Add(border);
-			Visibility visibility = (border.Visibility = ((!s.ShowDate) ? Visibility.Collapsed : Visibility.Visible));
-			stackPanel.Visibility = visibility;
-			if (!s.ShowDate)
-			{
-				grid.ColumnDefinitions[0].Width = new GridLength(0.0);
-				grid.ColumnDefinitions[1].Width = new GridLength(0.0);
-			}
-			StackPanel obj = new StackPanel
-			{
-				VerticalAlignment = VerticalAlignment.Center,
-				Margin = new Thickness(8.0, 0.0, 0.0, 0.0)
-			};
-			Grid.SetColumn(obj, 2);
-			weekday = ClockText((s.ClockStyle == 6) ? 17 : 13);
-			weekday.FontWeight = FontWeights.Medium;
-			obj.Children.Add(weekday);
-			clock.FontSize = ((s.ClockStyle == 6) ? (s.ClockSize * 0.83) : (s.ClockSize * 0.7));
-			obj.Children.Add(clock);
-			obj.Children.Add(date);
-			body.Children.Add(grid);
-		}
-		else if (s.ClockStyle == 7)
-		{
-			Grid grid2 = new Grid();
-			grid2.ColumnDefinitions.Add(new ColumnDefinition
-			{
-				Width = new GridLength(135.0)
-			});
-			grid2.ColumnDefinitions.Add(new ColumnDefinition());
-			StackPanel stackPanel2 = new StackPanel();
-			clockHours = ClockText(s.ClockSize * 1.55, text ?? "Segoe UI Light");
-			clockMinutes = ClockText(s.ClockSize * 1.55, text ?? "Segoe UI Light");
-			TextBlock textBlock2 = clockHours;
-			double lineHeight = (clockMinutes.LineHeight = s.ClockSize * 1.5);
-			textBlock2.LineHeight = lineHeight;
-			stackPanel2.Children.Add(clockHours);
-			stackPanel2.Children.Add(clockMinutes);
-			grid2.Children.Add(stackPanel2);
-			StackPanel stackPanel3 = new StackPanel
-			{
-				VerticalAlignment = VerticalAlignment.Bottom,
-				Margin = new Thickness(16.0, 0.0, 0.0, 12.0)
-			};
-			Grid.SetColumn(stackPanel3, 1);
-			weekday = ClockText(19.0);
-			weekday.FontWeight = FontWeights.SemiBold;
-			stackPanel3.Children.Add(weekday);
-			stackPanel3.Children.Add(ClockRule(30.0));
-			date.TextWrapping = TextWrapping.Wrap;
-			stackPanel3.Children.Add(date);
-			grid2.Children.Add(stackPanel3);
-			body.Children.Add(grid2);
-		}
-		else if (s.ClockStyle == 8 || s.ClockStyle == 9)
-		{
-			Grid grid3 = new Grid
-			{
-				Width = 184.0,
-				Height = 184.0,
-				HorizontalAlignment = HorizontalAlignment.Center,
-				Margin = new Thickness(0.0, 4.0, 0.0, 8.0)
-			};
-			grid3.Children.Add(new Ellipse
-			{
-				Stroke = StyleInk("clock"),
-				StrokeThickness = 1.0,
-				Opacity = 0.25,
-				Margin = new Thickness(5.0)
-			});
-			if (s.ClockStyle == 8)
-			{
-				Canvas canvas = new Canvas
-				{
-					Width = 184.0,
-					Height = 184.0
-				};
-				for (int i = 0; i < 12; i++)
-				{
-					double num2 = (double)i * Math.PI / 6.0;
-					double num3 = ((i % 3 == 0) ? 74 : 79);
-					canvas.Children.Add(new Line
-					{
-						X1 = 92.0 + Math.Sin(num2) * num3,
-						Y1 = 92.0 - Math.Cos(num2) * num3,
-						X2 = 92.0 + Math.Sin(num2) * 84.0,
-						Y2 = 92.0 - Math.Cos(num2) * 84.0,
-						Stroke = StyleInk("clock"),
-						StrokeThickness = ((i % 3 != 0) ? 1 : 2),
-						Opacity = 0.65
-					});
-				}
-				grid3.Children.Add(canvas);
-				hourRotation = new RotateTransform(0.0, 92.0, 92.0);
-				minuteRotation = new RotateTransform(0.0, 92.0, 92.0);
-				Line element = new Line
-				{
-					X1 = 92.0,
-					Y1 = 100.0,
-					X2 = 92.0,
-					Y2 = 45.0,
-					Stroke = StyleInk("clock"),
-					StrokeThickness = 3.0,
-					StrokeStartLineCap = PenLineCap.Round,
-					StrokeEndLineCap = PenLineCap.Round,
-					RenderTransform = hourRotation
-				};
-				Line element2 = new Line
-				{
-					X1 = 92.0,
-					Y1 = 103.0,
-					X2 = 92.0,
-					Y2 = 22.0,
-					Stroke = StyleInk("clock"),
-					StrokeThickness = 1.5,
-					StrokeStartLineCap = PenLineCap.Round,
-					StrokeEndLineCap = PenLineCap.Round,
-					RenderTransform = minuteRotation
-				};
-				canvas.Children.Add(element);
-				canvas.Children.Add(element2);
-				grid3.Children.Add(new Ellipse
-				{
-					Width = 6.0,
-					Height = 6.0,
-					Fill = StyleInk("clock"),
-					HorizontalAlignment = HorizontalAlignment.Center,
-					VerticalAlignment = VerticalAlignment.Center
-				});
-				body.Children.Add(grid3);
-				clock.FontSize = s.ClockSize * 0.62;
-				clock.HorizontalAlignment = HorizontalAlignment.Center;
-				body.Children.Add(clock);
-			}
-			else
-			{
-				orbitArc = new System.Windows.Shapes.Path
-				{
-					Stroke = StyleInk("clock"),
-					StrokeThickness = 3.0,
-					StrokeStartLineCap = PenLineCap.Round,
-					StrokeEndLineCap = PenLineCap.Round
-				};
-				grid3.Children.Add(orbitArc);
-				StackPanel stackPanel4 = new StackPanel
-				{
-					VerticalAlignment = VerticalAlignment.Center,
-					HorizontalAlignment = HorizontalAlignment.Center
-				};
-				clock.FontSize = s.ClockSize * 0.65;
-				clock.HorizontalAlignment = HorizontalAlignment.Center;
-				orbitLabel = ClockText(10.0);
-				orbitLabel.HorizontalAlignment = HorizontalAlignment.Center;
-				stackPanel4.Children.Add(clock);
-				stackPanel4.Children.Add(orbitLabel);
-				grid3.Children.Add(new Viewbox
-				{
-					Child = stackPanel4,
-					Width = 150.0,
-					Height = 95.0,
-					Stretch = Stretch.Uniform,
-					HorizontalAlignment = HorizontalAlignment.Center,
-					VerticalAlignment = VerticalAlignment.Center
-				});
-				body.Children.Add(grid3);
-			}
-			date.HorizontalAlignment = HorizontalAlignment.Center;
-			body.Children.Add(date);
-		}
-		else if (s.ClockStyle == 10)
-		{
-			clock.FontFamily = new FontFamily(text ?? "Georgia");
-			clock.FontStyle = FontStyles.Italic;
-			clock.FontSize = s.ClockSize * 1.15;
-			clock.HorizontalAlignment = HorizontalAlignment.Center;
-			body.Children.Add(ClockRule(80.0));
-			body.Children.Add(clock);
-			body.Children.Add(ClockRule(80.0));
-			date.FontSize = 12.0;
-			date.HorizontalAlignment = HorizontalAlignment.Center;
-			body.Children.Add(date);
-		}
-		else
-		{
-			Grid grid4 = new Grid();
-			grid4.ColumnDefinitions.Add(new ColumnDefinition());
-			grid4.ColumnDefinitions.Add(new ColumnDefinition
-			{
-				Width = GridLength.Auto
-			});
-			weekday = ClockText(12.0, "Consolas");
-			weekday.FontWeight = FontWeights.Bold;
-			grid4.Children.Add(weekday);
-			TextBlock textBlock3 = ClockText(10.0, "Consolas");
-			textBlock3.Text = (s.Hour24 ? "24 H" : "12 H");
-			Grid.SetColumn(textBlock3, 1);
-			grid4.Children.Add(textBlock3);
-			body.Children.Add(grid4);
-			clock.FontFamily = new FontFamily(text ?? "Consolas");
-			clock.FontSize = s.ClockSize * 1.08;
-			body.Children.Add(clock);
-			date.FontFamily = new FontFamily("Consolas");
-			date.FontSize = 12.0;
-			body.Children.Add(date);
-		}
-	}
-
-	private void AdvancedClockTick(DateTime now, WidgetStyle style)
-	{
-		if (style.ClockStyle < 5)
-		{
-			return;
-		}
-		SetText(weekday, ClockCatalog.Weekday(now, style.ClockStyle));
-		SetText(date, ClockCatalog.DateLabel(now, style.ClockStyle));
-		SetText(posterDay, now.ToString("dd"));
-		SetText(posterMonth, now.ToString("MMM yyyy", CultureInfo.GetCultureInfo("en-US")).ToUpperInvariant());
-		string text = now.ToString("yyyyMMddHHmm");
-		if (clockStamp == text)
-		{
-			return;
-		}
-		clockStamp = text;
-		if (hourRotation != null)
-		{
-			hourRotation.Angle = ClockCatalog.HourAngle(now);
-		}
-		if (minuteRotation != null)
-		{
-			minuteRotation.Angle = ClockCatalog.MinuteAngle(now);
-		}
-		if (orbitArc != null)
-		{
-			double num = ClockCatalog.DayFraction(now);
-			double num2 = num * Math.PI * 2.0;
-			PathGeometry pathGeometry = new PathGeometry();
-			if (num > 0.0)
-			{
-				PathFigure pathFigure = new PathFigure
-				{
-					StartPoint = new Point(92.0, 5.0),
-					IsClosed = false
-				};
-				pathFigure.Segments.Add(new ArcSegment(new Point(92.0 + 87.0 * Math.Sin(num2), 92.0 - 87.0 * Math.Cos(num2)), new Size(87.0, 87.0), 0.0, num > 0.5, SweepDirection.Clockwise, isStroked: true));
-				pathGeometry.Figures.Add(pathFigure);
-			}
-			orbitArc.Data = pathGeometry;
-			SetText(orbitLabel, "DAY  " + Math.Floor(num * 100.0) + "%");
-		}
-	}
-
 	internal void CheckAppearance()
 	{
 		string[] kinds = WidgetRules.Kinds;
@@ -440,7 +88,7 @@ public sealed class WidgetWindow : GlassWindow
 			WidgetStyle widgetStyle = M.C.Prefs.Widgets.Style(text);
 			widgetStyle.Frameless = true;
 			widgetStyle.TextColor = "#33CCFF";
-			for (int j = 0; j < ((text == "clock") ? ClockCatalog.Names.Length : 1); j++)
+			for (int j = 0; j < 1; j++)
 			{
 				widgetStyle.ClockStyle = j;
 				UpdateOptions(new List<string> { text });
@@ -490,10 +138,6 @@ public sealed class WidgetWindow : GlassWindow
 				}).Foreground is SolidColorBrush { Color: { R: 51 }, Color: { G: 204 } }))
 				{
 					throw new Exception("文字配色未应用");
-				}
-				if (text == "clock" && j == 1 && (weekday == null || weekday.Opacity >= 0.5))
-				{
-					throw new Exception("星期叠字层次错误");
 				}
 			}
 			widgetStyle.Frameless = false;
@@ -689,8 +333,6 @@ public sealed class WidgetWindow : GlassWindow
 	private void ClockDesign(StackPanel parent)
 	{
 		WidgetStyle widgetStyle = StyleFor("clock");
-		ResetAdvancedClock();
-		weekday = (clockHours = (clockMinutes = null));
 		clock = new TextBlock
 		{
 			FontSize = widgetStyle.ClockSize,
@@ -703,13 +345,6 @@ public sealed class WidgetWindow : GlassWindow
 			Margin = new Thickness(2.0, 4.0, 0.0, 0.0),
 			Foreground = base.MutedBrush
 		};
-		clockStatus = new TextBlock
-		{
-			FontSize = 11.0,
-			Margin = new Thickness(2.0, 9.0, 0.0, 0.0),
-			TextTrimming = TextTrimming.CharacterEllipsis,
-			Foreground = base.MutedBrush
-		};
 		if (!string.IsNullOrEmpty(widgetStyle.Font))
 		{
 			clock.FontFamily = new FontFamily(widgetStyle.Font);
@@ -718,105 +353,9 @@ public sealed class WidgetWindow : GlassWindow
 		{
 			Cursor = Cursors.SizeAll
 		};
-		if (widgetStyle.ClockStyle >= 5)
-		{
-			AdvancedClock(stackPanel, widgetStyle);
-		}
-		else if (widgetStyle.ClockStyle == 1)
-		{
-			Grid grid = new Grid
-			{
-				Height = 126.0
-			};
-			weekday = new TextBlock
-			{
-				FontFamily = new FontFamily("Segoe Script"),
-				FontSize = 70.0,
-				FontStyle = FontStyles.Italic,
-				HorizontalAlignment = HorizontalAlignment.Center,
-				VerticalAlignment = VerticalAlignment.Center
-			};
-			grid.Children.Add(new Viewbox
-			{
-				Child = weekday,
-				Stretch = Stretch.Uniform,
-				Margin = new Thickness(0.0, 0.0, 0.0, 8.0),
-				MaxHeight = 112.0
-			});
-			StackPanel stackPanel2 = new StackPanel
-			{
-				VerticalAlignment = VerticalAlignment.Center,
-				HorizontalAlignment = HorizontalAlignment.Center,
-				Margin = new Thickness(0.0, 18.0, 0.0, 0.0)
-			};
-			TextBlock textBlock = clock;
-			HorizontalAlignment horizontalAlignment = (date.HorizontalAlignment = HorizontalAlignment.Center);
-			textBlock.HorizontalAlignment = horizontalAlignment;
-			stackPanel2.Children.Add(clock);
-			stackPanel2.Children.Add(date);
-			grid.Children.Add(stackPanel2);
-			stackPanel.Children.Add(grid);
-		}
-		else if (widgetStyle.ClockStyle == 4)
-		{
-			StackPanel stackPanel3 = new StackPanel
-			{
-				Orientation = Orientation.Horizontal,
-				HorizontalAlignment = HorizontalAlignment.Center
-			};
-			clockHours = new TextBlock
-			{
-				FontSize = widgetStyle.ClockSize,
-				FontFamily = clock.FontFamily,
-				FontWeight = FontWeights.Light
-			};
-			clockMinutes = new TextBlock
-			{
-				FontSize = widgetStyle.ClockSize,
-				FontFamily = clock.FontFamily,
-				FontWeight = FontWeights.Light
-			};
-			TextBlock[] array = new TextBlock[2] { clockHours, clockMinutes };
-			foreach (TextBlock child in array)
-			{
-				stackPanel3.Children.Add(new Border
-				{
-					CornerRadius = new CornerRadius(12.0),
-					Padding = new Thickness(14.0, 8.0, 14.0, 8.0),
-					Margin = new Thickness(3.0),
-					Background = new SolidColorBrush(Color.FromArgb(35, 150, 160, 180)),
-					Child = child
-				});
-			}
-			stackPanel.Children.Add(stackPanel3);
-			date.HorizontalAlignment = HorizontalAlignment.Center;
-			stackPanel.Children.Add(date);
-		}
-		else
-		{
-			if (widgetStyle.ClockStyle == 3)
-			{
-				weekday = new TextBlock
-				{
-					FontSize = 28.0,
-					FontWeight = FontWeights.SemiBold
-				};
-				stackPanel.Children.Add(weekday);
-			}
-			if (widgetStyle.ClockStyle == 2)
-			{
-				clock.FontWeight = FontWeights.UltraLight;
-				clock.HorizontalAlignment = HorizontalAlignment.Center;
-				date.HorizontalAlignment = HorizontalAlignment.Center;
-			}
-			stackPanel.Children.Add(clock);
-			stackPanel.Children.Add(date);
-		}
+		stackPanel.Children.Add(clock);
+		stackPanel.Children.Add(date);
 		date.Visibility = ((!widgetStyle.ShowDate) ? Visibility.Collapsed : Visibility.Visible);
-		if (!widgetStyle.Frameless)
-		{
-			stackPanel.Children.Add(clockStatus);
-		}
 		stackPanel.MouseLeftButtonDown += delegate(object a, MouseButtonEventArgs e)
 		{
 			if (e.ClickCount != 1 || M.C.Prefs.Widgets.Locked)
@@ -844,7 +383,6 @@ public sealed class WidgetWindow : GlassWindow
 		};
 		parent.Children.Add(stackPanel);
 	}
-
 	private static bool SetText(TextBlock text, string value)
 	{
 		if (text == null || text.Text == value)
@@ -861,28 +399,8 @@ public sealed class WidgetWindow : GlassWindow
 		DateTime now = DateTime.Now;
 		CultureInfo cultureInfo = CultureInfo.GetCultureInfo("en-US");
 		SetText(clock, now.ToString(widgetStyle.Hour24 ? "HH:mm" : "hh:mm tt", cultureInfo));
-		SetText(clockHours, now.ToString(widgetStyle.Hour24 ? "HH" : "hh"));
-		SetText(clockMinutes, now.ToString("mm") + (widgetStyle.Hour24 ? "" : (" " + now.ToString("tt", cultureInfo))));
-		if (widgetStyle.ClockStyle >= 5)
-		{
-			AdvancedClockTick(now, widgetStyle);
-		}
-		else
-		{
-			SetText(date, (widgetStyle.ClockStyle == 1) ? now.ToString("dd MMMM", cultureInfo) : now.ToString("M月d日  dddd"));
-			SetText(weekday, now.ToString("dddd", cultureInfo));
-		}
-		if (weekday != null)
-		{
-			weekday.Opacity = ((widgetStyle.ClockStyle == 1) ? 0.3 : 1.0);
-		}
-		if (clockStatus != null)
-		{
-			SetText(clockStatus, ClockRules.Display(M.C.Prefs.Widgets, DateTime.UtcNow));
-			clockStatus.ToolTip = clockStatus.Text;
-		}
+		SetText(date, now.ToString("M月d日  dddd"));
 	}
-
 	private FrameworkElement WeatherSymbol(string icon)
 	{
 		string text = icon switch
@@ -1158,7 +676,12 @@ public sealed class WidgetWindow : GlassWindow
 		try
 		{
 			ContentGrid.Children.Clear();
-			clock = (date = (clockStatus = (weatherTemperature = (weatherPlace = (weatherDetails = (weatherStatus = null))))));
+			clock = null;
+			date = null;
+			weatherTemperature = null;
+			weatherPlace = null;
+			weatherDetails = null;
+			weatherStatus = null;
 			stack = new StackPanel
 			{
 				Margin = (BareShell ? new Thickness(2.0) : new Thickness(16.0, Kinds.SequenceEqual(new string[1] { "clock" }) ? 16 : 25, 16.0, 16.0))
@@ -1222,19 +745,6 @@ public sealed class WidgetWindow : GlassWindow
 	private ContextMenu WidgetMenu(string kind)
 	{
 		ContextMenu contextMenu = MenuTheme.Create(LightTheme);
-		if (kind == "clock")
-		{
-			MenuItem menuItem = new MenuItem
-			{
-				Header = "闹钟与倒计时"
-			};
-			menuItem.Click += delegate
-			{
-				ClockSettings();
-			};
-			contextMenu.Items.Add(menuItem);
-			contextMenu.Items.Add(new Separator());
-		}
 		MenuItem lockPosition = new MenuItem
 		{
 			Header = "锁定组件位置和尺寸",
@@ -1437,256 +947,6 @@ public sealed class WidgetWindow : GlassWindow
 		stackPanel.Visibility = (ControlsHidden ? Visibility.Collapsed : Visibility.Visible);
 		grid.Children.Add(stackPanel);
 		parent.Children.Add(grid);
-	}
-
-	private void Clock(StackPanel parent)
-	{
-		clock = new TextBlock
-		{
-			FontSize = 48.0,
-			FontWeight = FontWeights.Light,
-			Foreground = base.TextBrush
-		};
-		date = new TextBlock
-		{
-			FontSize = 12.0,
-			Foreground = base.MutedBrush,
-			Margin = new Thickness(3.0, 5.0, 0.0, 0.0)
-		};
-		clockStatus = new TextBlock
-		{
-			FontSize = 11.0,
-			Foreground = base.MutedBrush,
-			Margin = new Thickness(3.0, 9.0, 0.0, 0.0),
-			TextTrimming = TextTrimming.CharacterEllipsis
-		};
-		StackPanel stackPanel = new StackPanel
-		{
-			Background = Brushes.Transparent,
-			Cursor = Cursors.SizeAll,
-			ToolTip = "拖动时间或日期移动组件；锁定时不可移动"
-		};
-		stackPanel.Children.Add(clock);
-		stackPanel.Children.Add(date);
-		stackPanel.Children.Add(clockStatus);
-		stackPanel.MouseLeftButtonDown += delegate(object s, MouseButtonEventArgs e)
-		{
-			if (e.ClickCount != 1 || M.C.Prefs.Widgets.Locked)
-			{
-				return;
-			}
-			e.Handled = true;
-			try
-			{
-				DragMove();
-				SnapToNeighbors();
-				Rect rect = DesktopWindowPolicy.WorkArea(this);
-				base.Left = FeatureRules.Position(base.Left, rect.Left, rect.Width, base.Width);
-				base.Top = FeatureRules.Position(base.Top, rect.Top, rect.Height, base.Height);
-				WidgetPanelPosition widgetPanelPosition = M.C.Prefs.Widgets.Position(PanelId);
-				widgetPanelPosition.Left = base.Left;
-				widgetPanelPosition.Top = base.Top;
-				M.C.Save();
-				Backdrop(LightTheme);
-				ApplyWidgetGlass();
-			}
-			catch (InvalidOperationException)
-			{
-			}
-		};
-		parent.Children.Add(stackPanel);
-	}
-
-	private void ClockSettings()
-	{
-		WidgetOptions o = M.C.Prefs.Widgets;
-		Window w = FeatureUi.Dialog("闹钟与倒计时", this, 540.0, 650.0);
-		StackPanel stackPanel = new StackPanel
-		{
-			Margin = new Thickness(24.0)
-		};
-		w.Content = new ScrollViewer
-		{
-			Content = stackPanel,
-			VerticalScrollBarVisibility = ScrollBarVisibility.Hidden
-		};
-		stackPanel.Children.Add(new TextBlock
-		{
-			Text = "闹钟",
-			FontSize = 21.0,
-			Margin = new Thickness(0.0, 0.0, 0.0, 12.0)
-		});
-		ListBox list = new ListBox
-		{
-			Height = 150.0
-		};
-		stackPanel.Children.Add(list);
-		Action fill = delegate
-		{
-			int selectedIndex = list.SelectedIndex;
-			list.ItemsSource = o.Alarms.Select((ClockAlarm a) => (a.Enabled ? "开启  " : "关闭  ") + a.Hour.ToString("00") + ":" + a.Minute.ToString("00") + " · " + (a.Daily ? "每天" : "单次") + " · " + a.Label).ToList();
-			if (selectedIndex >= 0 && selectedIndex < o.Alarms.Count)
-			{
-				list.SelectedIndex = selectedIndex;
-			}
-		};
-		fill();
-		WrapPanel wrapPanel = new WrapPanel
-		{
-			Margin = new Thickness(0.0, 8.0, 0.0, 12.0)
-		};
-		stackPanel.Children.Add(wrapPanel);
-		wrapPanel.Children.Add(FeatureUi.Button("开启 / 关闭", delegate
-		{
-			int selectedIndex = list.SelectedIndex;
-			if (selectedIndex >= 0)
-			{
-				ClockAlarm clockAlarm = o.Alarms[selectedIndex];
-				clockAlarm.Enabled = !clockAlarm.Enabled;
-				if (clockAlarm.Enabled)
-				{
-					clockAlarm.DueLocal = ClockRules.Next(clockAlarm.Hour, clockAlarm.Minute, DateTime.Now);
-				}
-				M.C.Save();
-				fill();
-			}
-		}));
-		wrapPanel.Children.Add(FeatureUi.Button("删除已选", delegate
-		{
-			int selectedIndex = list.SelectedIndex;
-			if (selectedIndex >= 0)
-			{
-				o.Alarms.RemoveAt(selectedIndex);
-				M.C.Save();
-				fill();
-			}
-		}));
-		WrapPanel wrapPanel2 = new WrapPanel();
-		stackPanel.Children.Add(wrapPanel2);
-		TextBox time = new TextBox
-		{
-			Text = DateTime.Now.AddMinutes(1.0).ToString("HH:mm"),
-			Width = 75.0,
-			MinHeight = 38.0,
-			Margin = new Thickness(0.0, 0.0, 8.0, 0.0)
-		};
-		TextBox label = new TextBox
-		{
-			Text = "闹钟",
-			Width = 180.0,
-			MinHeight = 38.0
-		};
-		wrapPanel2.Children.Add(time);
-		wrapPanel2.Children.Add(label);
-		CheckBox daily = new CheckBox
-		{
-			Content = "每天重复",
-			IsChecked = false,
-			Margin = new Thickness(0.0, 10.0, 0.0, 8.0)
-		};
-		stackPanel.Children.Add(daily);
-		stackPanel.Children.Add(FeatureUi.Button("添加闹钟", delegate
-		{
-			if (!DateTime.TryParseExact(time.Text.Trim(), "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
-			{
-				MessageBox.Show(w, "请填写 24 小时制时间，例如 08:30。");
-			}
-			else if (o.Alarms.Count >= 50)
-			{
-				MessageBox.Show(w, "最多添加 50 个闹钟。");
-			}
-			else
-			{
-				o.Alarms.Add(new ClockAlarm
-				{
-					Hour = result.Hour,
-					Minute = result.Minute,
-					Label = (string.IsNullOrWhiteSpace(label.Text) ? "闹钟" : label.Text.Trim()),
-					Daily = (daily.IsChecked == true),
-					DueLocal = ClockRules.Next(result.Hour, result.Minute, DateTime.Now)
-				});
-				M.C.Save();
-				fill();
-			}
-		}));
-		stackPanel.Children.Add(new TextBlock
-		{
-			Text = "倒计时",
-			FontSize = 21.0,
-			Margin = new Thickness(0.0, 22.0, 0.0, 10.0)
-		});
-		TextBlock countdown = new TextBlock
-		{
-			Margin = new Thickness(0.0, 0.0, 0.0, 10.0)
-		};
-		stackPanel.Children.Add(countdown);
-		TextBox minutes = new TextBox
-		{
-			Text = "5",
-			Width = 80.0,
-			MinHeight = 38.0,
-			HorizontalAlignment = HorizontalAlignment.Left
-		};
-		stackPanel.Children.Add(minutes);
-		stackPanel.Children.Add(new TextBlock
-		{
-			Text = "分钟 · 1–1440",
-			Margin = new Thickness(0.0, 5.0, 0.0, 8.0)
-		});
-		WrapPanel wrapPanel3 = new WrapPanel();
-		stackPanel.Children.Add(wrapPanel3);
-		wrapPanel3.Children.Add(FeatureUi.Button("开始", delegate
-		{
-			if (!int.TryParse(minutes.Text, out var result) || result < 1 || result > 1440)
-			{
-				MessageBox.Show(w, "请输入 1 到 1440 分钟。");
-			}
-			else
-			{
-				ClockRules.Start(o, result * 60, DateTime.UtcNow);
-				M.C.Save();
-			}
-		}));
-		wrapPanel3.Children.Add(FeatureUi.Button("暂停 / 继续", delegate
-		{
-			if (o.TimerDueUtc.HasValue)
-			{
-				ClockRules.Pause(o, DateTime.UtcNow);
-			}
-			else
-			{
-				ClockRules.Resume(o, DateTime.UtcNow);
-			}
-			M.C.Save();
-		}));
-		wrapPanel3.Children.Add(FeatureUi.Button("取消", delegate
-		{
-			ClockRules.Cancel(o);
-			M.C.Save();
-		}));
-		stackPanel.Children.Add(new TextBlock
-		{
-			Text = "到时弹窗并播放系统提示音，可稍后 5 分钟再提醒。GlassBoard 需保持运行；隐藏时钟仍会提醒。",
-			TextWrapping = TextWrapping.Wrap,
-			FontSize = 12.0,
-			Margin = new Thickness(0.0, 16.0, 0.0, 0.0)
-		});
-		DispatcherTimer refresh = new DispatcherTimer
-		{
-			Interval = TimeSpan.FromSeconds(1.0)
-		};
-		refresh.Tick += delegate
-		{
-			countdown.Text = ClockRules.Display(o, DateTime.UtcNow);
-		};
-		w.Closed += delegate
-		{
-			refresh.Stop();
-		};
-		countdown.Text = ClockRules.Display(o, DateTime.UtcNow);
-		refresh.Start();
-		w.ShowDialog();
-		Tick();
 	}
 
 	private void Weather(StackPanel parent)

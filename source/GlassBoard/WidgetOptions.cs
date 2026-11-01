@@ -32,14 +32,8 @@ public class WidgetOptions
 	[DataMember]
 	public List<WidgetPanelPosition> Panels = new List<WidgetPanelPosition>();
 
-	[DataMember]
-	public List<ClockAlarm> Alarms = new List<ClockAlarm>();
 
-	[DataMember]
-	public DateTime? TimerDueUtc;
 
-	[DataMember]
-	public double TimerPausedSeconds;
 
 	[DataMember]
 	public string City = "";
@@ -71,12 +65,6 @@ public class WidgetOptions
 			Material = new MaterialOptions();
 		}
 		Material.Normalize();
-		Alarms = (Alarms ?? new List<ClockAlarm>()).Where((ClockAlarm a) => a != null).Take(50).ToList();
-		foreach (ClockAlarm alarm in Alarms)
-		{
-			alarm.Normalize();
-		}
-		TimerPausedSeconds = LayoutRules.Clamp(TimerPausedSeconds, 0.0, 86400.0, 0.0);
 		City = (City ?? "").Trim();
 		if (City.Length > 100)
 		{
@@ -137,7 +125,6 @@ public class WidgetOptions
 		WidgetOptions obj = (WidgetOptions)MemberwiseClone();
 		obj.Styles = (Styles ?? new List<WidgetStyle>()).Select((WidgetStyle x) => x.Copy()).ToList();
 		obj.Material = (Material ?? new MaterialOptions()).Copy();
-		obj.Alarms = (Alarms ?? new List<ClockAlarm>()).Select((ClockAlarm a) => a.Copy()).ToList();
 		obj.Panels = (from p in Panels ?? new List<WidgetPanelPosition>()
 			where p != null
 			select p.Copy()).ToList();

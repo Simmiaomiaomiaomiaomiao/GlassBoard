@@ -35,14 +35,10 @@ public class DockOptions
 	[DataMember]
 	public int Alignment = 1;
 
-	[DataMember]
-	public int Accent;
 
 	[DataMember]
 	public int MaxPinned = 9;
 
-	[DataMember]
-	public int ComputerStyle;
 
 	[DataMember]
 	public bool ShowComputer = true;
@@ -116,9 +112,7 @@ public class DockOptions
 		Offset = 0.0;
 		MotionLevel = 1.0;
 		Alignment = 1;
-		Accent = 0;
 		MaxPinned = 9;
-		ComputerStyle = 0;
 		ShowComputer = true;
 		ShowLabels = false;
 		ShowSeparator = true;
@@ -171,9 +165,7 @@ public class DockOptions
 		BlurRadius = LayoutRules.Clamp(BlurRadius, 0.0, 40.0, 18.0);
 		EdgeStrength = LayoutRules.Clamp(EdgeStrength, 0.2, 2.0, 1.0);
 		Alignment = Math.Max(0, Math.Min(2, Alignment));
-		Accent = Math.Max(0, Math.Min(5, Accent));
 		MaxPinned = Math.Max(3, Math.Min(20, MaxPinned));
-		ComputerStyle = Math.Max(0, Math.Min(1, ComputerStyle));
 	}
 
 	public int VisiblePinned(double availableWidth, int count)
