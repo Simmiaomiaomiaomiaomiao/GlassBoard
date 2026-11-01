@@ -1,0 +1,4624 @@
+// GlassBoard, Version=0.9.17.0, Culture=neutral, PublicKeyToken=null
+// types=154  typerefs=584
+class <Module>   // fields=0 methods=0
+class <>f__AnonymousType0`2   // fields=2 methods=6
+  field <Property>j__TPar <Property>i__Field
+  field <Name>j__TPar <Name>i__Field
+  public <Property>j__TPar get_Property()
+  public <Name>j__TPar get_Name()
+  public Void .ctor(<Property>j__TPar Property, <Name>j__TPar Name)
+  public virtual Boolean Equals(Object value)
+  public virtual Int32 GetHashCode()
+  public virtual String ToString()
+class NeteaseMusicHelper   // fields=19 methods=15
+  field Boolean PRINT_EXCEPTION_LOG
+  field Int32 UIA_ProcessIdPropertyId
+  field Int32 UIA_ControlTypePropertyId
+  field Int32 UIA_TextControlTypeId
+  field Int32 PROGRESS_POLL_INTERVAL_MS
+  field Int32 FULL_SCAN_RETRY_MS
+  field Int32 TRACK_CHANGE_GRACE_MS
+  field Object StateLock
+  field AutoResetEvent WorkSignal
+  field Thread _workerThread
+  field String _requestedTrack
+  field Int64 _requestedGeneration
+  field Int64 _resultGeneration
+  field Int32 _currentSec
+  field Int32 _totalSec
+  field Boolean _playing
+  field DateTime _progressAt
+  field String LastError
+  field DateTime _restartAfter
+  public static Void SetPlaying(Boolean value)
+  public static Void SetTrack(String track)
+  public static Boolean TryGetCachedProgress(Int32& currentSec, Int32& totalSec)
+  private static Void EnsureWorkerStarted()
+  private static Void ProgressWorker()
+  private static Void PublishProgress(Int64 generation, Int32 currentSec, Int32 totalSec)
+  private static Void ClearPublishedProgress(Int64 generation)
+  private static Boolean IsUsablePlayerWindow(IUIAutomationElement window)
+  private static IUIAutomationElement FindNeteasePlayerWindow(IUIAutomation automation)
+  private static IUIAutomationElement FindProgressElement(IUIAutomation automation, IUIAutomationElement root, Int32& currentSec, Int32& totalSec)
+  private static Boolean TryParseProgressText(String text, Int32& currentSec, Int32& totalSec)
+  private static Boolean TryParseTimeString(String timeStr, Int32& seconds)
+  private static IUIAutomation CreateAutomation()
+  private static Void ReleaseComObject(Object comObject)
+  private static Void .cctor()
+class GlassBoard.BoardWindow   // fields=53 methods=72
+  field Border dragPreview
+  field Image dragPreviewIcon
+  field TextBlock dragPreviewText
+  field Boolean activeDrag
+  field String hoverGroup
+  field String folderSignature
+  field DispatcherTimer hoverTimer
+  field DispatcherTimer dragWatch
+  field Boolean entryDragRunning
+  field DispatcherTimer sizeRefresh
+  field Boolean resizingPanel
+  field Boolean refreshingSize
+  field Boolean iconsDirty
+  field Boolean ModalBusy
+  field Controller C
+  field TextBox Search
+  field UniformGrid Tiles
+  field TextBlock Pager
+  field TextBlock Status
+  field TextBlock Empty
+  field Grid layout
+  field Int32 page
+  field Int32 capacity
+  field Int32 columns
+  field Point dragStart
+  field Entry dragEntry
+  field Boolean editing
+  field HashSet`1 selected
+  field WrapPanel bulkBar
+  field RowDefinition bulkRow
+  field TextBlock selectionCount
+  field Button selectAll
+  field Button clearSelection
+  field Button deleteSelected
+  field Button undoRemoval
+  field Button editSelection
+  field Button moveSelected
+  field ContextMenu iconMenu
+  field ComboBox groups
+  field ComboBox moveGroup
+  field String currentGroup
+  field Boolean syncingGroups
+  field Boolean iconSizeSync
+  field Slider boardIconSlider
+  field TextBlock iconSizeText
+  field Button addExisting
+  field Thumb moveGrip
+  field Thumb resizeGrip
+  field Int32 visibilitySerial
+  field WrapPanel folderBar
+  field DispatcherTimer idleRelease
+  field Boolean preparingView
+  field String pendingStatus
+  private static Int16 GetAsyncKeyState(Int32 key)
+  internal Void ClearDragState()
+  private Void InitDragExperience()
+  private Void RecoverExternalDrag(Boolean buttonsDown)
+  internal Void CheckBoardFeedback16()
+  private Void BeginGroupHover(String name)
+  private Void StopGroupHover(String name)
+  private Void EndDragPreview()
+  private Void StartEntryDrag(FrameworkElement tile, Entry entry)
+  private DragDropEffects GroupDragEffect(IDataObject data, String name)
+  public Void ApplyDisplayOptions()
+  private Void MoreMenu()
+  private Void BoardBlankMenu(Object sender, MouseButtonEventArgs e)
+  private Void NewFileMenu()
+  private Void InitResizeRefresh()
+  private Void QueueSizeRefresh()
+  private Void ApplySizeRefresh()
+  internal Void CheckResizeRefresh()
+  private Boolean get_foldersVisible()
+  public String get_CurrentGroup()
+  public Void ClearSearch()
+  public Void .ctor(Controller c)
+  private Void SavePlacement()
+  private Void BuildForSize()
+  public Void RefreshIcons()
+  private Void IconSettings()
+  public Void CollapseSmooth()
+  internal Boolean ReleaseHiddenView()
+  internal Boolean get_HasView()
+  private Boolean IsContextMenuOpen()
+  public Void Open()
+  private Void Build(Int32 rows)
+  public Void SyncGroups()
+  private List`1 Filtered()
+  public Void SetStatus(String text)
+  private Void SetSelectionMode(Boolean enabled)
+  public Void FinishSelection()
+  private Void SelectFiltered()
+  private Void UpdateSelectionBar()
+  public Void Render(Boolean animate)
+  private Void ChangePage(Int32 delta)
+  private FrameworkElement Tile(Entry a, Int32 index, Boolean animate)
+  private String[] DraggedEntries(IDataObject data)
+  private Void OpenGroup(String name)
+  private Void RefreshFolders()
+  private Void ExternalDrop(Object s, DragEventArgs e)
+  public Void UpdateRunning()
+  private Void <InitDragExperience>b__11_0(Object s, EventArgs e)
+  private Void <InitDragExperience>b__11_1(Object s, DependencyPropertyChangedEventArgs e)
+  private Void <InitDragExperience>b__11_2(Object s, MouseButtonEventArgs e)
+  private Void <InitDragExperience>b__11_3(Object s, EventArgs e)
+  private Void <InitDragExperience>b__11_4(Object s, DragEventArgs e)
+  private Void <InitDragExperience>b__11_5(Object s, DragEventArgs e)
+  private Void <InitDragExperience>b__11_6(Object s, DragEventArgs e)
+  private Void <InitDragExperience>b__11_8()
+  private Void <InitDragExperience>b__11_7(Object s, EventArgs e)
+  private Void <InitResizeRefresh>b__27_0(Object s, EventArgs e)
+  private Void <.ctor>b__76_0(Object s, DependencyPropertyChangedEventArgs e)
+  private Void <.ctor>b__76_1(Object s, EventArgs e)
+  private Void <.ctor>b__76_2(Object s, EventArgs e)
+  private Void <.ctor>b__76_3(Object s, KeyEventArgs e)
+  private Void <.ctor>b__76_4(Object s, EventArgs e)
+  private Void <.ctor>b__76_12()
+  private Void <.ctor>b__76_5(Object s, CancelEventArgs e)
+  private Void <.ctor>b__76_6(Object s, DragStartedEventArgs e)
+  private Void <.ctor>b__76_7(Object s, DragDeltaEventArgs e)
+  private Void <.ctor>b__76_8(Object s, DragStartedEventArgs e)
+  private Void <.ctor>b__76_9(Object s, DragDeltaEventArgs e)
+  private Void <.ctor>b__76_10(Object s, DragCompletedEventArgs e)
+  private Void <.ctor>b__76_11(Object s, DragCompletedEventArgs e)
+  private Boolean <UpdateSelectionBar>b__94_0(String p)
+  private String <RefreshFolders>b__100_1(String g)
+  class GlassBoard.BoardWindow/<>c   // fields=6 methods=7
+    field <>c <>9
+    field Func`2 <>9__13_0
+    field Func`2 <>9__13_1
+    field Func`2 <>9__85_0
+    field Func`2 <>9__100_0
+    field Func`2 <>9__102_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <CheckBoardFeedback16>b__13_0(Border b)
+    internal Boolean <CheckBoardFeedback16>b__13_1(Entry a)
+    internal Boolean <IsContextMenuOpen>b__85_0(FrameworkElement x)
+    internal String <RefreshFolders>b__100_0(Border b)
+    internal Boolean <UpdateRunning>b__102_0(Border b)
+  class GlassBoard.BoardWindow/<>c__DisplayClass100_0   // fields=1 methods=2
+    field String g
+    public Void .ctor()
+    internal Boolean <RefreshFolders>b__2(Entry a)
+  class GlassBoard.BoardWindow/<>c__DisplayClass100_1   // fields=4 methods=7
+    field String name
+    field Border box
+    field SolidColorBrush normal
+    field BoardWindow <>4__this
+    public Void .ctor()
+    internal Boolean <RefreshFolders>b__3(Entry a)
+    internal Void <RefreshFolders>b__4(Object sender, MouseButtonEventArgs e)
+    internal Void <RefreshFolders>b__5(Object sender, DragEventArgs e)
+    internal Void <RefreshFolders>b__6(Object sender, DragEventArgs e)
+    internal Void <RefreshFolders>b__7(Object sender, DragEventArgs e)
+    internal Void <RefreshFolders>b__8(Object sender, DragEventArgs e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass20_0   // fields=2 methods=17
+    field BoardWindow <>4__this
+    field ContextMenu menu
+    public Void .ctor()
+    internal Void <MoreMenu>b__0(Object s, RoutedEventArgs e)
+    internal Void <MoreMenu>b__1(String label, Action action, Boolean enabled)
+    internal Void <MoreMenu>b__2()
+    internal Void <MoreMenu>b__3()
+    internal Void <MoreMenu>b__4()
+    internal Void <MoreMenu>b__5()
+    internal Void <MoreMenu>b__6()
+    internal Void <MoreMenu>b__7()
+    internal Void <MoreMenu>b__8()
+    internal Void <MoreMenu>b__9()
+    internal Void <MoreMenu>b__10()
+    internal Void <MoreMenu>b__11()
+    internal Void <MoreMenu>b__12()
+    internal Void <MoreMenu>b__13()
+    internal Void <MoreMenu>b__14()
+    internal Void <MoreMenu>b__15()
+  class GlassBoard.BoardWindow/<>c__DisplayClass20_1   // fields=2 methods=2
+    field Action action
+    field <>c__DisplayClass20_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <MoreMenu>b__16(Object s, RoutedEventArgs e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass22_0   // fields=2 methods=2
+    field BoardWindow <>4__this
+    field ContextMenu menu
+    public Void .ctor()
+    internal Void <NewFileMenu>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass22_1   // fields=2 methods=2
+    field Int32 index
+    field <>c__DisplayClass22_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <NewFileMenu>b__1(Object s, RoutedEventArgs e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass80_0   // fields=2 methods=6
+    field BoardWindow <>4__this
+    field ContextMenu menu
+    public Void .ctor()
+    internal Void <IconSettings>b__0(Object s, RoutedEventArgs e)
+    internal Void <IconSettings>b__1(String name, Double min, Double max, Double value, Action`1 change)
+    internal Void <IconSettings>b__2(Double v)
+    internal Void <IconSettings>b__3(Double v)
+    internal Void <IconSettings>b__4(Object s, RoutedEventArgs e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass80_1   // fields=5 methods=2
+    field TextBlock label
+    field String name
+    field Slider slider
+    field Action`1 change
+    field <>c__DisplayClass80_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <IconSettings>b__5(Object s, RoutedPropertyChangedEventArgs`1 e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass81_0   // fields=2 methods=2
+    field Int32 serial
+    field BoardWindow <>4__this
+    public Void .ctor()
+    internal Void <CollapseSmooth>b__0(Object s, EventArgs e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass87_0   // fields=4 methods=22
+    field TextBlock hint
+    field BoardWindow <>4__this
+    field Slider transparency
+    field TextBlock amount
+    public Void .ctor()
+    internal Void <Build>b__0(Object s, TextChangedEventArgs e)
+    internal Void <Build>b__1(Object s, RoutedEventArgs e)
+    internal Void <Build>b__2(Object s, RoutedEventArgs e)
+    internal Void <Build>b__3(Object s, RoutedEventArgs e)
+    internal Void <Build>b__4(Object s, RoutedEventArgs e)
+    internal Void <Build>b__5(Object s, RoutedEventArgs e)
+    internal Void <Build>b__6(Object s, SelectionChangedEventArgs e)
+    internal Void <Build>b__7(Object s, RoutedPropertyChangedEventArgs`1 e)
+    internal Void <Build>b__8(Object s, RoutedEventArgs e)
+    internal Void <Build>b__9(Object s, RoutedEventArgs e)
+    internal Void <Build>b__10(Object s, RoutedEventArgs e)
+    internal Void <Build>b__11(Object s, RoutedEventArgs e)
+    internal Void <Build>b__12(Object s, RoutedEventArgs e)
+    internal Void <Build>b__13(Object s, RoutedEventArgs e)
+    internal Void <Build>b__14(Object s, RoutedEventArgs e)
+    internal Void <Build>b__15(Object s, RoutedEventArgs e)
+    internal Void <Build>b__16(Object s, RoutedEventArgs e)
+    internal Void <Build>b__17(Object s, SizeChangedEventArgs e)
+    internal Void <Build>b__18(Object s, RoutedEventArgs e)
+    internal Void <Build>b__19(Object s, RoutedEventArgs e)
+    internal Void <Build>b__20(Object s, RoutedPropertyChangedEventArgs`1 e)
+  class GlassBoard.BoardWindow/<>c__DisplayClass89_0   // fields=2 methods=2
+    field BoardWindow <>4__this
+    field String q
+    public Void .ctor()
+    internal Boolean <Filtered>b__0(Entry a)
+  class GlassBoard.BoardWindow/<>c__DisplayClass94_0   // fields=1 methods=2
+    field String p
+    public Void .ctor()
+    internal Boolean <UpdateSelectionBar>b__1(Entry a)
+  class GlassBoard.BoardWindow/<>c__DisplayClass97_0   // fields=8 methods=8
+    field Border tile
+    field Boolean isSelected
+    field SolidColorBrush selectedBrush
+    field BoardWindow <>4__this
+    field ScaleTransform scale
+    field TranslateTransform lift
+    field Action`1 hover
+    field Entry a
+    public Void .ctor()
+    internal Void <Tile>b__0(Boolean over)
+    internal Void <Tile>b__1(Object s, MouseEventArgs e)
+    internal Void <Tile>b__2(Object s, MouseEventArgs e)
+    internal Void <Tile>b__3(Object s, MouseButtonEventArgs e)
+    internal Void <Tile>b__4(Object s, MouseEventArgs e)
+    internal Void <Tile>b__5(Object s, MouseButtonEventArgs e)
+    internal Void <Tile>b__6(Object s, DragEventArgs e)
+class GlassBoard.Controller   // fields=21 methods=116
+  field SystemBridge Systems
+  field ControlOrbWindow controlOrb
+  field WidgetManager widgets
+  field Boolean removalMigrated
+  field Boolean glassSuppressed
+  field Preferences Prefs
+  field DockWindow Dock
+  field BoardWindow Board
+  field NotifyIcon Tray
+  field Boolean importing
+  field Boolean ShuttingDown
+  field Boolean persistConfiguration
+  field Boolean settingsOpen
+  field Window settingsWindow
+  field TabControl settingsTabs
+  field BoardEditHistory editHistory
+  field UpdateOffer updateOffer
+  field Boolean updateBusy
+  field CancellationTokenSource updateCancel
+  field String updateMessage
+  field Action UpdateChanged
+  public Void CreateBoardFile(String extension, String group)
+  public Void SaveSession()
+  public Void RefreshControlCenter()
+  public Void OpenControlCenter()
+  private Void CloseControlCenter()
+  private Void ControlCenterVisibility(Boolean visible)
+  public Void ControlCenterSettings(Window owner)
+  public Boolean get_MusicVisible()
+  public Boolean get_UiBusy()
+  private Window get_OwnerWindow()
+  public Void RefreshWidgets()
+  public Void SetWidgetEnabled(String kind, Boolean value)
+  public String get_WidgetStatus()
+  public Void RecoverWidgets()
+  public Void ReopenWidgets()
+  public Void CloseWidgets()
+  public Void ConfigureWidgets()
+  public Void AddFolder()
+  public Void ShowNotes()
+  public Void ToggleTaskbarAutoHide(Nullable`1 enabled)
+  public Void Customize(Entry entry)
+  public Void AddExistingToGroup(String group)
+  public Void AutoGroupApps(Window owner)
+  public Void ManageGroups(Window owner)
+  public Void ManageWorkspaces(Window owner)
+  public Void LaunchWorkspace(Workspace work)
+  public Boolean ManageSchemes(Window owner)
+  public Boolean ReorderDock(String path, String target, Boolean before)
+  public Void StepDock(String path, Int32 step)
+  private Void AddDockWindowMenus(ContextMenu menu, Entry entry)
+  private static String WindowLabel(RunningWindow window)
+  public DockPinResult PinDockPaths(IEnumerable`1 paths, DockDropTarget target)
+  public Boolean get_GlassSuppressed()
+  private Void MigrateRemovalIdentities()
+  public Void ChooseDockFiles()
+  public Void SetGameMode(Boolean enabled)
+  public Void CheckGameMode()
+  public Void ApplyGameMode()
+  private Void BuildGameSettings(StackPanel panel)
+  public Boolean get_CanUndoRemoval()
+  public Void .ctor()
+  internal Void .ctor(Boolean desktop)
+  private String Shortcut(Int32 id)
+  public Void RefreshTrayMenu()
+  public Void Save()
+  public Void Refresh()
+  public Void Toggle(Boolean force)
+  public Void Launch(Entry entry)
+  public Void Add(IEnumerable`1 paths, Boolean manual, String targetGroup)
+  public Void Choose()
+  public Void AddFromAnywhere()
+  public Void Opacity(Double percent)
+  public Void Remove(Entry a, String scope)
+  public Void RemoveMany(IEnumerable`1 paths, String scope)
+  public Void UndoRemoval()
+  public Void Pin(Entry a)
+  private static IEnumerable`1 Shortcuts(String root)
+  public Void Import()
+  public ContextMenu Menu(Entry a, String scope)
+  internal static ToggleButton VisibilitySwitch()
+  public Void Settings(Int32 selectedPage)
+  public Void ShellAction(Int32 action, Nullable`1 hidden)
+  public Void Quit()
+  private Void BuildMaterialEditor(StackPanel panel, String title, MaterialOptions options, Action changed)
+  public Void CustomizeWidgets(String selected, Window owner)
+  public BoardEditState BeginBoardEdit()
+  public Void EndBoardEdit(BoardEditState before, String label)
+  public Boolean get_CanRedoBoard()
+  public String get_UndoLabel()
+  public Void UndoBoard()
+  public Void RedoBoard()
+  public Void TransferEntries(String[] paths, String from, String to)
+  public Void ReorderEntry(String path, Entry target)
+  private Void FlushBackupState()
+  public Void ExportFullBackup()
+  public Void RestoreFullBackup()
+  private static BitmapSource CreatorImage(String key, Boolean thumbnail)
+  private Void ShowCreatorImage(Window owner, String key, String title)
+  public Void BuildCreatorSupport(StackPanel panel, Window owner)
+  private Void RecoverHistoricalEntries(Window owner)
+  private Void add_UpdateChanged(Action value)
+  private Void remove_UpdateChanged(Action value)
+  private static Version get_CurrentVersion()
+  private Void UpdateState(String message)
+  private Void StartUpdateCheck()
+  private Task CheckUpdate(Boolean manual)
+  private Void WriteUpdateDiagnostics()
+  private Void BuildUpdateSettings(StackPanel panel, Window owner)
+  private Task InstallUpdate()
+  private Boolean <ManageWorkspaces>b__31_9(String path)
+  private Void <BuildGameSettings>b__48_0(Object s, RoutedEventArgs e)
+  private Void <BuildGameSettings>b__48_1(Object s, RoutedEventArgs e)
+  private Void <BuildGameSettings>b__48_2(Object s, RoutedEventArgs e)
+  private Void <BuildGameSettings>b__48_3(Object s, RoutedEventArgs e)
+  private Void <.ctor>b__59_0(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_0(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_1(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_2(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_3(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_4(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_5(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_6(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_7(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_8(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_9(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_10(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_11(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_12(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_13(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_14(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_15(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_16(Object s, EventArgs e)
+  private Void <RefreshTrayMenu>b__61_18(Object s, EventArgs e)
+  private Void <CustomizeWidgets>b__86_0()
+  private static IntPtr GetCurrentProcess()
+  private static Boolean SetProcessWorkingSetSize(IntPtr , IntPtr , IntPtr )
+  class GlassBoard.Controller/ColorOwner   // fields=1 methods=3
+    field IntPtr <Handle>k__BackingField
+    public IntPtr get_Handle()
+    private Void set_Handle(IntPtr value)
+    public Void .ctor(Window w)
+  class GlassBoard.Controller/<>c   // fields=29 methods=30
+    field <>c <>9
+    field Func`2 <>9__29_1
+    field Func`2 <>9__29_0
+    field Func`2 <>9__31_10
+    field Func`2 <>9__31_12
+    field Func`2 <>9__31_13
+    field Func`2 <>9__31_15
+    field Func`2 <>9__31_16
+    field Func`2 <>9__33_6
+    field Func`2 <>9__43_0
+    field Func`2 <>9__44_1
+    field EventHandler <>9__61_17
+    field Func`2 <>9__73_0
+    field Func`2 <>9__75_2
+    field Func`1 <>9__75_1
+    field Func`2 <>9__75_0
+    field Func`9 <>9__78_7
+    field Func`5 <>9__78_8
+    field Func`6 <>9__78_9
+    field Action`1 <>9__78_31
+    field Func`2 <>9__78_94
+    field Func`2 <>9__78_107
+    field Func`2 <>9__78_108
+    field Func`2 <>9__86_31
+    field Func`2 <>9__86_32
+    field Func`2 <>9__100_0
+    field Func`2 <>9__104_3
+    field Func`2 <>9__104_4
+    field Action <>9__118_7
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <AutoGroupApps>b__29_1(Entry a)
+    internal Boolean <AutoGroupApps>b__29_0(Entry a)
+    internal Entry <ManageWorkspaces>b__31_10(String path)
+    internal Boolean <ManageWorkspaces>b__31_12(KeyValuePair`2 x)
+    internal String <ManageWorkspaces>b__31_13(KeyValuePair`2 x)
+    internal Boolean <ManageWorkspaces>b__31_15(KeyValuePair`2 x)
+    internal String <ManageWorkspaces>b__31_16(KeyValuePair`2 x)
+    internal String <ManageSchemes>b__33_6(AppearanceScheme s)
+    internal Boolean <MigrateRemovalIdentities>b__43_0(Entry a)
+    internal Boolean <ChooseDockFiles>b__44_1(Entry a)
+    internal Void <RefreshTrayMenu>b__61_17(Object s, EventArgs e)
+    internal Boolean <Pin>b__73_0(Entry x)
+    internal String[] <Import>b__75_1()
+    internal String <Import>b__75_2(String p)
+    internal Boolean <Import>b__75_0(Entry a)
+    internal Slider <Settings>b__78_7(StackPanel panel, String label, Double min, Double max, Double value, Double tick, String unit, Action`1 change)
+    internal CheckBox <Settings>b__78_8(StackPanel panel, String label, Boolean value, Action`1 change)
+    internal ComboBox <Settings>b__78_9(StackPanel panel, String label, String[] items, Int32 value, Action`1 change)
+    internal Void <Settings>b__78_31(Int32 value)
+    internal Int32 <Settings>b__78_94(HotkeySetting k)
+    internal Int32 <Settings>b__78_107(HotkeySetting k)
+    internal HotkeySetting <Settings>b__78_108(HotkeySetting k)
+    internal String <CustomizeWidgets>b__86_31(FontFamily f)
+    internal String <CustomizeWidgets>b__86_32(String x)
+    internal HotkeySetting <RestoreFullBackup>b__100_0(HotkeySetting k)
+    internal Boolean <RecoverHistoricalEntries>b__104_3(KeyValuePair`2 x)
+    internal Entry <RecoverHistoricalEntries>b__104_4(KeyValuePair`2 x)
+    internal Void <BuildUpdateSettings>b__118_7()
+  class GlassBoard.Controller/<>c__DisplayClass103_0   // fields=3 methods=2
+    field Controller <>4__this
+    field Window owner
+    field WrapPanel cards
+    public Void .ctor()
+    internal Void <BuildCreatorSupport>b__0(String key, String title)
+  class GlassBoard.Controller/<>c__DisplayClass103_1   // fields=3 methods=3
+    field String key
+    field String title
+    field <>c__DisplayClass103_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <BuildCreatorSupport>b__1(Object s, MouseButtonEventArgs e)
+    internal Void <BuildCreatorSupport>b__2()
+  class GlassBoard.Controller/<>c__DisplayClass104_0   // fields=3 methods=4
+    field Controller <>4__this
+    field Dictionary`2 choices
+    field Window w
+    public Void .ctor()
+    internal Void <RecoverHistoricalEntries>b__0()
+    internal Void <RecoverHistoricalEntries>b__1()
+    internal Void <RecoverHistoricalEntries>b__2()
+  class GlassBoard.Controller/<>c__DisplayClass118_0   // fields=8 methods=10
+    field Controller <>4__this
+    field ComboBox connection
+    field Window owner
+    field TextBlock status
+    field Button check
+    field Button install
+    field Button cancel
+    field Action refresh
+    public Void .ctor()
+    internal Void <BuildUpdateSettings>b__0(Object s, RoutedEventArgs e)
+    internal Void <BuildUpdateSettings>b__1(Object s, RoutedEventArgs e)
+    internal Void <BuildUpdateSettings>b__2(Object s, SelectionChangedEventArgs e)
+    internal Void <BuildUpdateSettings>b__3()
+    internal Void <BuildUpdateSettings>b__4()
+    internal Void <BuildUpdateSettings>b__5()
+    internal Void <BuildUpdateSettings>b__6()
+    internal Void <BuildUpdateSettings>b__8()
+    internal Void <BuildUpdateSettings>b__9(Object s, EventArgs e)
+    class GlassBoard.Controller/<>c__DisplayClass118_0/<<BuildUpdateSettings>b__3>d   // fields=4 methods=2
+      field Int32 <>1__state
+      field AsyncVoidMethodBuilder <>t__builder
+      field <>c__DisplayClass118_0 <>4__this
+      field TaskAwaiter <>u__1
+      private Void MoveNext()
+      private Void SetStateMachine(IAsyncStateMachine stateMachine)
+    class GlassBoard.Controller/<>c__DisplayClass118_0/<<BuildUpdateSettings>b__4>d   // fields=4 methods=2
+      field Int32 <>1__state
+      field AsyncVoidMethodBuilder <>t__builder
+      field <>c__DisplayClass118_0 <>4__this
+      field TaskAwaiter <>u__1
+      private Void MoveNext()
+      private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.Controller/<>c__DisplayClass119_0   // fields=2 methods=2
+    field Controller <>4__this
+    field UpdateOffer offer
+    public Void .ctor()
+    internal Void <InstallUpdate>b__0(Int64 received, Int64 total)
+  class GlassBoard.Controller/<>c__DisplayClass119_1   // fields=3 methods=2
+    field Byte[] bytes
+    field String stage
+    field <>c__DisplayClass119_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Dictionary`2 <InstallUpdate>b__2()
+  class GlassBoard.Controller/<>c__DisplayClass119_2   // fields=3 methods=2
+    field Int64 received
+    field Int64 total
+    field <>c__DisplayClass119_0 CS$<>8__locals2
+    public Void .ctor()
+    internal Void <InstallUpdate>b__1()
+  class GlassBoard.Controller/<>c__DisplayClass27_0   // fields=6 methods=4
+    field Controller <>4__this
+    field Entry entry
+    field Window w
+    field String icon
+    field TextBlock info
+    field TextBox name
+    public Void .ctor()
+    internal Void <Customize>b__0()
+    internal Void <Customize>b__1()
+    internal Void <Customize>b__2()
+  class GlassBoard.Controller/<>c__DisplayClass28_0   // fields=2 methods=2
+    field String group
+    field Controller <>4__this
+    public Void .ctor()
+    internal Boolean <AddExistingToGroup>b__0(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass28_1   // fields=9 methods=9
+    field ListBox list
+    field List`1 candidates
+    field TextBox query
+    field HashSet`1 selected
+    field Action fill
+    field Window w
+    field <>c__DisplayClass28_0 CS$<>8__locals1
+    field Func`2 <>9__7
+    field Func`2 <>9__10
+    public Void .ctor()
+    internal Void <AddExistingToGroup>b__1()
+    internal Boolean <AddExistingToGroup>b__7(Entry a)
+    internal Void <AddExistingToGroup>b__2(Object ss, TextChangedEventArgs ee)
+    internal Void <AddExistingToGroup>b__3()
+    internal Boolean <AddExistingToGroup>b__10(Entry a)
+    internal Void <AddExistingToGroup>b__4()
+    internal Void <AddExistingToGroup>b__5()
+    internal Void <AddExistingToGroup>b__6()
+  class GlassBoard.Controller/<>c__DisplayClass28_2   // fields=2 methods=3
+    field Entry entry
+    field <>c__DisplayClass28_1 CS$<>8__locals2
+    public Void .ctor()
+    internal Void <AddExistingToGroup>b__8(Object ss, RoutedEventArgs ee)
+    internal Void <AddExistingToGroup>b__9(Object ss, RoutedEventArgs ee)
+  class GlassBoard.Controller/<>c__DisplayClass30_0   // fields=4 methods=5
+    field Controller <>4__this
+    field ListBox list
+    field Window w
+    field Action reload
+    public Void .ctor()
+    internal Void <ManageGroups>b__0()
+    internal Void <ManageGroups>b__1()
+    internal Void <ManageGroups>b__2()
+    internal Void <ManageGroups>b__3()
+  class GlassBoard.Controller/<>c__DisplayClass30_1   // fields=1 methods=2
+    field String name
+    public Void .ctor()
+    internal Boolean <ManageGroups>b__4(String g)
+  class GlassBoard.Controller/<>c__DisplayClass31_0   // fields=9 methods=10
+    field ListBox choices
+    field Dictionary`2 picked
+    field ListBox saved
+    field Workspace current
+    field TextBox name
+    field Action`1 fill
+    field Window w
+    field Action reload
+    field Controller <>4__this
+    public Void .ctor()
+    internal Void <ManageWorkspaces>b__0(IEnumerable`1 paths)
+    internal Void <ManageWorkspaces>b__1()
+    internal Void <ManageWorkspaces>b__2(Object s, SelectionChangedEventArgs e)
+    internal Void <ManageWorkspaces>b__3()
+    internal Void <ManageWorkspaces>b__4()
+    internal Void <ManageWorkspaces>b__5()
+    internal Void <ManageWorkspaces>b__6()
+    internal Void <ManageWorkspaces>b__7()
+    internal Void <ManageWorkspaces>b__8()
+  class GlassBoard.Controller/<>c__DisplayClass31_1   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <ManageWorkspaces>b__11(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass31_2   // fields=2 methods=2
+    field String title
+    field <>c__DisplayClass31_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Boolean <ManageWorkspaces>b__14(Workspace x)
+  class GlassBoard.Controller/<>c__DisplayClass32_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <LaunchWorkspace>b__0(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass33_0   // fields=6 methods=7
+    field Controller <>4__this
+    field Boolean applied
+    field Dictionary`2 files
+    field ListBox list
+    field Window w
+    field Action reload
+    public Void .ctor()
+    internal Void <ManageSchemes>b__0()
+    internal Void <ManageSchemes>b__1()
+    internal Void <ManageSchemes>b__2()
+    internal Void <ManageSchemes>b__3()
+    internal Void <ManageSchemes>b__4()
+    internal Void <ManageSchemes>b__5()
+  class GlassBoard.Controller/<>c__DisplayClass36_0   // fields=5 methods=3
+    field MenuItem opened
+    field MenuItem associate
+    field Entry entry
+    field Controller <>4__this
+    field RoutedEventHandler <>9__3
+    public Void .ctor()
+    internal Void <AddDockWindowMenus>b__0(Object s, RoutedEventArgs e)
+    internal Void <AddDockWindowMenus>b__3(Object ss, RoutedEventArgs ee)
+  class GlassBoard.Controller/<>c__DisplayClass36_1   // fields=1 methods=2
+    field RunningWindow selected
+    public Void .ctor()
+    internal Void <AddDockWindowMenus>b__1(Object ss, RoutedEventArgs ee)
+  class GlassBoard.Controller/<>c__DisplayClass36_2   // fields=2 methods=2
+    field RunningWindow selected
+    field <>c__DisplayClass36_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <AddDockWindowMenus>b__2(Object ss, RoutedEventArgs ee)
+  class GlassBoard.Controller/<>c__DisplayClass38_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <PinDockPaths>b__0(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass43_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <MigrateRemovalIdentities>b__1(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass43_1   // fields=1 methods=2
+    field Entry removed
+    public Void .ctor()
+    internal Boolean <MigrateRemovalIdentities>b__2(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass44_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <ChooseDockFiles>b__0(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass60_0   // fields=1 methods=2
+    field Int32 id
+    public Void .ctor()
+    internal Boolean <Shortcut>b__0(HotkeySetting k)
+  class GlassBoard.Controller/<>c__DisplayClass61_0   // fields=2 methods=2
+    field String kind
+    field Controller <>4__this
+    public Void .ctor()
+    internal Void <RefreshTrayMenu>b__19(Object s, EventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass61_1   // fields=2 methods=2
+    field Workspace workspace
+    field Controller <>4__this
+    public Void .ctor()
+    internal Void <RefreshTrayMenu>b__20(Object s, EventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass66_0   // fields=2 methods=3
+    field String path
+    field Entry entry
+    public Void .ctor()
+    internal Boolean <Add>b__0(Entry a)
+    internal Boolean <Add>b__1(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass71_0   // fields=4 methods=4
+    field Controller <>4__this
+    field String group
+    field HashSet`1 targets
+    field Func`2 <>9__3
+    public Void .ctor()
+    internal Boolean <RemoveMany>b__0(String path)
+    internal Boolean <RemoveMany>b__1(Entry a)
+    internal Boolean <RemoveMany>b__3(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass71_1   // fields=2 methods=2
+    field String path
+    field <>c__DisplayClass71_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Boolean <RemoveMany>b__2(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass75_0   // fields=2 methods=2
+    field String[] common
+    field Func`2 <>9__3
+    public Void .ctor()
+    internal Boolean <Import>b__3(Entry a)
+  class GlassBoard.Controller/<>c__DisplayClass75_1   // fields=1 methods=2
+    field Entry a
+    public Void .ctor()
+    internal Boolean <Import>b__4(String k)
+  class GlassBoard.Controller/<>c__DisplayClass76_0   // fields=4 methods=11
+    field ContextMenu menu
+    field Controller <>4__this
+    field Entry a
+    field String scope
+    public Void .ctor()
+    internal Void <Menu>b__0(String title, Action action)
+    internal Void <Menu>b__1()
+    internal Void <Menu>b__2()
+    internal Void <Menu>b__3()
+    internal Void <Menu>b__4()
+    internal Void <Menu>b__5()
+    internal Void <Menu>b__6()
+    internal Void <Menu>b__7()
+    internal Void <Menu>b__8()
+    internal Void <Menu>b__9()
+  class GlassBoard.Controller/<>c__DisplayClass76_1   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <Menu>b__10(Object s, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass76_2   // fields=2 methods=2
+    field String name
+    field <>c__DisplayClass76_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <Menu>b__11(Object s, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass78_0   // fields=6 methods=25
+    field Boolean cleaned
+    field Controller <>4__this
+    field DispatcherTimer preview
+    field DispatcherTimer stateTimer
+    field Action cleanup
+    field Action <>9__105
+    public Void .ctor()
+    internal Void <Settings>b__0()
+    internal Void <Settings>b__1(Object s, EventArgs e)
+    internal Void <Settings>b__5(Object s, EventArgs e)
+    internal Void <Settings>b__11(Int32 value)
+    internal Void <Settings>b__12(Double value)
+    internal Void <Settings>b__17(Boolean value)
+    internal Void <Settings>b__18(Boolean value)
+    internal Void <Settings>b__19(Boolean value)
+    internal Void <Settings>b__20(Boolean value)
+    internal Void <Settings>b__21(Boolean value)
+    internal Void <Settings>b__24()
+    internal Void <Settings>b__29()
+    internal Void <Settings>b__64()
+    internal Void <Settings>b__71()
+    internal Void <Settings>b__72()
+    internal Void <Settings>b__73(Boolean value)
+    internal Void <Settings>b__74(Boolean value)
+    internal Void <Settings>b__76(Boolean value)
+    internal Void <Settings>b__77(Double value)
+    internal Void <Settings>b__78(Double value)
+    internal Void <Settings>b__79()
+    internal Void <Settings>b__80()
+    internal Void <Settings>b__87()
+    internal Void <Settings>b__105()
+  class GlassBoard.Controller/<>c__DisplayClass78_1   // fields=36 methods=65
+    field TabControl tabs
+    field Boolean creatorLoaded
+    field StackPanel creatorPage
+    field Window w
+    field Action loadCreator
+    field Boolean loading
+    field DockOptions draft
+    field Action live
+    field ComboBox presets
+    field Slider icon
+    field Slider spacing
+    field Slider padding
+    field Slider radius
+    field Slider opacity
+    field Slider zoom
+    field CheckBox labels
+    field Dictionary`2 keyChoices
+    field Boolean syncing
+    field Dictionary`2 switches
+    field Dictionary`2 info
+    field Action updateState
+    field Dictionary`2 controls
+    field Boolean routeSync
+    field Dictionary`2 routes
+    field Action syncRoutes
+    field TextBlock componentStatus
+    field Dictionary`2 widgetChecks
+    field TextBox city
+    field TextBlock startupInfo
+    field Boolean startupSync
+    field ComboBox startupMode
+    field Action startupState
+    field CheckBox startupCheck
+    field Action`1 setStartup
+    field <>c__DisplayClass78_0 CS$<>8__locals1
+    field Func`2 <>9__106
+    public Void .ctor()
+    internal StackPanel <Settings>b__2(String heading)
+    internal Void <Settings>b__3()
+    internal Void <Settings>b__4(Object ss, SelectionChangedEventArgs ee)
+    internal Void <Settings>b__6()
+    internal Void <Settings>b__10(Boolean value)
+    internal Void <Settings>b__13(Boolean value)
+    internal Void <Settings>b__14(Double value)
+    internal Void <Settings>b__15(Double value)
+    internal Void <Settings>b__16(Double value)
+    internal Void <Settings>b__22(Boolean value)
+    internal Void <Settings>b__23(Boolean value)
+    internal Void <Settings>b__25()
+    internal Void <Settings>b__26()
+    internal Void <Settings>b__27()
+    internal Void <Settings>b__28()
+    internal Void <Settings>b__30()
+    internal Void <Settings>b__32(Double value)
+    internal Void <Settings>b__33(Double value)
+    internal Void <Settings>b__34(Double value)
+    internal Void <Settings>b__35(Double value)
+    internal Void <Settings>b__36(Double value)
+    internal Void <Settings>b__37(Double value)
+    internal Void <Settings>b__38(Boolean value)
+    internal Void <Settings>b__39(Boolean value)
+    internal Void <Settings>b__40(Boolean value)
+    internal Void <Settings>b__41(Boolean value)
+    internal Void <Settings>b__42(Boolean value)
+    internal Void <Settings>b__43(Int32 value)
+    internal Void <Settings>b__44(Int32 value)
+    internal Void <Settings>b__45(Boolean value)
+    internal Void <Settings>b__46(Boolean value)
+    internal Void <Settings>b__47(Boolean value)
+    internal Void <Settings>b__48(Boolean value)
+    internal Void <Settings>b__49(Double value)
+    internal Void <Settings>b__50(Double value)
+    internal Void <Settings>b__51(Boolean value)
+    internal Void <Settings>b__52(Boolean value)
+    internal Void <Settings>b__53()
+    internal Void <Settings>b__54(Int32 value)
+    internal Void <Settings>b__55(Double value)
+    internal Void <Settings>b__56(Double value)
+    internal Void <Settings>b__57(Double value)
+    internal Void <Settings>b__58(Object s, SelectionChangedEventArgs e)
+    internal Void <Settings>b__59()
+    internal Void <Settings>b__60(Object s, EventArgs e)
+    internal Void <Settings>b__61(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__62(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__63(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__65()
+    internal Void <Settings>b__66()
+    internal Void <Settings>b__67()
+    internal Void <Settings>b__68()
+    internal Void <Settings>b__69()
+    internal Void <Settings>b__70(Object s, EventArgs e)
+    internal Void <Settings>b__75()
+    internal Void <Settings>b__81()
+    internal Void <Settings>b__82(Boolean value)
+    internal Void <Settings>b__83(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__84(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__85(Object s, SelectionChangedEventArgs e)
+    internal Void <Settings>b__86()
+    internal Void <Settings>b__88()
+    internal Void <Settings>b__89(Object s, RoutedEventArgs e)
+    internal HotkeySetting <Settings>b__106(KeyValuePair`2 row)
+  class GlassBoard.Controller/<>c__DisplayClass78_2   // fields=5 methods=2
+    field TextBlock caption
+    field String label
+    field Slider control
+    field String unit
+    field Action`1 change
+    public Void .ctor()
+    internal Void <Settings>b__90(Object s, RoutedPropertyChangedEventArgs`1 e)
+  class GlassBoard.Controller/<>c__DisplayClass78_3   // fields=1 methods=3
+    field Action`1 change
+    public Void .ctor()
+    internal Void <Settings>b__91(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__92(Object s, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass78_4   // fields=2 methods=2
+    field ComboBox control
+    field Action`1 change
+    public Void .ctor()
+    internal Void <Settings>b__93(Object s, SelectionChangedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass78_5   // fields=2 methods=2
+    field HotkeySetting binding
+    field <>c__DisplayClass78_1 CS$<>8__locals2
+    public Void .ctor()
+    internal Boolean <Settings>b__98(KeyValuePair`2 k)
+  class GlassBoard.Controller/<>c__DisplayClass78_6   // fields=5 methods=6
+    field ComboBox modifiers
+    field ComboBox key
+    field Int32 id
+    field CheckBox enabled
+    field <>c__DisplayClass78_5 CS$<>8__locals3
+    public Void .ctor()
+    internal Void <Settings>b__95(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__96(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__97(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__100(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__101(Object s, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass78_7   // fields=1 methods=2
+    field HotkeySetting captured
+    public Void .ctor()
+    internal Boolean <Settings>b__99(KeyValuePair`2 x)
+  class GlassBoard.Controller/<>c__DisplayClass78_8   // fields=1 methods=2
+    field HotkeySetting k
+    public Void .ctor()
+    internal Boolean <Settings>b__102(KeyValuePair`2 x)
+  class GlassBoard.Controller/<>c__DisplayClass78_9   // fields=4 methods=3
+    field ToggleButton enable
+    field String kind
+    field ComboBox route
+    field <>c__DisplayClass78_1 CS$<>8__locals4
+    public Void .ctor()
+    internal Void <Settings>b__103(Object s, RoutedEventArgs e)
+    internal Void <Settings>b__104(Object s, SelectionChangedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass84_0   // fields=5 methods=8
+    field ComboBox types
+    field MaterialOptions options
+    field Action changed
+    field TextBox tint
+    field StackPanel panel
+    public Void .ctor()
+    internal Void <BuildMaterialEditor>b__0(Object s, SelectionChangedEventArgs e)
+    internal Void <BuildMaterialEditor>b__1()
+    internal Void <BuildMaterialEditor>b__2(String label, Double value, Action`1 set)
+    internal Void <BuildMaterialEditor>b__3(Double v)
+    internal Void <BuildMaterialEditor>b__4(Double v)
+    internal Void <BuildMaterialEditor>b__5(Object s, RoutedEventArgs e)
+    internal Void <BuildMaterialEditor>b__6(Object s, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass84_1   // fields=5 methods=2
+    field Action`1 set
+    field Slider control
+    field TextBlock caption
+    field String label
+    field <>c__DisplayClass84_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <BuildMaterialEditor>b__7(Object s, RoutedPropertyChangedEventArgs`1 e)
+  class GlassBoard.Controller/<>c__DisplayClass86_0   // fields=9 methods=7
+    field StackPanel editor
+    field ComboBox kind
+    field Action apply
+    field Window w
+    field Action fill
+    field Controller <>4__this
+    field Action`1 <>9__4
+    field Action`3 <>9__5
+    field Action`5 <>9__7
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__1()
+    internal Void <CustomizeWidgets>b__4(String text)
+    internal Void <CustomizeWidgets>b__5(String text, Boolean value, Action`1 set)
+    internal Void <CustomizeWidgets>b__7(String text, Double min, Double max, Double value, Action`1 set)
+    internal Void <CustomizeWidgets>b__2(Object a, SelectionChangedEventArgs e)
+    internal Void <CustomizeWidgets>b__3()
+  class GlassBoard.Controller/<>c__DisplayClass86_1   // fields=5 methods=17
+    field Action`1 label
+    field WidgetStyle s
+    field TextBox hex
+    field String k
+    field <>c__DisplayClass86_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__6(String text, String[] items, Int32 index, Action`1 set)
+    internal Void <CustomizeWidgets>b__8()
+    internal Void <CustomizeWidgets>b__9()
+    internal Void <CustomizeWidgets>b__10(Double v)
+    internal Void <CustomizeWidgets>b__11(Boolean v)
+    internal Void <CustomizeWidgets>b__12(Boolean v)
+    internal Void <CustomizeWidgets>b__13(Double v)
+    internal Void <CustomizeWidgets>b__24(Int32 v)
+    internal Void <CustomizeWidgets>b__25()
+    internal Void <CustomizeWidgets>b__28(Double v)
+    internal Void <CustomizeWidgets>b__29(Boolean v)
+    internal Void <CustomizeWidgets>b__30(Boolean v)
+    internal Void <CustomizeWidgets>b__14(Int32 v)
+    internal Void <CustomizeWidgets>b__15()
+    internal Void <CustomizeWidgets>b__16()
+    internal Void <CustomizeWidgets>b__17()
+  class GlassBoard.Controller/<>c__DisplayClass86_2   // fields=3 methods=2
+    field Action`1 set
+    field CheckBox b
+    field <>c__DisplayClass86_0 CS$<>8__locals2
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__18(Object a, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass86_3   // fields=3 methods=2
+    field ComboBox b
+    field Action`1 set
+    field <>c__DisplayClass86_1 CS$<>8__locals3
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__19(Object a, SelectionChangedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass86_4   // fields=5 methods=4
+    field TextBlock title
+    field String text
+    field Slider b
+    field Action`1 set
+    field <>c__DisplayClass86_0 CS$<>8__locals4
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__20(Object a, RoutedPropertyChangedEventArgs`1 e)
+    internal Void <CustomizeWidgets>b__21(Object a, MouseButtonEventArgs e)
+    internal Void <CustomizeWidgets>b__22(Object a, KeyEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass86_5   // fields=2 methods=2
+    field String chosen
+    field <>c__DisplayClass86_1 CS$<>8__locals5
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__23(Object a, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass86_6   // fields=3 methods=3
+    field ComboBox fontList
+    field TextBox font
+    field <>c__DisplayClass86_1 CS$<>8__locals6
+    public Void .ctor()
+    internal Void <CustomizeWidgets>b__26(Object a, SelectionChangedEventArgs e)
+    internal Void <CustomizeWidgets>b__27()
+  class GlassBoard.Controller/<>c__DisplayClass8_0   // fields=7 methods=15
+    field ControlCenterOptions o
+    field Controller <>4__this
+    field StackPanel root
+    field Action apply
+    field ComboBox iconStyle
+    field TextBox color
+    field Window w
+    public Void .ctor()
+    internal Void <ControlCenterSettings>b__0()
+    internal Void <ControlCenterSettings>b__1(String name, Boolean value, Action`1 set)
+    internal Void <ControlCenterSettings>b__2(Boolean v)
+    internal Void <ControlCenterSettings>b__3(Boolean v)
+    internal Void <ControlCenterSettings>b__4(Boolean v)
+    internal Void <ControlCenterSettings>b__5(Boolean v)
+    internal Void <ControlCenterSettings>b__6(String name, Double min, Double max, Double value, Action`1 set)
+    internal Void <ControlCenterSettings>b__7(Double v)
+    internal Void <ControlCenterSettings>b__8(Double v)
+    internal Void <ControlCenterSettings>b__9(Double v)
+    internal Void <ControlCenterSettings>b__10(Object s, SelectionChangedEventArgs e)
+    internal Void <ControlCenterSettings>b__11(Double v)
+    internal Void <ControlCenterSettings>b__12()
+    internal Void <ControlCenterSettings>b__13()
+  class GlassBoard.Controller/<>c__DisplayClass8_1   // fields=3 methods=2
+    field Action`1 set
+    field CheckBox b
+    field <>c__DisplayClass8_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <ControlCenterSettings>b__14(Object s, RoutedEventArgs e)
+  class GlassBoard.Controller/<>c__DisplayClass8_2   // fields=5 methods=2
+    field TextBlock valueLabel
+    field String name
+    field Slider slider
+    field Action`1 set
+    field <>c__DisplayClass8_0 CS$<>8__locals2
+    public Void .ctor()
+    internal Void <ControlCenterSettings>b__15(Object s, RoutedPropertyChangedEventArgs`1 e)
+  class GlassBoard.Controller/<>c__DisplayClass97_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <ReorderEntry>b__0(Entry a)
+  class GlassBoard.Controller/<CheckUpdate>d__116   // fields=5 methods=2
+    field Int32 <>1__state
+    field AsyncTaskMethodBuilder <>t__builder
+    field Controller <>4__this
+    field Boolean manual
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.Controller/<Import>d__75   // fields=4 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field Controller <>4__this
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.Controller/<InstallUpdate>d__119   // fields=8 methods=2
+    field Int32 <>1__state
+    field AsyncTaskMethodBuilder <>t__builder
+    field Controller <>4__this
+    field <>c__DisplayClass119_1 <>8__1
+    field String <job>5__2
+    field Boolean <ready>5__3
+    field TaskAwaiter`1 <>u__1
+    field TaskAwaiter`1 <>u__2
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.Controller/<LaunchWorkspace>d__32   // fields=7 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field Workspace work
+    field Controller <>4__this
+    field List`1 <failures>5__2
+    field Enumerator <>7__wrap2
+    field TaskAwaiter <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.Controller/<Shortcuts>d__74   // fields=10 methods=8
+    field Int32 <>1__state
+    field String <>2__current
+    field Int32 <>l__initialThreadId
+    field String root
+    field String <>3__root
+    field Stack`1 <pending>5__2
+    field Int32 <count>5__3
+    field String[] <dirs>5__4
+    field String[] <>7__wrap4
+    field Int32 <>7__wrap5
+    public Void .ctor(Int32 <>1__state)
+    private Void System.IDisposable.Dispose()
+    private Boolean MoveNext()
+    private String System.Collections.Generic.IEnumerator<System.String>.get_Current()
+    private Void System.Collections.IEnumerator.Reset()
+    private Object System.Collections.IEnumerator.get_Current()
+    private IEnumerator`1 System.Collections.Generic.IEnumerable<System.String>.GetEnumerator()
+    private IEnumerator System.Collections.IEnumerable.GetEnumerator()
+  class GlassBoard.Controller/<StartUpdateCheck>d__115   // fields=4 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field Controller <>4__this
+    field TaskAwaiter <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.Controller/<ToggleTaskbarAutoHide>d__26   // fields=5 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field Nullable`1 enabled
+    field Controller <>4__this
+    field TaskAwaiter <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.WidgetWindow   // fields=46 methods=72
+  field TextBlock posterDay
+  field TextBlock posterMonth
+  field TextBlock orbitLabel
+  field RotateTransform hourRotation
+  field RotateTransform minuteRotation
+  field Path orbitArc
+  field String clockStamp
+  field TextBlock weekday
+  field TextBlock clockHours
+  field TextBlock clockMinutes
+  field FrameworkElement weatherIcon
+  field String musicLayoutSignature
+  field Border widgetInputArea
+  field WidgetManager M
+  field Thumb moveGrip
+  field Thumb resizeGrip
+  field Int32 PanelId
+  field List`1 Kinds
+  field Boolean stopped
+  field Boolean editingNotes
+  field Boolean building
+  field Boolean resizing
+  field String signature
+  field StackPanel stack
+  field ScrollViewer viewport
+  field Viewbox contentScale
+  field Double minimumWidgetHeight
+  field ImageSource shownArtwork
+  field Nullable`1 shownPlaying
+  field TextBlock clock
+  field TextBlock date
+  field TextBlock clockStatus
+  field TextBlock weatherTemperature
+  field TextBlock weatherPlace
+  field TextBlock weatherDetails
+  field TextBlock weatherStatus
+  field TextBlock musicTitle
+  field TextBlock musicArtist
+  field TextBlock musicStatus
+  field TextBlock noteStatus
+  field Border cover
+  field Button play
+  field ComboBox notePicker
+  field TextBox noteTitle
+  field TextBox noteBody
+  field NoteItem currentNote
+  private Void ResetAdvancedClock()
+  private TextBlock ClockText(Double size, String font)
+  private Border ClockRule(Double width)
+  private Void AdvancedClock(StackPanel body, WidgetStyle s)
+  private Void AdvancedClockTick(DateTime now, WidgetStyle style)
+  internal Void CheckAppearance()
+  private WidgetStyle StyleFor(String kind)
+  private Boolean get_BareShell()
+  private String get_AppearanceSignature()
+  private Void InitializeBareDragging()
+  private Brush StyleInk(String kind)
+  private Void PaintText(DependencyObject root, WidgetStyle s, Brush ink)
+  private Void PaintCard(Border card, String kind)
+  private Void ApplyCardAppearance()
+  private Void AddAppearanceMenu(ContextMenu menu, String kind)
+  private Void ClockDesign(StackPanel parent)
+  private static Boolean SetText(TextBlock text, String value)
+  private Void ClockTick()
+  private Button MusicGlyph(String icon, Action action, Double size, Boolean primary)
+  private FrameworkElement TransportIcon(String icon, Boolean primary)
+  private FrameworkElement WeatherSymbol(String icon)
+  public Void .ctor(WidgetManager manager, Int32 id)
+  public Boolean get_IsStopped()
+  public Void Stop()
+  public Void UpdateOptions(List`1 kinds)
+  private Void FitContent()
+  private Void ApplyWidgetGlass()
+  private Button Small(String text, Action action, Double width)
+  private Button Glyph(String icon, Action action, Double size, Boolean primary)
+  private Void Build()
+  private Boolean get_ControlsHidden()
+  private ContextMenu WidgetMenu(String kind)
+  private Void RootWidgetMenu()
+  private Void Header(StackPanel parent, String kind)
+  private Void Clock(StackPanel parent)
+  private Void ClockSettings()
+  private Void Weather(StackPanel parent)
+  private Void Music(StackPanel parent)
+  private Void Playlist()
+  private Void Notes(StackPanel parent)
+  private Void NoteEdited()
+  public Void ReloadNotes()
+  private Void LoadNote()
+  public Void Tick()
+  public Void UpdateWeather()
+  public Void UpdateMusic()
+  private Boolean <get_BareShell>b__20_0(String k)
+  private String <get_AppearanceSignature>b__22_0(String k)
+  private Void <InitializeBareDragging>b__24_0(Object a, MouseButtonEventArgs e)
+  private Void <ClockDesign>b__30_0(Object a, MouseButtonEventArgs e)
+  private Void <.ctor>b__69_0(Object s, DragDeltaEventArgs e)
+  private Void <.ctor>b__69_1(Object s, DragCompletedEventArgs e)
+  private Void <.ctor>b__69_2(Object s, DragDeltaEventArgs e)
+  private Void <.ctor>b__69_3(Object s, DragCompletedEventArgs e)
+  private Void <.ctor>b__69_4(Object s, EventArgs e)
+  private Void <RootWidgetMenu>b__82_2(Object s, RoutedEventArgs e)
+  private Void <RootWidgetMenu>b__82_0(Object ss, RoutedEventArgs ee)
+  private Void <RootWidgetMenu>b__82_1(Object ss, RoutedEventArgs ee)
+  private Void <Clock>b__84_0(Object s, MouseButtonEventArgs e)
+  private Void <Weather>b__86_0()
+  private Void <Weather>b__86_1()
+  private Void <Music>b__87_0()
+  private Void <Music>b__87_1()
+  private Void <Music>b__87_2()
+  private Void <Notes>b__89_0(Object s, TextChangedEventArgs e)
+  private Void <Notes>b__89_1(Object s, TextChangedEventArgs e)
+  private Void <Notes>b__89_2(Object s, EventArgs e)
+  private Void <Notes>b__89_3(Object s, SelectionChangedEventArgs e)
+  private Void <Notes>b__89_4()
+  private Void <Notes>b__89_5()
+  private Void <Notes>b__89_6()
+  private Void <Notes>b__89_7()
+  class GlassBoard.WidgetWindow/<>c   // fields=7 methods=8
+    field <>c <>9
+    field Func`2 <>9__12_0
+    field Func`2 <>9__28_0
+    field Func`2 <>9__28_1
+    field Action <>9__83_1
+    field Func`2 <>9__85_9
+    field Func`2 <>9__88_5
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <CheckAppearance>b__12_0(MenuItem item)
+    internal Boolean <ApplyCardAppearance>b__28_0(Border b)
+    internal Boolean <ApplyCardAppearance>b__28_1(Border b)
+    internal Void <Header>b__83_1()
+    internal String <ClockSettings>b__85_9(ClockAlarm a)
+    internal String <Playlist>b__88_5(String p)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass29_0   // fields=3 methods=3
+    field WidgetWindow <>4__this
+    field String kind
+    field MenuItem bare
+    public Void .ctor()
+    internal Void <AddAppearanceMenu>b__0(Object s, RoutedEventArgs e)
+    internal Void <AddAppearanceMenu>b__1(Object s, RoutedEventArgs e)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass33_0   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <MusicGlyph>b__0(Object a, RoutedEventArgs e)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass76_0   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <Small>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass77_0   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <Glyph>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass81_0   // fields=4 methods=16
+    field WidgetWindow <>4__this
+    field String kind
+    field MenuItem lockPosition
+    field Slider transparency
+    public Void .ctor()
+    internal Void <WidgetMenu>b__9(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__10(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__11(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__13(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__14(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__15(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__0(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__1(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__2(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__3(Object ss, RoutedPropertyChangedEventArgs`1 ee)
+    internal Void <WidgetMenu>b__4(Object ss, MouseButtonEventArgs ee)
+    internal Void <WidgetMenu>b__5(Object ss, KeyEventArgs ee)
+    internal Void <WidgetMenu>b__6(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__7(Object ss, RoutedEventArgs ee)
+    internal Void <WidgetMenu>b__8(Object s, RoutedEventArgs e)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass81_1   // fields=2 methods=2
+    field MenuItem compatibility
+    field <>c__DisplayClass81_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <WidgetMenu>b__12(Object ss, RoutedEventArgs ee)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass81_2   // fields=2 methods=2
+    field Int32 panel
+    field <>c__DisplayClass81_0 CS$<>8__locals2
+    public Void .ctor()
+    internal Void <WidgetMenu>b__16(Object ss, RoutedEventArgs ee)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass83_0   // fields=3 methods=4
+    field WidgetWindow <>4__this
+    field String kind
+    field Button options
+    public Void .ctor()
+    internal Void <Header>b__0(Object s, MouseButtonEventArgs e)
+    internal Void <Header>b__2(Object s, RoutedEventArgs e)
+    internal Void <Header>b__3()
+  class GlassBoard.WidgetWindow/<>c__DisplayClass85_0   // fields=11 methods=10
+    field ListBox list
+    field WidgetOptions o
+    field WidgetWindow <>4__this
+    field Action fill
+    field TextBox time
+    field Window w
+    field TextBox label
+    field CheckBox daily
+    field TextBox minutes
+    field TextBlock countdown
+    field DispatcherTimer refresh
+    public Void .ctor()
+    internal Void <ClockSettings>b__0()
+    internal Void <ClockSettings>b__1()
+    internal Void <ClockSettings>b__2()
+    internal Void <ClockSettings>b__3()
+    internal Void <ClockSettings>b__4()
+    internal Void <ClockSettings>b__5()
+    internal Void <ClockSettings>b__6()
+    internal Void <ClockSettings>b__7(Object s, EventArgs e)
+    internal Void <ClockSettings>b__8(Object s, EventArgs e)
+  class GlassBoard.WidgetWindow/<>c__DisplayClass88_0   // fields=4 methods=6
+    field ListBox list
+    field WidgetWindow <>4__this
+    field Window w
+    field Action fill
+    public Void .ctor()
+    internal Void <Playlist>b__0()
+    internal Void <Playlist>b__1()
+    internal Void <Playlist>b__2()
+    internal Void <Playlist>b__3()
+    internal Void <Playlist>b__4(Object s, MouseButtonEventArgs e)
+class GlassBoard.ControlCenterOptions   // fields=12 methods=3
+  field Boolean Enabled
+  field Boolean Locked
+  field Boolean Topmost
+  field Boolean Motion
+  field Nullable`1 Left
+  field Nullable`1 Top
+  field Double Size
+  field Double Opacity
+  field Double IconSize
+  field Double PanelIconSize
+  field String IconStyle
+  field String Color
+  private Void Defaults(StreamingContext context)
+  public Void Normalize()
+  public Void .ctor()
+class GlassBoard.ControlIconRules   // fields=2 methods=3
+  field String[] Styles
+  field String[] Names
+  public static String Style(String value)
+  public static Double OrbGlyphSize(ControlCenterOptions options)
+  private static Void .cctor()
+class GlassBoard.ControlOrbWindow   // fields=5 methods=12
+  field Controller C
+  field ControlCenterWindow panel
+  field Boolean moved
+  field Boolean panelWasOpen
+  field Point down
+  public Void .ctor(Controller c)
+  public Void Sync()
+  public Void OpenPanel()
+  public Void HidePanel()
+  public Void HideAll()
+  private Void <.ctor>b__5_0(Object s, MouseButtonEventArgs e)
+  private Void <.ctor>b__5_1(Object s, MouseEventArgs e)
+  private Void <.ctor>b__5_2(Object s, MouseButtonEventArgs e)
+  private Void <.ctor>b__5_3(Object s, ContextMenuEventArgs e)
+  private Void <.ctor>b__5_5(Object ss, RoutedEventArgs ee)
+  private Void <.ctor>b__5_6(Object ss, RoutedEventArgs ee)
+  private Void <.ctor>b__5_4(Object s, EventArgs e)
+class GlassBoard.ControlCenterWindow   // fields=23 methods=50
+  field Controller C
+  field ControlOrbWindow orb
+  field StackPanel body
+  field TextBlock status
+  field DispatcherTimer timer
+  field SystemSnapshot snapshot
+  field Boolean reading
+  field Boolean command
+  field Boolean modal
+  field Boolean stopped
+  field Boolean collapsing
+  field String page
+  field Slider volume
+  field Slider brightness
+  field Button mute
+  field Boolean updating
+  field DateTime lastVolume
+  field DateTime lastBrightness
+  field DispatcherTimer volumeDelay
+  field DispatcherTimer brightnessDelay
+  field DependencyProperty PanelGlyphSizeProperty
+  field IconScaleConverter iconScale
+  field List`1 wirelessCards
+  public Void .ctor(Controller c, ControlOrbWindow anchor)
+  public Void OpenNear()
+  private Void AnimatePanel()
+  public Void Collapse(Boolean immediate)
+  private Void Label(String text)
+  private Button ActionButton(String text, Action action, Double width)
+  private Void BuildHome()
+  private Void UpdateHome()
+  private Void RefreshState()
+  private Void Run(BridgeRequest request, Action`1 completed)
+  private Void ToggleRadio(String kind)
+  private Void Back(String title)
+  private Void Connect(WifiNetwork n)
+  private Void Outputs()
+  private Void Settings(String uri)
+  private Void PowerMenu(Button button)
+  private Button Button(String label, RoutedEventHandler click, Double width)
+  public Double get_PanelGlyphSize()
+  public Void set_PanelGlyphSize(Double value)
+  private Viewbox PanelIcon(String kind, Double scale)
+  public Void RefreshIconSizes()
+  private Button IconAction(String kind, String text, Action action, Double width)
+  private Void BuildWirelessCards()
+  private Void AddWirelessCard(String kind, String title)
+  private Void UpdateWirelessCards()
+  private Void ExpandWireless(WirelessCard card)
+  private TextBlock WirelessMessage(String text)
+  private Void LoadWireless(WirelessCard card)
+  private Button WirelessItem(String glyph, String name, String detail, Action action)
+  private Void QueueWirelessRefresh(String kind)
+  private static Void .cctor()
+  private Void <.ctor>b__20_0(Object s, RoutedEventArgs e)
+  private Void <.ctor>b__20_1(Object s, RoutedEventArgs e)
+  private Void <.ctor>b__20_2(Object s, RoutedEventArgs e)
+  private Void <.ctor>b__20_3(Object s, RoutedEventArgs e)
+  private Void <.ctor>b__20_4(Object s, KeyEventArgs e)
+  private Void <.ctor>b__20_5(Object s, EventArgs e)
+  private Void <.ctor>b__20_11()
+  private Void <.ctor>b__20_6(Object s, DependencyPropertyChangedEventArgs e)
+  private Void <.ctor>b__20_7(Object s, EventArgs e)
+  private Void <.ctor>b__20_8(Object s, EventArgs e)
+  private Void <.ctor>b__20_9(Object s, EventArgs e)
+  private Void <.ctor>b__20_10(Object s, EventArgs e)
+  private Void <Collapse>b__23_0(Object s, EventArgs e)
+  private Void <BuildHome>b__26_0()
+  private Void <BuildHome>b__26_1(Object s, RoutedPropertyChangedEventArgs`1 e)
+  private Void <BuildHome>b__26_2(Object s, RoutedPropertyChangedEventArgs`1 e)
+  private Void <BuildHome>b__26_3()
+  private Void <Back>b__31_0()
+  private Void <Outputs>b__33_0()
+  class GlassBoard.ControlCenterWindow/IconScaleConverter   // fields=0 methods=3
+    public Object Convert(Object value, Type target, Object parameter, CultureInfo culture)
+    public Object ConvertBack(Object value, Type target, Object parameter, CultureInfo culture)
+    public Void .ctor()
+  class GlassBoard.ControlCenterWindow/WirelessCard   // fields=9 methods=1
+    field String Kind
+    field Button Expand
+    field Button Toggle
+    field TextBlock State
+    field FrameworkElement Arrow
+    field StackPanel List
+    field Border Details
+    field Boolean Open
+    field Int32 Generation
+    public Void .ctor()
+  class GlassBoard.ControlCenterWindow/<>c   // fields=8 methods=9
+    field <>c <>9
+    field Func`2 <>9__30_2
+    field Func`2 <>9__50_1
+    field Func`2 <>9__50_2
+    field Func`2 <>9__53_2
+    field Func`2 <>9__53_3
+    field Func`2 <>9__53_5
+    field Func`2 <>9__53_6
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <ToggleRadio>b__30_2(RadioSnapshot r)
+    internal Boolean <UpdateWirelessCards>b__50_1(RadioSnapshot r)
+    internal Boolean <UpdateWirelessCards>b__50_2(RadioSnapshot r)
+    internal Boolean <LoadWireless>b__53_2(WifiNetwork n)
+    internal Int32 <LoadWireless>b__53_3(WifiNetwork n)
+    internal Boolean <LoadWireless>b__53_5(BluetoothDevice d)
+    internal String <LoadWireless>b__53_6(BluetoothDevice d)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass25_0   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <ActionButton>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass30_0   // fields=2 methods=3
+    field String kind
+    field ControlCenterWindow <>4__this
+    public Void .ctor()
+    internal Boolean <ToggleRadio>b__0(RadioSnapshot r)
+    internal Void <ToggleRadio>b__1(BridgeResult r)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass32_0   // fields=2 methods=3
+    field ControlCenterWindow <>4__this
+    field String password
+    public Void .ctor()
+    internal Void <Connect>b__0(BridgeResult r)
+    internal Void <Connect>b__1(BridgeResult r)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass32_1   // fields=3 methods=2
+    field PasswordBox box
+    field Window w
+    field <>c__DisplayClass32_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <Connect>b__2()
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass33_0   // fields=2 methods=2
+    field AudioOutput item
+    field ControlCenterWindow <>4__this
+    public Void .ctor()
+    internal Void <Outputs>b__1()
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass35_0   // fields=2 methods=2
+    field String action
+    field ControlCenterWindow <>4__this
+    public Void .ctor()
+    internal Void <PowerMenu>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass49_0   // fields=3 methods=3
+    field ControlCenterWindow <>4__this
+    field WirelessCard card
+    field String kind
+    public Void .ctor()
+    internal Void <AddWirelessCard>b__0(Object s, RoutedEventArgs e)
+    internal Void <AddWirelessCard>b__1(Object s, RoutedEventArgs e)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass50_0   // fields=1 methods=2
+    field WirelessCard card
+    public Void .ctor()
+    internal Boolean <UpdateWirelessCards>b__0(RadioSnapshot r)
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass53_0   // fields=3 methods=5
+    field ControlCenterWindow <>4__this
+    field WirelessCard card
+    field Action <>9__7
+    public Void .ctor()
+    internal Void <LoadWireless>b__7()
+    internal Void <LoadWireless>b__0()
+    internal Void <LoadWireless>b__1()
+    internal Void <LoadWireless>b__8()
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass53_1   // fields=2 methods=2
+    field WifiNetwork selected
+    field <>c__DisplayClass53_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <LoadWireless>b__4()
+  class GlassBoard.ControlCenterWindow/<>c__DisplayClass55_0   // fields=3 methods=3
+    field ControlCenterWindow <>4__this
+    field String kind
+    field Func`2 <>9__1
+    public Void .ctor()
+    internal Void <QueueWirelessRefresh>b__0()
+    internal Boolean <QueueWirelessRefresh>b__1(WirelessCard c)
+  class GlassBoard.ControlCenterWindow/<LoadWireless>d__53   // fields=7 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field ControlCenterWindow <>4__this
+    field WirelessCard card
+    field <>c__DisplayClass53_0 <>8__1
+    field Int32 <generation>5__2
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.ControlCenterWindow/<RefreshState>d__28   // fields=4 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field ControlCenterWindow <>4__this
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.ControlCenterWindow/<Run>d__29   // fields=6 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field ControlCenterWindow <>4__this
+    field BridgeRequest request
+    field Action`1 completed
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.ControlIcons   // fields=0 methods=1
+  public static Viewbox Create(String kind, Brush ink, Double size)
+class GlassBoard.CreatorAssets   // fields=1 methods=4
+  field String Key
+  private static String[] Identity(String key)
+  private static String Digest(Byte[] bytes)
+  internal static Byte[] Decode(String key, Byte[] payload)
+  internal static Byte[] Read(String key)
+class GlassBoard.Polish   // fields=3 methods=14
+  field BoundedCache`2 brushes
+  field Dictionary`2 themes
+  field FontFamily uiFont
+  public static Brush Color(String hex)
+  public static Brush Ink(Boolean light)
+  public static Brush Muted(Boolean light)
+  public static Brush Card(Boolean light)
+  public static Brush Line(Boolean light)
+  public static Brush get_Accent()
+  private static Binding Parent(String path)
+  private static FrameworkElementFactory Frame(Double radius)
+  private static FrameworkElementFactory Presenter()
+  public static Style ButtonStyle(Boolean light)
+  public static Void Apply(Window w, Boolean light)
+  public static Border Section(String title, String description, Boolean light)
+  public static FrameworkElement Icon(String name, Brush color, Double size)
+  private static Void .cctor()
+class GlassBoard.DesktopPersistence   // fields=6 methods=18
+  field List`1 entries
+  field WinEvent callback
+  field IntPtr foregroundHook
+  field IntPtr reorderHook
+  field DispatcherTimer settle
+  field Boolean applying
+  private static Void .cctor()
+  private static IntPtr GetShellWindow()
+  private static IntPtr GetForegroundWindow()
+  private static Int32 GetClassName(IntPtr w, StringBuilder b, Int32 n)
+  private static Boolean IsIconic(IntPtr w)
+  private static Boolean IsWindowVisible(IntPtr w)
+  private static Boolean ShowWindow(IntPtr w, Int32 command)
+  private static Boolean SetWindowPos(IntPtr w, IntPtr after, Int32 x, Int32 y, Int32 cx, Int32 cy, UInt32 flags)
+  private static IntPtr SetLong64(IntPtr w, Int32 index, IntPtr value)
+  private static Int32 SetLong32(IntPtr w, Int32 index, Int32 value)
+  private static IntPtr SetWinEventHook(UInt32 first, UInt32 last, IntPtr module, WinEvent proc, UInt32 process, UInt32 thread, UInt32 flags)
+  private static Boolean UnhookWinEvent(IntPtr hook)
+  private static Boolean Desktop(IntPtr window)
+  private static Void Own(Entry e)
+  public static Void Attach(Window window)
+  private static Void Changed(IntPtr h, UInt32 type, IntPtr window, Int32 obj, Int32 child, UInt32 thread, UInt32 time)
+  private static Void Schedule()
+  private static Void RefreshOrder()
+  class GlassBoard.DesktopPersistence/Entry   // fields=4 methods=1
+    field Window Window
+    field IntPtr Handle
+    field HwndSource Source
+    field HwndSourceHook Hook
+    public Void .ctor()
+  class GlassBoard.DesktopPersistence/WinEvent   // fields=0 methods=4
+    public Void .ctor(Object object, IntPtr method)
+    public virtual Void Invoke(IntPtr hook, UInt32 type, IntPtr window, Int32 obj, Int32 child, UInt32 thread, UInt32 time)
+    public virtual IAsyncResult BeginInvoke(IntPtr hook, UInt32 type, IntPtr window, Int32 obj, Int32 child, UInt32 thread, UInt32 time, AsyncCallback callback, Object object)
+    public virtual Void EndInvoke(IAsyncResult result)
+  class GlassBoard.DesktopPersistence/<>c   // fields=2 methods=4
+    field <>c <>9
+    field Action <>9__24_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Void <.cctor>b__8_0(Object s, EventArgs e)
+    internal Void <Schedule>b__24_0()
+  class GlassBoard.DesktopPersistence/<>c__DisplayClass22_0   // fields=2 methods=5
+    field Window window
+    field Entry e
+    public Void .ctor()
+    internal Boolean <Attach>b__0(Entry item)
+    internal IntPtr <Attach>b__1(IntPtr hwnd, Int32 message, IntPtr w, IntPtr l, Boolean& handled)
+    internal Void <Attach>b__2(Object s, DependencyPropertyChangedEventArgs a)
+    internal Void <Attach>b__3(Object s, EventArgs a)
+  class GlassBoard.DesktopPersistence/<>c__DisplayClass25_0   // fields=1 methods=2
+    field IntPtr foreground
+    public Void .ctor()
+    internal Boolean <RefreshOrder>b__0(Entry e)
+class GlassBoard.LaunchInfoService   // fields=0 methods=3
+  public static Entry Read(String path)
+  public static Void Enrich(Entry entry)
+  public static Boolean Primary(Entry entry)
+class GlassBoard.NotesRepository   // fields=5 methods=11
+  field String path
+  field DispatcherTimer timer
+  field Boolean dirty
+  field NoteBook Book
+  field String Status
+  public Void .ctor()
+  private NoteBook Load()
+  public Void Changed()
+  public Boolean Flush()
+  public Void Add()
+  public Void Remove()
+  public Void Select(String id)
+  public Void Export(String destination)
+  public Void Reload()
+  public Void Dispose()
+  private Void <.ctor>b__5_0(Object s, EventArgs e)
+  class GlassBoard.NotesRepository/<>c__DisplayClass11_0   // fields=1 methods=2
+    field String id
+    public Void .ctor()
+    internal Boolean <Select>b__0(NoteItem n)
+class GlassBoard.WeatherEngine   // fields=10 methods=7
+  field Controller C
+  field Boolean busy
+  field Boolean closed
+  field Int32 serial
+  field Int32 failures
+  field String city
+  field DateTime next
+  field WeatherSnapshot Snapshot
+  field String Message
+  field Action Changed
+  public Void add_Changed(Action value)
+  public Void remove_Changed(Action value)
+  public Void .ctor(Controller c)
+  public Void Update(Boolean force)
+  private Void Fetch()
+  private Void Notify()
+  public Void Stop()
+  class GlassBoard.WeatherEngine/<>c__DisplayClass14_0   // fields=1 methods=2
+    field String requested
+    public Void .ctor()
+    internal WeatherSnapshot <Fetch>b__0()
+  class GlassBoard.WeatherEngine/<Fetch>d__14   // fields=6 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field WeatherEngine <>4__this
+    field <>c__DisplayClass14_0 <>8__1
+    field Int32 <version>5__2
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.DesktopWindowPolicy   // fields=0 methods=6
+  private static Int32 GetWindowLong(IntPtr window, Int32 index)
+  private static Int32 SetWindowLong(IntPtr window, Int32 index, Int32 value)
+  private static Boolean SetWindowPos(IntPtr window, IntPtr after, Int32 x, Int32 y, Int32 width, Int32 height, UInt32 flags)
+  public static Int32 ToolStyle(Int32 style)
+  public static Void Apply(Window window)
+  public static Rect WorkArea(Window window, Boolean pointer, Boolean fullScreen)
+class GlassBoard.DockBehaviorChecks   // fields=0 methods=2
+  public static Void Run()
+  private static StackPanel FindPanel(DependencyObject parent)
+  class GlassBoard.DockBehaviorChecks/<>c   // fields=6 methods=7
+    field <>c <>9
+    field Func`2 <>9__0_0
+    field Func`2 <>9__0_1
+    field Func`2 <>9__0_2
+    field Func`2 <>9__0_3
+    field Func`2 <>9__1_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Run>b__0_0(Button b)
+    internal String <Run>b__0_1(Button b)
+    internal String <Run>b__0_2(Entry a)
+    internal Boolean <Run>b__0_3(Button b)
+    internal Boolean <FindPanel>b__1_0(Button b)
+class GlassBoard.DockOrderRules   // fields=0 methods=4
+  public static List`1 Ordered(Preferences prefs)
+  public static Void Normalize(Preferences prefs)
+  public static Boolean Move(Preferences prefs, String source, String target, Boolean before)
+  public static Boolean Step(Preferences prefs, String source, Int32 step)
+  class GlassBoard.DockOrderRules/<>c   // fields=5 methods=6
+    field <>c <>9
+    field Func`2 <>9__0_0
+    field Func`2 <>9__1_0
+    field Func`2 <>9__2_2
+    field Func`2 <>9__2_3
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Ordered>b__0_0(Entry a)
+    internal String <Normalize>b__1_0(Entry a)
+    internal String <Move>b__2_2(Entry a)
+    internal String <Move>b__2_3(Entry a)
+  class GlassBoard.DockOrderRules/<>c__DisplayClass2_0   // fields=2 methods=3
+    field String source
+    field String target
+    public Void .ctor()
+    internal Boolean <Move>b__0(Entry a)
+    internal Boolean <Move>b__1(Entry a)
+  class GlassBoard.DockOrderRules/<>c__DisplayClass3_0   // fields=1 methods=2
+    field String source
+    public Void .ctor()
+    internal Boolean <Step>b__0(Entry a)
+class GlassBoard.DockDropTarget   // fields=2 methods=1
+  field String Path
+  field Boolean Before
+  public Void .ctor()
+class GlassBoard.DockDropRules   // fields=0 methods=2
+  public static DockDropTarget OnIcon(Preferences prefs, String source, String target)
+  public static DockDropTarget OnGap(String source, String[] visible, Double[] centers, Double x)
+  class GlassBoard.DockDropRules/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Func`2 <>9__0_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal String <OnIcon>b__0_0(Entry a)
+  class GlassBoard.DockDropRules/<>c__DisplayClass0_0   // fields=2 methods=3
+    field String source
+    field String target
+    public Void .ctor()
+    internal Boolean <OnIcon>b__1(String p)
+    internal Boolean <OnIcon>b__2(String p)
+class GlassBoard.DockPointerResult   // fields=3 methods=1
+  field Boolean Click
+  field Boolean Dragged
+  field DockDropTarget Target
+  public Void .ctor()
+class GlassBoard.DockPointerGesture   // fields=7 methods=8
+  field String Source
+  field Double startX
+  field Double startY
+  field Double thresholdX
+  field Double thresholdY
+  field Boolean <Active>k__BackingField
+  field Boolean <Dragging>k__BackingField
+  public Boolean get_Active()
+  private Void set_Active(Boolean value)
+  public Boolean get_Dragging()
+  private Void set_Dragging(Boolean value)
+  public Void .ctor(String source, Double x, Double y, Double minimumX, Double minimumY)
+  public Void Move(Double x, Double y)
+  public DockPointerResult Release(Double x, Double y, Boolean inside, DockDropTarget target, Boolean allowClick)
+  public Void Cancel()
+class GlassBoard.WindowActivationRules   // fields=0 methods=3
+  public static String NormalizePath(String path)
+  public static String[] Executables(Entry entry)
+  public static Int64 Select(IEnumerable`1 windows, Int64 foreground, Int64 previous, Boolean ownForeground)
+  class GlassBoard.WindowActivationRules/<>c   // fields=4 methods=5
+    field <>c <>9
+    field Func`2 <>9__1_0
+    field Func`2 <>9__2_0
+    field Func`2 <>9__2_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Executables>b__1_0(String p)
+    internal Boolean <Select>b__2_0(Int64 h)
+    internal Int64 <Select>b__2_1(Int64 h)
+class GlassBoard.DockRevealRules   // fields=0 methods=1
+  public static Double[] Stops(Double current, Double target, Double intensity, Double top)
+class GlassBoard.DockWindow   // fields=36 methods=124
+  field DependencyProperty DragSuppressed
+  field Action dockPointerClick
+  field Boolean dockIconDragging
+  field Boolean dockPointerPreviousBusy
+  field DockPointerGesture dockPointer
+  field FrameworkElement dockPointerOwner
+  field Boolean dockPointerFromMenu
+  field DispatcherTimer dockPointerWatch
+  field Border dockPointerPreview
+  field TextBlock dockPointerLabel
+  field DependencyProperty LayoutKey
+  field Int32 revealSerial
+  field Int32 layoutSerial
+  field DockWheelState taskWheel
+  field Stopwatch taskClock
+  field DispatcherTimer taskHintTimer
+  field List`1 taskGroups
+  field String taskSignature
+  field Boolean externalDockDrag
+  field Boolean boardPinDragging
+  field TextBlock taskHint
+  field ContextMenu taskMenu
+  field Controller C
+  field StackPanel Items
+  field HwndSource source
+  field HotkeyManager hotkeys
+  field DispatcherTimer autoTimer
+  field DispatcherTimer runningTimer
+  field DateTime lastRunningScan
+  field AutoHidePolicy hidePolicy
+  field Boolean renderedHidden
+  field Double shownTop
+  field Rect dockWorkingArea
+  field Rect dockScreenArea
+  field Thumb moveGrip
+  field Boolean dragging
+  private static Int16 GetAsyncKeyState(Int32 key)
+  private Boolean get_DockInputBusy()
+  private Boolean DockDragSuppresses(FrameworkElement element)
+  private Void BindDockSource(FrameworkElement element, Entry entry, Action beforeDrag)
+  private Void BindPointerItem(FrameworkElement element, String key, String name, Action click, Action beforeDrag)
+  private Boolean StartDockPointer(FrameworkElement owner, Entry entry, Point point, Action beforeDrag)
+  private Boolean StartPointerItem(FrameworkElement owner, String key, String name, Action click, Point point, Action beforeDrag)
+  private Void MoveDockPointer(Point point)
+  private Boolean InsideDock(Point point)
+  private Void FinishDockPointer(Point point)
+  private Void ClearDockPointer()
+  private Void RouteDockPointer(Action action)
+  private Void CancelDockPointer(Boolean refresh)
+  private Void ClearDockMarkers()
+  private Void ResetDockHover()
+  private Void BindDockIcon(Button button, Entry entry)
+  private DockDropTarget ResolveDockDrop(String source, Double x)
+  private Void ShowDockDrop(DockDropTarget drop)
+  private Void InitDockPointer()
+  internal Void CheckPointerReorder()
+  private static String ItemKey(Button b)
+  private IEnumerable`1 get_TaskKeys()
+  private List`1 get_LayoutKeys()
+  internal Boolean MoveLayout(String source, String target, Boolean before)
+  internal Boolean StepLayout(String source, Int32 step)
+  private Void AddSystemButton(String key, Button button, Action action)
+  private Void BindLayoutButton(Button button, String key, String name, Action action)
+  private Void AddInsertMarker(Button button)
+  private Void ArrangeDockItems()
+  internal Void CheckMixedPointerReorder()
+  private Void StopDockLayoutMotion()
+  private Void AnimateDockLayout(Double oldLeft, Double oldWidth)
+  public Void AddDockControls(ContextMenu menu)
+  private Void InitializeBackgroundMove()
+  private Void BeginDockMove()
+  private Void FinishDockMove()
+  private Void AnimateDockVisibility(Boolean hide, Double target)
+  private Void InitTaskDock()
+  private Void ShowTaskHint(String text)
+  private Void SetTaskMode(Boolean running)
+  private Void ApplyTaskMode()
+  private Void AddTaskDockMenu(ContextMenu menu)
+  private static String TaskKey(RunningWindow window)
+  private Void ReadTaskGroups()
+  private String TaskSignature()
+  private Void RefreshTaskSnapshot()
+  private Void BuildTaskButtons(Int32 shown, Int32 slots)
+  private MenuItem TaskWindowItem(RunningWindow window)
+  private ContextMenu TaskWindowMenu(TaskGroup group)
+  private Void OpenTask(TaskGroup group, FrameworkElement owner)
+  private Void OpenTaskMenu(ContextMenu menu, UIElement owner)
+  private Void ActivateTask(IntPtr handle)
+  private static String[] DockPayload(IDataObject data)
+  private DockDropTarget ExternalDockTarget(Double x)
+  private Void DockExternalOver(Object sender, DragEventArgs e)
+  public Void BeginBoardPinDrag()
+  public Void EndBoardPinDrag()
+  internal Void CheckTaskDock()
+  private Void ReleaseCancelledExternalDrag()
+  private Void ClearExternalDockDrag()
+  public Double get_RestingTop()
+  public Void GamePolling(Boolean enabled)
+  public Void .ctor(Controller c)
+  private Void TrayWarning(String shortcuts)
+  private Boolean RegisterKey(HotkeySetting key)
+  private Void DisplayChanged(Object s, EventArgs e)
+  public Boolean ApplyHotkeys(List`1 candidate, String& error)
+  public Boolean HotkeyActive(Int32 id)
+  public String RetryHotkeys()
+  public List`1 SuspendHotkeys()
+  public Void ResumeHotkeys(List`1 keys)
+  public Void ReleaseHotkey()
+  private IntPtr Hook(IntPtr h, Int32 msg, IntPtr w, IntPtr l, Boolean& handled)
+  public Void Refresh(Boolean capture)
+  private Void UpdateAutoHide()
+  private Void UpdateRunning()
+  private static Color Accent(Int32 index)
+  private Button DockButton(String text, ImageSource icon, Action action, String tip, Entry entry)
+  private static Boolean SetSuspendState(Boolean hibernate, Boolean force, Boolean disableWake)
+  private Void AddQuickButtons()
+  private Void AddQuickButton(String key, String glyph, String title, String[] names, Action`1 action)
+  private Void Power(Int32 action)
+  private static Void .cctor()
+  private Double <ResolveDockDrop>b__27_1(Button b)
+  private Void <InitDockPointer>b__29_0(Object s, MouseEventArgs e)
+  private Void <InitDockPointer>b__29_1(Object s, MouseButtonEventArgs e)
+  private Void <InitDockPointer>b__29_2(Object s, MouseEventArgs e)
+  private Void <InitDockPointer>b__29_3(Object s, KeyEventArgs e)
+  private Void <InitDockPointer>b__29_4(Object s, EventArgs e)
+  private Void <InitDockPointer>b__29_9()
+  private Void <InitDockPointer>b__29_5(Object s, DependencyPropertyChangedEventArgs e)
+  private Void <InitDockPointer>b__29_6(Object s, EventArgs e)
+  private Void <InitializeBackgroundMove>b__49_0(Object s, MouseButtonEventArgs e)
+  private Void <InitTaskDock>b__63_0(Object s, EventArgs e)
+  private Void <InitTaskDock>b__63_1(Object s, MouseWheelEventArgs e)
+  private Void <InitTaskDock>b__63_2(Object s, DragEventArgs e)
+  private Void <InitTaskDock>b__63_3(Object s, DragEventArgs e)
+  private Void <InitTaskDock>b__63_4(Object s, DependencyPropertyChangedEventArgs e)
+  private Void <InitTaskDock>b__63_5(Object s, EventArgs e)
+  private TaskGroup <ReadTaskGroups>b__69_1(IGrouping`2 g)
+  private Double <ExternalDockTarget>b__79_1(Button b)
+  private Void <.ctor>b__103_0(Object s, CancelEventArgs e)
+  private Void <.ctor>b__103_10()
+  private Void <.ctor>b__103_1(Object s, DragStartedEventArgs e)
+  private Void <.ctor>b__103_2(Object s, DragDeltaEventArgs e)
+  private Void <.ctor>b__103_3(Object s, DragCompletedEventArgs e)
+  private Void <.ctor>b__103_4(Object s, EventArgs e)
+  private Void <.ctor>b__103_5(Object s, EventArgs e)
+  private Void <.ctor>b__103_6(Object s, EventArgs e)
+  private Void <.ctor>b__103_11(Int32 id)
+  private Void <.ctor>b__103_7(Object ss, RoutedEventArgs ee)
+  private Void <.ctor>b__103_8(Object s, RoutedEventArgs e)
+  private Void <.ctor>b__103_9(Object s, RoutedEventArgs e)
+  private Void <DisplayChanged>b__106_0()
+  private Void <Hook>b__113_0()
+  private Void <Refresh>b__114_0()
+  private Void <Refresh>b__114_1()
+  private Void <Refresh>b__114_2()
+  private Void <Refresh>b__114_3()
+  private Void <Refresh>b__114_4()
+  private Void <Refresh>b__114_5()
+  private Void <Refresh>b__114_6()
+  private Void <AddQuickButtons>b__120_0(Int32 i)
+  private Void <AddQuickButtons>b__120_1(Int32 i)
+  class GlassBoard.DockWindow/TaskGroup   // fields=3 methods=1
+    field String Key
+    field String Name
+    field List`1 Windows
+    public Void .ctor()
+  class GlassBoard.DockWindow/<>c   // fields=27 methods=28
+    field <>c <>9
+    field Func`2 <>9__24_0
+    field Func`2 <>9__27_0
+    field Func`2 <>9__28_0
+    field Func`2 <>9__28_2
+    field Func`2 <>9__30_0
+    field Func`2 <>9__30_1
+    field Func`2 <>9__30_2
+    field Func`2 <>9__34_0
+    field Func`2 <>9__41_0
+    field Func`2 <>9__42_0
+    field Predicate`1 <>9__42_1
+    field Func`2 <>9__43_2
+    field Func`2 <>9__43_0
+    field Func`2 <>9__69_0
+    field Func`2 <>9__69_2
+    field Func`2 <>9__70_0
+    field Func`2 <>9__70_1
+    field Func`2 <>9__71_0
+    field Action <>9__72_4
+    field Func`2 <>9__79_0
+    field Func`2 <>9__110_0
+    field Action <>9__114_8
+    field Func`2 <>9__114_12
+    field Func`2 <>9__115_0
+    field Func`2 <>9__116_0
+    field Action <>9__121_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <ClearDockMarkers>b__24_0(Border b)
+    internal Boolean <ResolveDockDrop>b__27_0(Button b)
+    internal Boolean <ShowDockDrop>b__28_0(Button b)
+    internal Boolean <ShowDockDrop>b__28_2(Border b)
+    internal Boolean <CheckPointerReorder>b__30_0(Button b)
+    internal Boolean <CheckPointerReorder>b__30_1(Button b)
+    internal Boolean <CheckPointerReorder>b__30_2(Button b)
+    internal String <get_TaskKeys>b__34_0(TaskGroup g)
+    internal Boolean <AddInsertMarker>b__41_0(Border b)
+    internal Boolean <ArrangeDockItems>b__42_0(Button b)
+    internal Boolean <ArrangeDockItems>b__42_1(Button b)
+    internal Boolean <CheckMixedPointerReorder>b__43_2(Button b)
+    internal Boolean <CheckMixedPointerReorder>b__43_0(Button b)
+    internal String <ReadTaskGroups>b__69_0(IGrouping`2 g)
+    internal Int64 <ReadTaskGroups>b__69_2(RunningWindow w)
+    internal Int64 <TaskSignature>b__70_0(RunningWindow w)
+    internal String <TaskSignature>b__70_1(RunningWindow w)
+    internal Boolean <RefreshTaskSnapshot>b__71_0(Button b)
+    internal Void <BuildTaskButtons>b__72_4()
+    internal Boolean <ExternalDockTarget>b__79_0(Button b)
+    internal HotkeySetting <SuspendHotkeys>b__110_0(HotkeySetting k)
+    internal Void <Refresh>b__114_8()
+    internal Boolean <Refresh>b__114_12(Border b)
+    internal Boolean <UpdateAutoHide>b__115_0(Button b)
+    internal Boolean <UpdateRunning>b__116_0(Border b)
+    internal Void <AddQuickButton>b__121_0()
+  class GlassBoard.DockWindow/<>c__DisplayClass104_0   // fields=2 methods=2
+    field DockWindow <>4__this
+    field String shortcuts
+    public Void .ctor()
+    internal Void <TrayWarning>b__0()
+  class GlassBoard.DockWindow/<>c__DisplayClass108_0   // fields=1 methods=2
+    field Int32 id
+    public Void .ctor()
+    internal Boolean <HotkeyActive>b__0(HotkeySetting k)
+  class GlassBoard.DockWindow/<>c__DisplayClass113_0   // fields=2 methods=2
+    field Int32 id
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Void <Hook>b__1()
+  class GlassBoard.DockWindow/<>c__DisplayClass114_0   // fields=2 methods=2
+    field Entry a
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Void <Refresh>b__7()
+  class GlassBoard.DockWindow/<>c__DisplayClass114_1   // fields=4 methods=3
+    field ContextMenu menu
+    field Button more
+    field DockWindow <>4__this
+    field Action <>9__11
+    public Void .ctor()
+    internal Void <Refresh>b__11()
+    internal Void <Refresh>b__9(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass114_2   // fields=3 methods=2
+    field MenuItem item
+    field Entry entry
+    field <>c__DisplayClass114_1 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <Refresh>b__10(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass118_0   // fields=6 methods=5
+    field DockWindow <>4__this
+    field Action action
+    field DockOptions o
+    field ScaleTransform scale
+    field TranslateTransform lift
+    field Action`1 animate
+    public Void .ctor()
+    internal Void <DockButton>b__0(Object s, RoutedEventArgs e)
+    internal Void <DockButton>b__1(Boolean hover)
+    internal Void <DockButton>b__2(Object s, MouseEventArgs e)
+    internal Void <DockButton>b__3(Object s, MouseEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass121_0   // fields=5 methods=3
+    field Action`1 action
+    field ContextMenu menu
+    field Button b
+    field DockWindow <>4__this
+    field Action open
+    public Void .ctor()
+    internal Void <AddQuickButton>b__1()
+    internal Void <AddQuickButton>b__2(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass121_1   // fields=2 methods=2
+    field Int32 index
+    field <>c__DisplayClass121_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <AddQuickButton>b__3(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass14_0   // fields=2 methods=2
+    field DockWindow <>4__this
+    field Entry entry
+    public Void .ctor()
+    internal Void <BindDockSource>b__0()
+  class GlassBoard.DockWindow/<>c__DisplayClass15_0   // fields=6 methods=2
+    field DockWindow <>4__this
+    field FrameworkElement element
+    field String key
+    field String name
+    field Action click
+    field Action beforeDrag
+    public Void .ctor()
+    internal Void <BindPointerItem>b__0(Object s, MouseButtonEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass16_0   // fields=2 methods=2
+    field DockWindow <>4__this
+    field Entry entry
+    public Void .ctor()
+    internal Void <StartDockPointer>b__0()
+  class GlassBoard.DockWindow/<>c__DisplayClass21_0   // fields=1 methods=2
+    field FrameworkElement owner
+    public Void .ctor()
+    internal Void <ClearDockPointer>b__0()
+  class GlassBoard.DockWindow/<>c__DisplayClass28_0   // fields=1 methods=2
+    field DockDropTarget drop
+    public Void .ctor()
+    internal Boolean <ShowDockDrop>b__1(Button b)
+  class GlassBoard.DockWindow/<>c__DisplayClass29_0   // fields=2 methods=2
+    field MouseEventArgs e
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Void <InitDockPointer>b__7()
+  class GlassBoard.DockWindow/<>c__DisplayClass29_1   // fields=2 methods=2
+    field MouseButtonEventArgs e
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Void <InitDockPointer>b__8()
+  class GlassBoard.DockWindow/<>c__DisplayClass39_0   // fields=2 methods=3
+    field DockWindow <>4__this
+    field String key
+    public Void .ctor()
+    internal Void <AddSystemButton>b__0(Object s, RoutedEventArgs e)
+    internal Void <AddSystemButton>b__1(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass42_0   // fields=1 methods=2
+    field String key
+    public Void .ctor()
+    internal Boolean <ArrangeDockItems>b__2(Button x)
+  class GlassBoard.DockWindow/<>c__DisplayClass43_0   // fields=2 methods=2
+    field String key
+    field Func`2 <>9__1
+    public Void .ctor()
+    internal Boolean <CheckMixedPointerReorder>b__1(Button b)
+  class GlassBoard.DockWindow/<>c__DisplayClass43_1   // fields=1 methods=2
+    field Boolean clicked
+    public Void .ctor()
+    internal Void <CheckMixedPointerReorder>b__3()
+  class GlassBoard.DockWindow/<>c__DisplayClass47_0   // fields=2 methods=2
+    field Int32 serial
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Void <AnimateDockLayout>b__0(Object s, EventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass48_0   // fields=5 methods=7
+    field MenuItem movable
+    field DockWindow <>4__this
+    field MenuItem spring
+    field MenuItem automatic
+    field MenuItem settingsIcon
+    public Void .ctor()
+    internal Void <AddDockControls>b__0(Object s, RoutedEventArgs e)
+    internal Void <AddDockControls>b__1(Object s, RoutedEventArgs e)
+    internal Void <AddDockControls>b__2(Object s, RoutedEventArgs e)
+    internal Void <AddDockControls>b__3(Object s, RoutedEventArgs e)
+    internal Void <AddDockControls>b__4(Object s, RoutedEventArgs e)
+    internal Void <AddDockControls>b__5(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass52_0   // fields=2 methods=3
+    field Int32 serial
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Void <AnimateDockVisibility>b__0(Object s, EventArgs e)
+    internal Void <AnimateDockVisibility>b__1(Object s, EventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass67_0   // fields=3 methods=4
+    field DockWindow <>4__this
+    field MenuItem common
+    field MenuItem running
+    public Void .ctor()
+    internal Void <AddTaskDockMenu>b__0(Object s, RoutedEventArgs e)
+    internal Void <AddTaskDockMenu>b__1(Object s, RoutedEventArgs e)
+    internal Void <AddTaskDockMenu>b__2(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass69_0   // fields=1 methods=2
+    field List`1 windows
+    public Void .ctor()
+    internal Boolean <ReadTaskGroups>b__3(Entry a)
+  class GlassBoard.DockWindow/<>c__DisplayClass72_0   // fields=2 methods=3
+    field List`1 taskOrder
+    field DockWindow <>4__this
+    public Void .ctor()
+    internal Int32 <BuildTaskButtons>b__0(TaskGroup g)
+    internal Void <BuildTaskButtons>b__1()
+  class GlassBoard.DockWindow/<>c__DisplayClass72_1   // fields=3 methods=3
+    field TaskGroup selected
+    field Button button
+    field <>c__DisplayClass72_0 CS$<>8__locals1
+    public Void .ctor()
+    internal Void <BuildTaskButtons>b__2()
+    internal Void <BuildTaskButtons>b__3()
+  class GlassBoard.DockWindow/<>c__DisplayClass72_2   // fields=3 methods=2
+    field ContextMenu menu
+    field Button more
+    field <>c__DisplayClass72_0 CS$<>8__locals2
+    public Void .ctor()
+    internal Void <BuildTaskButtons>b__5(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass73_0   // fields=2 methods=2
+    field DockWindow <>4__this
+    field RunningWindow selected
+    public Void .ctor()
+    internal Void <TaskWindowItem>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.DockWindow/<>c__DisplayClass75_0   // fields=1 methods=2
+    field TaskGroup group
+    public Void .ctor()
+    internal Boolean <OpenTask>b__0(Button b)
+  class GlassBoard.DockWindow/<>c__DisplayClass76_0   // fields=2 methods=2
+    field DockWindow <>4__this
+    field ContextMenu menu
+    public Void .ctor()
+    internal Void <OpenTaskMenu>b__0(Object s, RoutedEventArgs e)
+class GlassBoard.DockLayoutRules   // fields=6 methods=10
+  field String Apps
+  field String Computer
+  field String Power
+  field String Network
+  field String Settings
+  field String[] SystemKeys
+  public static Boolean SystemItem(String key)
+  public static Boolean Visible(DockOptions o, String key)
+  private static List`1 Merge(IEnumerable`1 saved, List`1 apps)
+  public static List`1 Common(Preferences p, Boolean visible)
+  public static List`1 Running(Preferences p, IEnumerable`1 tasks, Boolean visible)
+  public static Void SyncApps(Preferences p)
+  public static Boolean Move(Preferences p, String source, String target, Boolean before, IEnumerable`1 tasks)
+  public static Boolean Step(Preferences p, String source, Int32 step, IEnumerable`1 tasks)
+  public static DockDropTarget OnIcon(Preferences p, String source, String target, IEnumerable`1 tasks)
+  private static Void .cctor()
+  class GlassBoard.DockLayoutRules/<>c   // fields=6 methods=7
+    field <>c <>9
+    field Predicate`1 <>9__8_1
+    field Func`2 <>9__9_0
+    field Predicate`1 <>9__10_1
+    field Func`2 <>9__11_0
+    field Func`2 <>9__12_2
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Merge>b__8_1(String k)
+    internal String <Common>b__9_0(Entry a)
+    internal Boolean <Running>b__10_1(String k)
+    internal String <SyncApps>b__11_0(Entry a)
+    internal Boolean <Move>b__12_2(String k)
+  class GlassBoard.DockLayoutRules/<>c__DisplayClass10_0   // fields=1 methods=2
+    field Preferences p
+    public Void .ctor()
+    internal Boolean <Running>b__0(String k)
+  class GlassBoard.DockLayoutRules/<>c__DisplayClass12_0   // fields=2 methods=3
+    field String source
+    field String target
+    public Void .ctor()
+    internal Boolean <Move>b__0(String k)
+    internal Boolean <Move>b__1(String k)
+  class GlassBoard.DockLayoutRules/<>c__DisplayClass13_0   // fields=1 methods=2
+    field String source
+    public Void .ctor()
+    internal Boolean <Step>b__0(String k)
+  class GlassBoard.DockLayoutRules/<>c__DisplayClass14_0   // fields=2 methods=3
+    field String source
+    field String target
+    public Void .ctor()
+    internal Boolean <OnIcon>b__0(String k)
+    internal Boolean <OnIcon>b__1(String k)
+  class GlassBoard.DockLayoutRules/<>c__DisplayClass8_0   // fields=1 methods=2
+    field HashSet`1 allowed
+    public Void .ctor()
+    internal Boolean <Merge>b__0(String k)
+  class GlassBoard.DockLayoutRules/<>c__DisplayClass9_0   // fields=1 methods=2
+    field Preferences p
+    public Void .ctor()
+    internal Boolean <Common>b__1(String k)
+class GlassBoard.DockWheelState   // fields=3 methods=5
+  field Boolean <Running>k__BackingField
+  field Int64 last
+  field Int32 accumulated
+  public Boolean get_Running()
+  private Void set_Running(Boolean value)
+  public Boolean Scroll(Int32 delta, Int64 milliseconds)
+  public Void Set(Boolean running)
+  public Void .ctor()
+class GlassBoard.DockPinResult   // fields=3 methods=1
+  field Int32 Added
+  field Int32 Skipped
+  field List`1 Paths
+  public Void .ctor()
+class GlassBoard.DockPinRules   // fields=0 methods=1
+  public static DockPinResult Apply(Preferences prefs, IEnumerable`1 candidates, DockDropTarget target)
+  class GlassBoard.DockPinRules/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__0_6
+    field Func`2 <>9__0_3
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Apply>b__0_6(Entry a)
+    internal String <Apply>b__0_3(Entry a)
+  class GlassBoard.DockPinRules/<>c__DisplayClass0_0   // fields=2 methods=4
+    field DockDropTarget target
+    field List`1 moved
+    public Void .ctor()
+    internal Boolean <Apply>b__0(Entry a)
+    internal Boolean <Apply>b__1(Entry a)
+    internal Boolean <Apply>b__2(Entry a)
+  class GlassBoard.DockPinRules/<>c__DisplayClass0_1   // fields=1 methods=3
+    field Entry candidate
+    public Void .ctor()
+    internal Boolean <Apply>b__4(Entry a)
+    internal Boolean <Apply>b__5(Entry a)
+class GlassBoard.EntryPathRules   // fields=0 methods=2
+  public static String Normalize(String path)
+  public static String Name(String path)
+class GlassBoard.BoardIconRules   // fields=0 methods=2
+  public static Int32 Columns(Double width, Double icon, Double gap)
+  public static Int32 Rows(Double height, Double icon, Double gap)
+class GlassBoard.Workspace   // fields=2 methods=2
+  field String Name
+  field List`1 Paths
+  public Void Normalize()
+  public Void .ctor()
+  class GlassBoard.Workspace/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Func`2 <>9__2_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Normalize>b__2_0(String p)
+class GlassBoard.PlacementOptions   // fields=11 methods=5
+  field Nullable`1 DockCenter
+  field Nullable`1 DockLeft
+  field Nullable`1 DockTop
+  field Nullable`1 PanelLeft
+  field Nullable`1 PanelTop
+  field Nullable`1 PanelWidth
+  field Nullable`1 PanelHeight
+  field Nullable`1 WidgetLeft
+  field Nullable`1 WidgetTop
+  field Boolean DockLocked
+  field Boolean PanelLocked
+  private Void Defaults(StreamingContext context)
+  public PlacementOptions Copy()
+  public Void Normalize()
+  private static Nullable`1 Valid(Nullable`1 x)
+  public Void .ctor()
+class GlassBoard.ClockAlarm   // fields=7 methods=3
+  field String Id
+  field String Label
+  field Int32 Hour
+  field Int32 Minute
+  field Boolean Enabled
+  field Boolean Daily
+  field DateTime DueLocal
+  public ClockAlarm Copy()
+  public Void Normalize()
+  public Void .ctor()
+class GlassBoard.ClockRules   // fields=0 methods=8
+  public static DateTime Next(Int32 hour, Int32 minute, DateTime now)
+  public static Double Remaining(WidgetOptions o, DateTime utc)
+  public static Void Start(WidgetOptions o, Double seconds, DateTime utc)
+  public static Void Pause(WidgetOptions o, DateTime utc)
+  public static Void Resume(WidgetOptions o, DateTime utc)
+  public static Void Cancel(WidgetOptions o)
+  public static List`1 Check(WidgetOptions o, DateTime local, DateTime utc)
+  public static String Display(WidgetOptions o, DateTime utc)
+  class GlassBoard.ClockRules/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__7_0
+    field Func`2 <>9__7_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Display>b__7_0(ClockAlarm a)
+    internal DateTime <Display>b__7_1(ClockAlarm a)
+class GlassBoard.WidgetOptions   // fields=35 methods=10
+  field Boolean Clock
+  field Boolean Weather
+  field Boolean Music
+  field Boolean Notes
+  field Int32 ClockPanel
+  field Int32 WeatherPanel
+  field Int32 MusicPanel
+  field Int32 NotesPanel
+  field Boolean CompactMusic
+  field Boolean Topmost
+  field Boolean Locked
+  field String MusicMode
+  field List`1 Playlist
+  field Int32 TrackIndex
+  field Int32 RepeatMode
+  field Boolean Shuffle
+  field Boolean NativeMediaCompatibility
+  field Boolean AutoNativeMediaCompatibility
+  field List`1 Panels
+  field List`1 Alarms
+  field Nullable`1 TimerDueUtc
+  field Double TimerPausedSeconds
+  field String City
+  field Double Volume
+  field Double OpacityPercent
+  field Boolean HideControls
+  field MaterialOptions Material
+  field Nullable`1 EnhancedMusic
+  field Nullable`1 ShowLyrics
+  field Boolean LyricTranslation
+  field Int32 LyricOffset
+  field Boolean StandaloneLyrics
+  field Nullable`1 LyricLeft
+  field Nullable`1 LyricTop
+  field List`1 Styles
+  private Void Defaults(StreamingContext context)
+  public Void Normalize()
+  private static Int32 Panel(Int32 value)
+  public WidgetOptions Copy()
+  public WidgetPanelPosition Position(Int32 id)
+  public Void Separate()
+  public Void Fuse()
+  public Void NormalizeStyles()
+  public WidgetStyle Style(String kind)
+  public Void .ctor()
+  class GlassBoard.WidgetOptions/<>c   // fields=13 methods=14
+    field <>c <>9
+    field Func`2 <>9__28_0
+    field Func`2 <>9__28_1
+    field Func`2 <>9__28_2
+    field Func`2 <>9__28_3
+    field Func`2 <>9__28_4
+    field Func`2 <>9__30_0
+    field Func`2 <>9__30_1
+    field Func`2 <>9__30_2
+    field Func`2 <>9__30_3
+    field Func`2 <>9__42_0
+    field Func`2 <>9__42_1
+    field Func`2 <>9__42_2
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Normalize>b__28_0(ClockAlarm a)
+    internal Boolean <Normalize>b__28_1(String p)
+    internal Boolean <Normalize>b__28_2(WidgetPanelPosition p)
+    internal Int32 <Normalize>b__28_3(WidgetPanelPosition p)
+    internal WidgetPanelPosition <Normalize>b__28_4(IGrouping`2 g)
+    internal WidgetStyle <Copy>b__30_0(WidgetStyle x)
+    internal ClockAlarm <Copy>b__30_1(ClockAlarm a)
+    internal Boolean <Copy>b__30_2(WidgetPanelPosition p)
+    internal WidgetPanelPosition <Copy>b__30_3(WidgetPanelPosition p)
+    internal Boolean <NormalizeStyles>b__42_0(WidgetStyle x)
+    internal String <NormalizeStyles>b__42_1(WidgetStyle x)
+    internal WidgetStyle <NormalizeStyles>b__42_2(IGrouping`2 g)
+  class GlassBoard.WidgetOptions/<>c__DisplayClass31_0   // fields=1 methods=2
+    field Int32 id
+    public Void .ctor()
+    internal Boolean <Position>b__0(WidgetPanelPosition x)
+  class GlassBoard.WidgetOptions/<>c__DisplayClass43_0   // fields=1 methods=2
+    field String kind
+    public Void .ctor()
+    internal Boolean <Style>b__0(WidgetStyle x)
+class GlassBoard.WidgetPanelPosition   // fields=7 methods=3
+  field Nullable`1 HideControls
+  field Int32 Id
+  field Nullable`1 Left
+  field Nullable`1 Top
+  field Nullable`1 Width
+  field Nullable`1 Height
+  field Nullable`1 OpacityPercent
+  public Void Normalize()
+  public WidgetPanelPosition Copy()
+  public Void .ctor()
+class GlassBoard.WidgetRegistry`1   // fields=1 methods=6
+  field Dictionary`2 items
+  public List`1 get_Values()
+  public List`1 get_Keys()
+  public Boolean TryGetValue(Int32 id, T& value)
+  public Void Add(Int32 id, T value)
+  public Boolean Remove(Int32 id, T expected)
+  public Void .ctor()
+class GlassBoard.WidgetRules   // fields=2 methods=10
+  field String[] Kinds
+  field String[] Names
+  public static Boolean Enabled(WidgetOptions o, String kind)
+  public static Int32 Panel(WidgetOptions o, String kind)
+  public static Void Assign(WidgetOptions o, String kind, Int32 panel)
+  public static Void Enable(WidgetOptions o, String kind, Boolean value)
+  public static Dictionary`2 Layout(WidgetOptions o)
+  public static Void Recover(WidgetOptions o)
+  public static Int32 FreePanel(WidgetOptions o, String kind)
+  public static Int32 NextTrack(Int32 current, Int32 count, Int32 repeat, Boolean shuffle, Int32 random, Boolean ended)
+  public static String Duration(Double seconds)
+  private static Void .cctor()
+  class GlassBoard.WidgetRules/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__6_2
+    field Func`2 <>9__6_3
+    private static Void .cctor()
+    public Void .ctor()
+    internal Int32 <Layout>b__6_2(IGrouping`2 g)
+    internal List`1 <Layout>b__6_3(IGrouping`2 g)
+  class GlassBoard.WidgetRules/<>c__DisplayClass6_0   // fields=1 methods=3
+    field WidgetOptions o
+    public Void .ctor()
+    internal Boolean <Layout>b__0(String k)
+    internal Int32 <Layout>b__1(String k)
+  class GlassBoard.WidgetRules/<>c__DisplayClass8_0   // fields=3 methods=4
+    field String kind
+    field WidgetOptions o
+    field HashSet`1 used
+    public Void .ctor()
+    internal Boolean <FreePanel>b__0(String k)
+    internal Int32 <FreePanel>b__1(String k)
+    internal Boolean <FreePanel>b__2(Int32 p)
+class GlassBoard.WidgetSizing   // fields=0 methods=3
+  public static Nullable`1 Dimension(Nullable`1 value, Double min, Double max)
+  public static Double MinimumHeight(Double natural, Double available)
+  public static Double Background(WidgetOptions options, WidgetPanelPosition panel)
+class GlassBoard.StartupEntryRules   // fields=0 methods=6
+  public static String Leaf(String path)
+  public static String Stem(String path)
+  public static Boolean Auxiliary(String path)
+  public static Boolean GameUri(String value)
+  public static Boolean Candidate(String path)
+  public static String ReadUrl(String path)
+  class GlassBoard.StartupEntryRules/<>c__DisplayClass2_0   // fields=1 methods=2
+    field String name
+    public Void .ctor()
+    internal Boolean <Auxiliary>b__0(String x)
+class GlassBoard.AutoGroupRules   // fields=3 methods=11
+  field List`1 catalog
+  field Boolean loaded
+  field Object gate
+  private static Boolean Letter(Char c)
+  private static Boolean Match(String text, String term)
+  public static String Canonical(String name)
+  private static String Words(String name)
+  public static String Identity(Entry a)
+  public static Int32 LoadCatalog(IEnumerable`1 lines)
+  public static Void ReloadCatalog()
+  public static String Guess(Entry entry, Preferences prefs)
+  public static String Guess(Entry entry)
+  public static Int32 ApplyUnassigned(Preferences prefs)
+  private static Void .cctor()
+  class GlassBoard.AutoGroupRules/<>c   // fields=4 methods=5
+    field <>c <>9
+    field Func`2 <>9__3_0
+    field Func`2 <>9__8_0
+    field Func`2 <>9__8_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Char <Words>b__3_0(Char c)
+    internal Boolean <LoadCatalog>b__8_0(String[] e)
+    internal Int32 <LoadCatalog>b__8_1(String[] e)
+  class GlassBoard.AutoGroupRules/<>c__DisplayClass11_0   // fields=1 methods=4
+    field String[] rule
+    public Void .ctor()
+    internal Boolean <Guess>b__0(String t)
+    internal Boolean <Guess>b__1(String t)
+    internal Boolean <Guess>b__2(String t)
+class GlassBoard.MediaTimeline   // fields=0 methods=2
+  public static Double Position(Double position, Double duration, Boolean playing, Double rate, Double age)
+  public static Double ClampSeek(Double seconds, Double minimum, Double maximum, Double duration)
+class GlassBoard.MediaSeekQueue   // fields=2 methods=4
+  field Nullable`1 value
+  field String key
+  public Void Put(Double seconds, String track)
+  public Boolean Take(String track, Double& seconds)
+  public Void Clear()
+  public Void .ctor()
+class GlassBoard.StartupRules   // fields=2 methods=9
+  field String[] Modes
+  field String[] Names
+  public static String Command(String path)
+  public static Boolean Enabled(String target, Byte[] approved)
+  public static String Mode(String value)
+  public static Boolean MissingTask(Exception error)
+  private static String Escape(String value)
+  public static String TaskXml(String path, String sid, String mode)
+  public static String TaskMode(String xml)
+  public static String TaskCommand(String xml)
+  private static Void .cctor()
+class GlassBoard.NoteItem   // fields=5 methods=8
+  field String Id
+  field String Body
+  field String title
+  field PropertyChangedEventHandler PropertyChanged
+  field Int64 Updated
+  public String get_Title()
+  public Void set_Title(String value)
+  public String get_DisplayTitle()
+  public Void add_PropertyChanged(PropertyChangedEventHandler value)
+  public Void remove_PropertyChanged(PropertyChangedEventHandler value)
+  public Void Normalize()
+  public virtual String ToString()
+  public Void .ctor()
+class GlassBoard.NoteBook   // fields=2 methods=5
+  field List`1 Items
+  field String SelectedId
+  public Void Normalize()
+  public NoteItem get_Selected()
+  public Void .ctor()
+  private Boolean <Normalize>b__2_3(NoteItem n)
+  private Boolean <get_Selected>b__4_0(NoteItem n)
+  class GlassBoard.NoteBook/<>c   // fields=4 methods=5
+    field <>c <>9
+    field Func`2 <>9__2_0
+    field Func`2 <>9__2_1
+    field Func`2 <>9__2_2
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Normalize>b__2_0(NoteItem n)
+    internal String <Normalize>b__2_1(NoteItem n)
+    internal NoteItem <Normalize>b__2_2(IGrouping`2 g)
+class GlassBoard.AppearanceScheme   // fields=19 methods=2
+  field Int32 Version
+  field String Name
+  field Boolean Light
+  field Boolean BoardHideSearch
+  field Boolean BoardHideGroups
+  field Boolean BoardHideFolders
+  field Int32 PanelSize
+  field Double BoardIconSize
+  field Double BoardIconGap
+  field Double OpacityPercent
+  field Double DockGap
+  field DockOptions Dock
+  field MaterialOptions BoardMaterial
+  field PlacementOptions Placement
+  field WidgetOptions Widgets
+  field List`1 Apps
+  field List`1 Groups
+  field List`1 DockOrder
+  field Dictionary`2 Icons
+  private Void Defaults(StreamingContext context)
+  public Void .ctor()
+class GlassBoard.FeatureRules   // fields=0 methods=19
+  public static String ImportGroup(Preferences prefs, Entry entry, String target)
+  public static Void NormalizeMemberships(Entry a)
+  public static Boolean InGroup(Entry a, String group)
+  public static IEnumerable`1 Memberships(Entry a)
+  public static Void AddMembership(Entry a, String group)
+  public static Void RemoveMembership(Entry a, String group)
+  public static Int32 AddShared(Preferences p, IEnumerable`1 paths, String group)
+  public static Int32 Transfer(Preferences p, IEnumerable`1 paths, String from, String to)
+  public static String GroupName(Entry entry)
+  public static List`1 Groups(IEnumerable`1 groups, IEnumerable`1 apps)
+  public static Int32 Move(Preferences p, IEnumerable`1 paths, String group)
+  public static Void RenameGroup(Preferences p, String before, String after)
+  public static Void DeleteGroup(Preferences p, String group)
+  public static Entry Copy(Entry a)
+  public static AppearanceScheme Capture(Preferences p, String name)
+  public static Void Apply(Preferences p, AppearanceScheme scheme)
+  public static UInt32 AutoHideState(UInt32 original, Boolean enabled)
+  public static Double Position(Double desired, Double origin, Double extent, Double length)
+  public static String WeatherLabel(Int32 code)
+  class GlassBoard.FeatureRules/<>c   // fields=8 methods=9
+    field <>c <>9
+    field Func`2 <>9__1_0
+    field Func`2 <>9__1_1
+    field Func`2 <>9__3_0
+    field Func`2 <>9__9_0
+    field Func`2 <>9__9_1
+    field Func`2 <>9__15_0
+    field Func`2 <>9__15_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <NormalizeMemberships>b__1_0(String g)
+    internal String <NormalizeMemberships>b__1_1(String g)
+    internal Boolean <Memberships>b__3_0(String g)
+    internal String <Groups>b__9_0(String s)
+    internal Boolean <Groups>b__9_1(String s)
+    internal Boolean <Apply>b__15_0(Entry a)
+    internal String <Apply>b__15_1(Entry a)
+  class GlassBoard.FeatureRules/<>c__DisplayClass10_0   // fields=1 methods=2
+    field HashSet`1 set
+    public Void .ctor()
+    internal Boolean <Move>b__0(Entry a)
+  class GlassBoard.FeatureRules/<>c__DisplayClass11_0   // fields=3 methods=4
+    field String after
+    field String before
+    field Func`2 <>9__2
+    public Void .ctor()
+    internal Boolean <RenameGroup>b__0(String g)
+    internal String <RenameGroup>b__2(String g)
+    internal String <RenameGroup>b__1(String g)
+  class GlassBoard.FeatureRules/<>c__DisplayClass12_0   // fields=3 methods=3
+    field Preferences p
+    field String group
+    field Func`2 <>9__1
+    public Void .ctor()
+    internal Boolean <DeleteGroup>b__1(String k)
+    internal Boolean <DeleteGroup>b__0(String g)
+  class GlassBoard.FeatureRules/<>c__DisplayClass15_0   // fields=1 methods=2
+    field HashSet`1 known
+    public Void .ctor()
+    internal Boolean <Apply>b__2(Entry a)
+  class GlassBoard.FeatureRules/<>c__DisplayClass1_0   // fields=1 methods=2
+    field Entry a
+    public Void .ctor()
+    internal Boolean <NormalizeMemberships>b__2(String g)
+  class GlassBoard.FeatureRules/<>c__DisplayClass2_0   // fields=1 methods=2
+    field String group
+    public Void .ctor()
+    internal Boolean <InGroup>b__0(String g)
+  class GlassBoard.FeatureRules/<>c__DisplayClass5_0   // fields=1 methods=2
+    field String group
+    public Void .ctor()
+    internal Boolean <RemoveMembership>b__0(String g)
+  class GlassBoard.FeatureRules/<>c__DisplayClass6_0   // fields=2 methods=2
+    field HashSet`1 set
+    field Func`2 <>9__0
+    public Void .ctor()
+    internal Boolean <AddShared>b__0(Entry a)
+  class GlassBoard.FeatureRules/<>c__DisplayClass7_0   // fields=3 methods=2
+    field HashSet`1 set
+    field String from
+    field Func`2 <>9__0
+    public Void .ctor()
+    internal Boolean <Transfer>b__0(Entry a)
+class GlassBoard.AutoHidePolicy   // fields=2 methods=2
+  field Boolean Hidden
+  field DateTime lastSeen
+  public Boolean Update(DateTime now, Boolean enabled, Boolean over, Boolean edge, Boolean blocked, Double delay)
+  public Void .ctor()
+class GlassBoard.TaskbarAutoHide   // fields=0 methods=10
+  private static UIntPtr SHAppBarMessage(UInt32 message, APPBARDATA& data)
+  private static IntPtr FindWindow(String cls, String name)
+  private static String get_Journal()
+  private static APPBARDATA Data()
+  private static UInt32 State()
+  public static Boolean get_Enabled()
+  private static Void Apply(UInt32 state)
+  public static Void Set(Boolean enabled)
+  public static Void Restore()
+  public static Void ShowAndClear()
+  class GlassBoard.TaskbarAutoHide/RECT   // fields=4 methods=0
+    field Int32 Left
+    field Int32 Top
+    field Int32 Right
+    field Int32 Bottom
+  class GlassBoard.TaskbarAutoHide/APPBARDATA   // fields=6 methods=0
+    field UInt32 Size
+    field IntPtr Window
+    field UInt32 Message
+    field UInt32 Edge
+    field RECT Rect
+    field IntPtr Param
+class GlassBoard.FeatureUi   // fields=1 methods=8
+  field BoundedCache`2 customIconCache
+  public static String PickFolder(Window window, String description)
+  public static HotkeySetting Record(Window owner, Int32 action)
+  public static Window Dialog(String title, Window owner, Double width, Double height)
+  public static Button Button(String text, Action action)
+  public static String Ask(Window owner, String title, String value)
+  public static String StoreIcon(String path)
+  public static ImageSource Icon(Entry entry, Boolean showShortcutOverlays, Boolean sharper)
+  private static Void .cctor()
+  class GlassBoard.FeatureUi/<>c__DisplayClass1_0   // fields=4 methods=3
+    field Window w
+    field HotkeySetting captured
+    field TextBlock hint
+    field Int32 action
+    public Void .ctor()
+    internal Void <Record>b__0(Object s, KeyEventArgs e)
+    internal Void <Record>b__1(Object s, KeyEventArgs e)
+  class GlassBoard.FeatureUi/<>c__DisplayClass3_0   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <Button>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.FeatureUi/<>c__DisplayClass4_0   // fields=4 methods=4
+    field TextBox text
+    field String result
+    field Window w
+    field Button apply
+    public Void .ctor()
+    internal Void <Ask>b__0()
+    internal Void <Ask>b__1(Object s, RoutedEventArgs e)
+    internal Void <Ask>b__2(Object s, KeyEventArgs e)
+class GlassBoard.SchemeStore   // fields=0 methods=6
+  public static String get_Folder()
+  public static String[] Files()
+  public static AppearanceScheme Load(String path)
+  public static Void Save(AppearanceScheme data, String path)
+  public static Void Embed(AppearanceScheme data)
+  public static Void Materialize(AppearanceScheme data)
+  class GlassBoard.SchemeStore/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__5_0
+    field Func`2 <>9__6_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Embed>b__5_0(Entry a)
+    internal Boolean <Materialize>b__6_0(Entry a)
+class GlassBoard.FeedbackChecks   // fields=0 methods=1
+  public static Void Run()
+  class GlassBoard.FeedbackChecks/Probe   // fields=0 methods=2
+    public Void .ctor()
+    public Void CheckTransparency()
+    class GlassBoard.FeedbackChecks/Probe/<>c   // fields=2 methods=3
+      field <>c <>9
+      field Func`2 <>9__1_0
+      private static Void .cctor()
+      public Void .ctor()
+      internal Boolean <CheckTransparency>b__1_0(Border b)
+class GlassBoard.FileShellActions   // fields=0 methods=3
+  private static Boolean ShellExecuteEx(SHELLEXECUTEINFO& info)
+  public static Void Properties(String path)
+  public static Void Location(Entry entry)
+  class GlassBoard.FileShellActions/SHELLEXECUTEINFO   // fields=15 methods=0
+    field Int32 Size
+    field UInt32 Mask
+    field IntPtr Window
+    field String Verb
+    field String File
+    field String Parameters
+    field String Directory
+    field Int32 Show
+    field IntPtr Instance
+    field IntPtr IdList
+    field String Class
+    field IntPtr ClassKey
+    field UInt32 Hotkey
+    field IntPtr Icon
+    field IntPtr Process
+class GlassBoard.FullscreenState   // fields=0 methods=14
+  private static IntPtr GetForegroundWindow()
+  private static Boolean GetWindowRect(IntPtr window, RECT& rect)
+  private static IntPtr MonitorFromWindow(IntPtr window, UInt32 flags)
+  private static Boolean GetMonitorInfo(IntPtr monitor, MONITORINFO& info)
+  private static Int32 GetClassName(IntPtr window, StringBuilder text, Int32 length)
+  private static UInt32 GetWindowThreadProcessId(IntPtr window, UInt32& id)
+  public static Boolean Active()
+  private static Int32 GetSystemMetrics(Int32 )
+  private static IntPtr WindowFromPoint(Int64 )
+  private static IntPtr GetAncestor(IntPtr , Int32 )
+  private static Int32 GetWindowLongW(IntPtr , Int32 )
+  private static IntPtr GetForegroundWindow()
+  private static IntPtr GetShellWindow()
+  private static Boolean ShowWindow(IntPtr , Int32 )
+  class GlassBoard.FullscreenState/RECT   // fields=4 methods=0
+    field Int32 Left
+    field Int32 Top
+    field Int32 Right
+    field Int32 Bottom
+  class GlassBoard.FullscreenState/MONITORINFO   // fields=4 methods=0
+    field Int32 Size
+    field RECT Monitor
+    field RECT Work
+    field UInt32 Flags
+class GlassBoard.LayoutRules   // fields=0 methods=5
+  public static Int32 Pages(Int32 count, Int32 capacity)
+  public static Boolean Matches(String name, String query)
+  public static Double GlassOpacity(Double value)
+  public static Boolean AllowImport(String path, IEnumerable`1 removed, Boolean manual)
+  public static Double Clamp(Double value, Double min, Double max, Double fallback)
+  class GlassBoard.LayoutRules/<>c__DisplayClass1_0   // fields=1 methods=2
+    field String name
+    public Void .ctor()
+    internal Boolean <Matches>b__0(String word)
+  class GlassBoard.LayoutRules/<>c__DisplayClass3_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal Boolean <AllowImport>b__0(String p)
+class GlassBoard.HotkeySetting   // fields=4 methods=2
+  field Int32 ActionId
+  field UInt32 Modifiers
+  field UInt32 Key
+  field Boolean Enabled
+  public HotkeySetting Copy()
+  public Void .ctor()
+class GlassBoard.HotkeyRules   // fields=3 methods=7
+  field String[] Actions
+  field UInt32[] ModifierValues
+  field String[] ModifierNames
+  public static List`1 Defaults()
+  public static Dictionary`2 Keys()
+  public static String Label(HotkeySetting key)
+  public static String Validate(List`1 keys)
+  public static List`1 Normalize(List`1 keys)
+  public static Boolean Same(List`1 first, List`1 second)
+  private static Void .cctor()
+  class GlassBoard.HotkeyRules/<>c   // fields=11 methods=12
+    field <>c <>9
+    field Func`3 <>9__3_0
+    field Func`2 <>9__6_0
+    field Func`2 <>9__6_1
+    field Func`2 <>9__6_2
+    field Func`2 <>9__6_3
+    field Func`2 <>9__6_4
+    field Func`2 <>9__6_5
+    field Func`2 <>9__6_6
+    field Func`2 <>9__7_1
+    field Func`2 <>9__7_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal HotkeySetting <Defaults>b__3_0(UInt32 k, Int32 i)
+    internal Int32 <Validate>b__6_0(HotkeySetting k)
+    internal Boolean <Validate>b__6_1(HotkeySetting k)
+    internal Boolean <Validate>b__6_2(HotkeySetting k)
+    internal Boolean <Validate>b__6_3(HotkeySetting k)
+    internal String <Validate>b__6_4(HotkeySetting k)
+    internal Boolean <Validate>b__6_5(IGrouping`2 g)
+    internal String <Validate>b__6_6(HotkeySetting k)
+    internal Boolean <Normalize>b__7_1(HotkeySetting k)
+    internal Boolean <Normalize>b__7_0(HotkeySetting k)
+  class GlassBoard.HotkeyRules/<>c__DisplayClass5_0   // fields=1 methods=2
+    field HotkeySetting key
+    public Void .ctor()
+    internal Boolean <Label>b__0(KeyValuePair`2 p)
+  class GlassBoard.HotkeyRules/<>c__DisplayClass8_0   // fields=1 methods=2
+    field List`1 second
+    public Void .ctor()
+    internal Boolean <Same>b__0(HotkeySetting a)
+  class GlassBoard.HotkeyRules/<>c__DisplayClass8_1   // fields=1 methods=2
+    field HotkeySetting a
+    public Void .ctor()
+    internal Boolean <Same>b__1(HotkeySetting b)
+class GlassBoard.HotkeyManager   // fields=3 methods=4
+  field Func`2 register
+  field Action`1 unregister
+  field List`1 Active
+  public Void .ctor(Func`2 registerKey, Action`1 unregisterKey)
+  public List`1 Start(IEnumerable`1 keys)
+  public Void Release()
+  public Boolean TryApply(List`1 candidate, String& error)
+  class GlassBoard.HotkeyManager/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__4_0
+    field Func`2 <>9__6_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Start>b__4_0(HotkeySetting k)
+    internal HotkeySetting <TryApply>b__6_0(HotkeySetting k)
+class GlassBoard.Entry   // fields=11 methods=1
+  field String Name
+  field String Path
+  field Boolean Pinned
+  field Boolean IsFolder
+  field String Group
+  field List`1 ExtraGroups
+  field String IconPath
+  field String LaunchTarget
+  field String LaunchArguments
+  field String ProductInfo
+  field String WindowTarget
+  public Void .ctor()
+class GlassBoard.Preferences   // fields=34 methods=3
+  field List`1 Apps
+  field List`1 DockOrder
+  field Int32 FormatVersion
+  field Int64 SaveRevision
+  field Boolean Light
+  field Double DockGap
+  field Boolean Imported
+  field Int32 PanelSize
+  field Double BoardIconSize
+  field Double BoardIconGap
+  field Nullable`1 OpacityPercent
+  field List`1 Removed
+  field List`1 Hotkeys
+  field DockOptions Dock
+  field List`1 Groups
+  field List`1 Workspaces
+  field PlacementOptions Placement
+  field WidgetOptions Widgets
+  field ControlCenterOptions ControlCenter
+  field Boolean AutoGrouping
+  field Boolean AutoCheckUpdates
+  field String StartupTiming
+  field Boolean UpdateDirectConnection
+  field Boolean BoardDismissOnDeactivate
+  field Boolean BoardHideSearch
+  field Boolean BoardHideGroups
+  field Boolean BoardHideFolders
+  field Boolean GameMode
+  field Boolean AutoGameMode
+  field MaterialOptions BoardMaterial
+  field List`1 RemovedIdentities
+  field Int64 LastUpdateCheckUtc
+  field Dictionary`2 LearnedGroups
+  field Boolean HotkeyMigrationConflict
+  private Void Defaults(StreamingContext context)
+  public Void Normalize()
+  public Void .ctor()
+  class GlassBoard.Preferences/<>c   // fields=4 methods=5
+    field <>c <>9
+    field Func`2 <>9__35_0
+    field Func`2 <>9__35_1
+    field Func`2 <>9__35_2
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Normalize>b__35_0(Entry a)
+    internal Boolean <Normalize>b__35_1(HotkeySetting k)
+    internal Boolean <Normalize>b__35_2(Workspace x)
+class GlassBoard.DockOptions   // fields=32 methods=7
+  field Double IconSize
+  field Double Spacing
+  field Double Padding
+  field Double Radius
+  field Double OpacityPercent
+  field Double Zoom
+  field Double Offset
+  field Double MotionLevel
+  field Int32 Alignment
+  field Int32 Accent
+  field Int32 MaxPinned
+  field Int32 ComputerStyle
+  field Boolean ShowComputer
+  field Boolean ShowLabels
+  field Boolean ShowSeparator
+  field Boolean AlwaysOnTop
+  field Boolean MotionEnabled
+  field Boolean AutoHide
+  field Boolean ShowRunning
+  field Boolean SpringReveal
+  field Boolean ShowPower
+  field Boolean ShowNetwork
+  field Boolean ShowSettings
+  field List`1 ItemOrder
+  field List`1 RunningOrder
+  field Boolean ShowShortcutOverlays
+  field Boolean SharperIcons
+  field MaterialOptions Material
+  field Double HideDelay
+  field Double EdgeRange
+  field Double BlurRadius
+  field Double EdgeStrength
+  private Void Defaults(StreamingContext context)
+  public DockOptions Copy()
+  public Void Normalize()
+  public Int32 VisiblePinned(Double availableWidth, Int32 count)
+  public Double HoverPadding()
+  public Double WidthFor(Int32 pinnedCount)
+  public Void .ctor()
+  class GlassBoard.DockOptions/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__34_0
+    field Func`2 <>9__34_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Normalize>b__34_0(String x)
+    internal Boolean <Normalize>b__34_1(String x)
+class GlassBoard.RemovedItem   // fields=5 methods=1
+  field Entry Entry
+  field Int32 Index
+  field Boolean WasRemoved
+  field Boolean MembershipOnly
+  field String RemovedGroup
+  public Void .ctor()
+class GlassBoard.RemovalBatch   // fields=1 methods=1
+  field List`1 Items
+  public Void .ctor()
+class GlassBoard.EntryRules   // fields=0 methods=5
+  public static RemovalBatch Remove(Preferences prefs, IEnumerable`1 paths, String group)
+  public static Int32 Undo(Preferences prefs, RemovalBatch batch)
+  public static List`1 NormalizeEntries(IEnumerable`1 apps)
+  public static Boolean Importable(String path)
+  public static List`1 Candidates(IEnumerable`1 paths, IEnumerable`1 existing)
+  class GlassBoard.EntryRules/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__1_0
+    field Func`2 <>9__4_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Int32 <Undo>b__1_0(RemovedItem x)
+    internal String <Candidates>b__4_0(Entry a)
+  class GlassBoard.EntryRules/<>c__DisplayClass0_0   // fields=1 methods=2
+    field HashSet`1 wanted
+    public Void .ctor()
+    internal Boolean <Remove>b__0(Entry a)
+  class GlassBoard.EntryRules/<>c__DisplayClass0_1   // fields=1 methods=2
+    field Entry a
+    public Void .ctor()
+    internal Boolean <Remove>b__1(String p)
+  class GlassBoard.EntryRules/<>c__DisplayClass1_0   // fields=1 methods=3
+    field RemovedItem item
+    public Void .ctor()
+    internal Boolean <Undo>b__2(Entry a)
+    internal Boolean <Undo>b__1(Entry a)
+  class GlassBoard.EntryRules/<>c__DisplayClass4_0   // fields=1 methods=2
+    field HashSet`1 known
+    public Void .ctor()
+    internal Boolean <Candidates>b__1(String p)
+class GlassBoard.ScanResult   // fields=3 methods=1
+  field List`1 Paths
+  field Int32 Skipped
+  field Boolean Limited
+  public Void .ctor()
+class GlassBoard.ImportScanner   // fields=0 methods=1
+  public static ScanResult Scan(IEnumerable`1 roots, Boolean recurse, CancellationToken cancellation, Int32 fileLimit, Int32 directoryLimit, Boolean launchOnly)
+class GlassBoard.Store   // fields=8 methods=17
+  field String Folder
+  field String FileName
+  field Object saveLock
+  field Byte[] lastSaved
+  field String lastInventory
+  field DateTime lastSnapshot
+  field Int64 latestRevision
+  field String <RecoveryMessage>k__BackingField
+  public static Void Trace(String message)
+  public static Void Log(Exception ex)
+  public static String get_RecoveryMessage()
+  private static Void set_RecoveryMessage(String value)
+  private static Byte[] Encode(T value)
+  public static Preferences ReadLayout(Byte[] bytes)
+  private static Void Atomic(String path, Byte[] bytes, String backup)
+  private static IEnumerable`1 RecoveryPaths()
+  private static Void ArchiveUpgrade(Byte[] bytes)
+  public static Preferences Load(Boolean mergeJournal)
+  private static RemovalJournal ReadJournal()
+  private static Void MergeRecoveryJournal(Preferences prefs, RemovalJournal journal)
+  public static Void Save(Preferences p)
+  private static Boolean Matches(String path, Byte[] bytes)
+  private static Preferences ReadBackupLayout(String path)
+  public static List`1 HistoricalEntries()
+  private static Void .cctor()
+  class GlassBoard.Store/<>c   // fields=5 methods=6
+    field <>c <>9
+    field Func`2 <>9__21_0
+    field Func`2 <>9__23_0
+    field Func`2 <>9__24_0
+    field Func`2 <>9__24_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal String <Save>b__21_0(Entry a)
+    internal Boolean <ReadBackupLayout>b__23_0(ZipArchiveEntry e)
+    internal Boolean <HistoricalEntries>b__24_0(Entry a)
+    internal Boolean <HistoricalEntries>b__24_1(Entry a)
+  class GlassBoard.Store/<>c__DisplayClass20_0   // fields=2 methods=2
+    field RemovalJournal journal
+    field Preferences prefs
+    public Void .ctor()
+    internal Boolean <MergeRecoveryJournal>b__0(Entry a)
+class GlassBoard.Native   // fields=2 methods=15
+  field Int32 RestoreMessage
+  field BoundedCache`2 icons
+  private static IntPtr FindWindow(String cls, String title)
+  private static Boolean PostMessage(IntPtr h, Int32 message, IntPtr w, IntPtr l)
+  public static Boolean RequestRestore()
+  public static Boolean RegisterHotKey(IntPtr h, Int32 id, UInt32 mods, UInt32 key)
+  public static Boolean UnregisterHotKey(IntPtr h, Int32 id)
+  public static Boolean SetWindowDisplayAffinity(IntPtr h, UInt32 value)
+  public static Boolean GetWindowDisplayAffinity(IntPtr h, UInt32& value)
+  public static Boolean SetForegroundWindow(IntPtr h)
+  private static IntPtr SHGetFileInfo(String path, UInt32 attr, SHFILEINFO& info, UInt32 cb, UInt32 flags)
+  private static IntPtr ImageList_GetIcon(IntPtr list, Int32 index, UInt32 flags)
+  private static Boolean DestroyIcon(IntPtr h)
+  public static ImageSource Icon(String path, Boolean showShortcutOverlays, Boolean sharper)
+  public static Void ClearIconCache()
+  public static Void Computer()
+  private static Void .cctor()
+  class GlassBoard.Native/SHFILEINFO   // fields=5 methods=0
+    field IntPtr hIcon
+    field Int32 iIcon
+    field UInt32 attributes
+    field String displayName
+    field String typeName
+class GlassBoard.ShellState   // fields=3 methods=1
+  field Int64 Handle
+  field String ClassName
+  field Boolean Visible
+  public Void .ctor()
+class GlassBoard.DesktopVisibility   // fields=5 methods=25
+  field String RecoveryFile
+  field Dictionary`2 original
+  field Nullable`1 taskbarHidden
+  field Nullable`1 iconsHidden
+  field DispatcherTimer maintenance
+  private static IntPtr FindWindow(String cls, String title)
+  private static IntPtr FindWindowEx(IntPtr parent, IntPtr after, String cls, String title)
+  private static Boolean IsWindowVisible(IntPtr h)
+  private static Boolean IsWindow(IntPtr h)
+  private static Boolean ShowWindow(IntPtr h, Int32 cmd)
+  private static Boolean ShowWindowAsync(IntPtr h, Int32 cmd)
+  private static Int32 GetWindowLong(IntPtr h, Int32 index)
+  private static Int32 GetClassName(IntPtr h, StringBuilder text, Int32 count)
+  private static Boolean EnumWindows(EnumCallback callback, IntPtr data)
+  private static Boolean EnumChildWindows(IntPtr parent, EnumCallback callback, IntPtr data)
+  private static Void .cctor()
+  private static String Class(IntPtr h)
+  private static List`1 Taskbars()
+  private static List`1 DesktopLists()
+  private static Boolean MatchesSaved(ShellState state)
+  private static Void Remember(IEnumerable`1 handles)
+  public static Nullable`1 IsHidden(Boolean taskbar)
+  public static Boolean DesiredHidden(Boolean taskbar)
+  public static String SetHidden(Boolean taskbar, Boolean hide)
+  public static String ToggleTaskbar()
+  public static String ToggleIcons()
+  private static Void Maintain()
+  public static Void Recover()
+  public static Void RestoreOriginal()
+  public static Void ShowAll()
+  class GlassBoard.DesktopVisibility/EnumCallback   // fields=0 methods=4
+    public Void .ctor(Object object, IntPtr method)
+    public virtual Boolean Invoke(IntPtr h, IntPtr data)
+    public virtual IAsyncResult BeginInvoke(IntPtr h, IntPtr data, AsyncCallback callback, Object object)
+    public virtual Boolean EndInvoke(IAsyncResult result)
+  class GlassBoard.DesktopVisibility/<>c   // fields=3 methods=5
+    field <>c <>9
+    field Func`2 <>9__19_2
+    field Func`2 <>9__22_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Void <.cctor>b__16_0(Object s, EventArgs e)
+    internal Int32 <DesktopLists>b__19_2(IntPtr h)
+    internal Boolean <IsHidden>b__22_0(IntPtr h)
+  class GlassBoard.DesktopVisibility/<>c__DisplayClass18_0   // fields=1 methods=2
+    field List`1 result
+    public Void .ctor()
+    internal Boolean <Taskbars>b__0(IntPtr h, IntPtr d)
+  class GlassBoard.DesktopVisibility/<>c__DisplayClass19_0   // fields=4 methods=5
+    field HashSet`1 result
+    field Action`1 addView
+    field EnumCallback <>9__3
+    field EnumCallback <>9__4
+    public Void .ctor()
+    internal Void <DesktopLists>b__0(IntPtr view)
+    internal Boolean <DesktopLists>b__3(IntPtr child, IntPtr data)
+    internal Boolean <DesktopLists>b__1(IntPtr h, IntPtr d)
+    internal Boolean <DesktopLists>b__4(IntPtr child, IntPtr data)
+class GlassBoard.GlassWindow   // fields=10 methods=17
+  field Grid Root
+  field Border Surface
+  field Grid ContentGrid
+  field Boolean LightTheme
+  field Double GlassPercent
+  field Boolean MotionEnabled
+  field Double MotionLevel
+  field Double BlurRadius
+  field Double EdgeStrength
+  field MaterialOptions CurrentMaterial
+  protected Void ConfigureGlass(DockOptions options, MaterialOptions material)
+  public Void SetMaterial(MaterialOptions material)
+  protected Double get_MaterialBlur()
+  protected static ControlTemplate GripTemplate(Boolean corner)
+  protected Brush get_TextBrush()
+  protected Brush get_MutedBrush()
+  public Void .ctor(Double radius)
+  protected Button Button(String label, RoutedEventHandler click, Double width)
+  public Void Backdrop(Boolean light)
+  private Void RefreshBackdropStyle()
+  protected Void ReleaseBackdrop()
+  public Void SetGlassOpacity(Double percent)
+  protected Void AnimateOpen(Int32 delayMs)
+  private Void <.ctor>b__19_0(Object s, DependencyPropertyChangedEventArgs e)
+  private Void <.ctor>b__19_1(Object s, EventArgs e)
+  private Void <Backdrop>b__21_1(Border b)
+  private Void <ReleaseBackdrop>b__23_1(Border b)
+  class GlassBoard.GlassWindow/<>c   // fields=6 methods=7
+    field <>c <>9
+    field Func`2 <>9__21_0
+    field Func`2 <>9__22_0
+    field Func`2 <>9__23_0
+    field Func`2 <>9__24_1
+    field Func`2 <>9__24_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Backdrop>b__21_0(Border b)
+    internal Boolean <RefreshBackdropStyle>b__22_0(Border b)
+    internal Boolean <ReleaseBackdrop>b__23_0(Border b)
+    internal Boolean <SetGlassOpacity>b__24_1(Border b)
+    internal Boolean <SetGlassOpacity>b__24_0(Border b)
+  class GlassBoard.GlassWindow/<>c__DisplayClass20_0   // fields=2 methods=5
+    field GlassWindow <>4__this
+    field Button b
+    public Void .ctor()
+    internal Void <Button>b__0(Object s, MouseEventArgs e)
+    internal Void <Button>b__1(Object s, MouseEventArgs e)
+    internal Void <Button>b__2(Object s, MouseButtonEventArgs e)
+    internal Void <Button>b__3(Object s, MouseButtonEventArgs e)
+class GlassBoard.AddCandidate   // fields=3 methods=8
+  field String <Path>k__BackingField
+  field Boolean selected
+  field PropertyChangedEventHandler PropertyChanged
+  public String get_Path()
+  public Void set_Path(String value)
+  public String get_Name()
+  public Boolean get_Selected()
+  public Void set_Selected(Boolean value)
+  public Void add_PropertyChanged(PropertyChangedEventHandler value)
+  public Void remove_PropertyChanged(PropertyChangedEventHandler value)
+  public Void .ctor()
+class GlassBoard.BatchAddWindow   // fields=13 methods=20
+  field Controller C
+  field String targetGroup
+  field CancellationTokenSource cancellation
+  field List`1 candidates
+  field ListBox list
+  field TextBlock status
+  field Button add
+  field WrapPanel sources
+  field CheckBox recursive
+  field CheckBox launchOnly
+  field Boolean busy
+  field Boolean closed
+  field Boolean changing
+  public Void .ctor(Controller controller)
+  private static Button MakeButton(String title, Action action)
+  private Void SelectAll(Boolean value)
+  private Void UpdateCount()
+  private Void Merge(IEnumerable`1 paths)
+  private Void PickFiles()
+  private Void PickFolder()
+  private Void Scan(String[] roots, Boolean recurse)
+  private Void <.ctor>b__13_0()
+  private Void <.ctor>b__13_1()
+  private Void <.ctor>b__13_2()
+  private Void <.ctor>b__13_3()
+  private Void <.ctor>b__13_4()
+  private Void <.ctor>b__13_5()
+  private Boolean <.ctor>b__13_10(Entry a)
+  private Boolean <.ctor>b__13_11(Entry a)
+  private Void <.ctor>b__13_6()
+  private Void <.ctor>b__13_7(Object s, EventArgs e)
+  private Boolean <Merge>b__17_2(Entry a)
+  private Void <Merge>b__17_3(Object s, PropertyChangedEventArgs e)
+  class GlassBoard.BatchAddWindow/<>c   // fields=7 methods=8
+    field <>c <>9
+    field Func`2 <>9__13_8
+    field Func`2 <>9__13_9
+    field Func`2 <>9__16_0
+    field Func`2 <>9__17_0
+    field Comparison`1 <>9__17_1
+    field Func`2 <>9__20_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <.ctor>b__13_8(AddCandidate x)
+    internal String <.ctor>b__13_9(AddCandidate x)
+    internal Boolean <UpdateCount>b__16_0(AddCandidate x)
+    internal String <Merge>b__17_0(AddCandidate c)
+    internal Int32 <Merge>b__17_1(AddCandidate a, AddCandidate b)
+    internal Boolean <Scan>b__20_0(AddCandidate x)
+  class GlassBoard.BatchAddWindow/<>c__DisplayClass14_0   // fields=1 methods=2
+    field Action action
+    public Void .ctor()
+    internal Void <MakeButton>b__0(Object s, RoutedEventArgs e)
+  class GlassBoard.BatchAddWindow/<>c__DisplayClass20_0   // fields=4 methods=2
+    field String[] roots
+    field Boolean recurse
+    field BatchAddWindow <>4__this
+    field Func`2 <>9__2
+    public Void .ctor()
+    internal Boolean <Scan>b__2(String path)
+  class GlassBoard.BatchAddWindow/<>c__DisplayClass20_1   // fields=2 methods=2
+    field Boolean only
+    field <>c__DisplayClass20_0 CS$<>8__locals1
+    public Void .ctor()
+    internal ScanResult <Scan>b__1()
+  class GlassBoard.BatchAddWindow/<Scan>d__20   // fields=6 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field String[] roots
+    field Boolean recurse
+    field BatchAddWindow <>4__this
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.Program   // fields=0 methods=1
+  public static Int32 Main(String[] args)
+  class GlassBoard.Program/<>c   // fields=3 methods=4
+    field <>c <>9
+    field ExitEventHandler <>9__0_0
+    field Func`2 <>9__0_3
+    private static Void .cctor()
+    public Void .ctor()
+    internal Void <Main>b__0_0(Object s, ExitEventArgs e)
+    internal Boolean <Main>b__0_3(String a)
+  class GlassBoard.Program/<>c__DisplayClass0_0   // fields=1 methods=3
+    field Controller controller
+    public Void .ctor()
+    internal Void <Main>b__1(Object s, DispatcherUnhandledExceptionEventArgs e)
+    internal Void <Main>b__2(Object s, SessionEndingCancelEventArgs e)
+class GlassBoard.SelfTest   // fields=0 methods=2
+  public static Int32 Run()
+  private static Void CheckMemoryResources()
+  class GlassBoard.SelfTest/ButtonTestWindow   // fields=0 methods=4
+    public Void .ctor()
+    private Void RequireCaptureAllowed()
+    public Void CheckCaptureCompatibility()
+    public Void CheckHandlers()
+    class GlassBoard.SelfTest/ButtonTestWindow/<>c__DisplayClass3_0   // fields=3 methods=4
+      field Boolean deferredCalled
+      field Boolean inlineCalled
+      field Int32 clicks
+      public Void .ctor()
+      internal Void <CheckHandlers>b__0(Object s, RoutedEventArgs e)
+      internal Void <CheckHandlers>b__1(Object s, RoutedEventArgs e)
+      internal Void <CheckHandlers>b__2(Object s, RoutedEventArgs e)
+class GlassBoard.GlassMaterials   // fields=1 methods=2
+  field ImageSource grain
+  public static Brush Fill(MaterialOptions options, Boolean light, Double percent)
+  public static ImageSource Grain()
+class GlassBoard.MaterialOptions   // fields=5 methods=4
+  field Int32 Kind
+  field String Tint
+  field Double Gloss
+  field Double Grain
+  field Boolean Shadow
+  private Void Defaults(StreamingContext context)
+  public Void Normalize()
+  public MaterialOptions Copy()
+  public Void .ctor()
+class GlassBoard.MediaSnapshot   // fields=23 methods=3
+  field Boolean Available
+  field Boolean Playing
+  field Boolean CanSeek
+  field Boolean CanPrevious
+  field Boolean CanNext
+  field Boolean CanToggle
+  field String Status
+  field String Title
+  field String Artist
+  field String Album
+  field String Source
+  field String Key
+  field String Cover
+  field String Backend
+  field String CoverStatus
+  field String MetadataStatus
+  field String TimelineStatus
+  field Double Position
+  field Double Duration
+  field Double Age
+  field Double MinSeek
+  field Double MaxSeek
+  field Double Rate
+  private Void Defaults(StreamingContext context)
+  public MediaSnapshot Copy()
+  public Void .ctor()
+class GlassBoard.MediaFallback   // fields=0 methods=1
+  public static MediaSnapshot Merge(MediaSnapshot standard, MediaSnapshot extra)
+class GlassBoard.MediaRequest   // fields=10 methods=1
+  field String Command
+  field Double Seconds
+  field String Key
+  field String Source
+  field String Title
+  field String Artist
+  field String Album
+  field Boolean Playing
+  field Boolean UseNative
+  field Boolean CoverOnly
+  public Void .ctor()
+class GlassBoard.MediaWireProtocol   // fields=0 methods=3
+  public static Void Write(Stream stream, Object value)
+  public static MediaRequest ReadRequest(String line)
+  public static Void Loop(TextReader input, Stream output, Func`2 read)
+class GlassBoard.MediaSessionBridge   // fields=11 methods=7
+  field Boolean nativeOnly
+  field Boolean neteaseOnly
+  field Boolean UseNative
+  field Boolean ArtworkOnly
+  field Process process
+  field Object gate
+  field Boolean stopped
+  field DateTime retry
+  field String lastFailure
+  field Object errorGate
+  field String stderr
+  public Void .ctor(Boolean native, Boolean netease)
+  public Task`1 Send(String command, Double seconds, String key, MediaSnapshot hint)
+  private Void Start()
+  private Void Kill()
+  public Void Dispose()
+  private Void <Start>b__13_0(Object s, DataReceivedEventArgs e)
+  private Void <Dispose>b__15_0()
+  class GlassBoard.MediaSessionBridge/<>c__DisplayClass12_0   // fields=5 methods=2
+    field MediaSessionBridge <>4__this
+    field String command
+    field Double seconds
+    field String key
+    field MediaSnapshot hint
+    public Void .ctor()
+    internal MediaSnapshot <Send>b__0()
+class GlassBoard.TrackMetadata   // fields=4 methods=5
+  field String Title
+  field String Artist
+  field String Album
+  field Byte[] Cover
+  public static TrackMetadata Read(String path)
+  private static Int32 Sync(Byte[] b, Int32 p)
+  private static Int32 Big(Byte[] b, Int32 p)
+  private static String Text(Byte[] b, Int32 p, Int32 count)
+  public Void .ctor()
+class GlassBoard.MusicEngine   // fields=43 methods=37
+  field Controller C
+  field MediaPlayer player
+  field MediaSessionBridge bridge
+  field MediaSessionBridge nativeBridge
+  field MediaSnapshot nativeCache
+  field DateTime nativeAt
+  field DateTime lastNative
+  field String nativeStatus
+  field String primaryStatus
+  field MediaSnapshot discovered
+  field DateTime discoveredAt
+  field DateTime lastDiscovery
+  field DateTime nextPrimary
+  field DispatcherTimer timer
+  field Random random
+  field Boolean stopped
+  field Boolean polling
+  field Boolean opened
+  field Boolean playing
+  field Int32 metadataVersion
+  field DateTime lastPoll
+  field String systemKey
+  field String loadedPath
+  field Boolean loadedLocal
+  field DateTime sessionAt
+  field DateTime seekUntil
+  field Nullable`1 seekTarget
+  field MediaSeekQueue seeks
+  field String iconSource
+  field Action Changed
+  field String Title
+  field String Artist
+  field String Album
+  field String Status
+  field ImageSource Artwork
+  field ImageSource AppIcon
+  field TrackArtworkCache`1 artworkCache
+  field DateTime lastAvailable
+  field DateTime stableMetadataAt
+  field MediaSnapshot stableMetadata
+  field String lastCoverFingerprint
+  field MediaSnapshot Session
+  field DateTime lastArtworkPoll
+  public Void add_Changed(Action value)
+  public Void remove_Changed(Action value)
+  public Boolean get_Local()
+  public Boolean get_Playing()
+  public Double get_Duration()
+  public Double get_Position()
+  public Boolean get_CanSeek()
+  public Void .ctor(Controller c)
+  public Void Wake()
+  public Void Start()
+  private Void EnsurePlayer()
+  private Void Notify()
+  public Void Update()
+  private Void Load(Boolean autoplay)
+  public Void Pick(Window owner, Boolean append)
+  public Void Mode(Boolean local)
+  public Void Action(String action)
+  private Void Advance(Boolean ended)
+  public Void Select(Int32 index)
+  public Void Remove(Int32 index)
+  public Void Seek(Double seconds)
+  private Void DrainSeek()
+  public Void SetVolume(Double value, Boolean save)
+  public Void SystemVolume(Boolean up)
+  public Void Repeat()
+  public Void Shuffle()
+  private MediaSnapshot CachedSupplement()
+  private Void Poll()
+  public String Diagnostics()
+  private Void Accept(MediaSnapshot data)
+  private Void LoadAppIcon(String source)
+  public static ImageSource Image(Byte[] bytes)
+  public Void Dispose()
+  private Void <.ctor>b__54_0(Object s, EventArgs e)
+  private Void <EnsurePlayer>b__57_0(Object s, EventArgs e)
+  private Void <EnsurePlayer>b__57_1(Object s, ExceptionEventArgs e)
+  private Void <EnsurePlayer>b__57_2(Object s, EventArgs e)
+  class GlassBoard.MusicEngine/<>c__DisplayClass60_0   // fields=1 methods=2
+    field String path
+    public Void .ctor()
+    internal TrackMetadata <Load>b__0()
+  class GlassBoard.MusicEngine/<>c__DisplayClass78_0   // fields=1 methods=2
+    field String source
+    public Void .ctor()
+    internal String <LoadAppIcon>b__0()
+  class GlassBoard.MusicEngine/<Action>d__63   // fields=7 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field MusicEngine <>4__this
+    field String action
+    field TaskAwaiter <>u__1
+    field Boolean <direct>5__2
+    field TaskAwaiter`1 <>u__2
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.MusicEngine/<DrainSeek>d__68   // fields=7 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field MusicEngine <>4__this
+    field Double <seconds>5__2
+    field String <key>5__3
+    field Boolean <isolated>5__4
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.MusicEngine/<Load>d__60   // fields=6 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field MusicEngine <>4__this
+    field Boolean autoplay
+    field Int32 <version>5__2
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.MusicEngine/<LoadAppIcon>d__78   // fields=6 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field String source
+    field MusicEngine <>4__this
+    field <>c__DisplayClass78_0 <>8__1
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.MusicEngine/<Poll>d__75   // fields=6 methods=2
+    field Int32 <>1__state
+    field AsyncVoidMethodBuilder <>t__builder
+    field MusicEngine <>4__this
+    field Boolean <primaryDue>5__2
+    field MediaSnapshot <data>5__3
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.BoundedCache`2   // fields=3 methods=5
+  field Dictionary`2 lookup
+  field LinkedList`1 recent
+  field Int32 capacity
+  public Void .ctor(Int32 limit, IEqualityComparer`1 comparer)
+  public Int32 get_Count()
+  public Boolean TryGet(TKey key, TValue& value)
+  public Void Put(TKey key, TValue value)
+  public Void Clear()
+  class GlassBoard.BoundedCache`2/Item   // fields=2 methods=1
+    field TKey Key
+    field TValue Value
+    public Void .ctor()
+class GlassBoard.ImageDecodeRules   // fields=0 methods=1
+  public static Int32[] Fit(Int32 width, Int32 height, Int32 limit)
+class GlassBoard.CoverFingerprint   // fields=0 methods=1
+  public static String Of(String text)
+class GlassBoard.ReleasingReadStream   // fields=1 methods=14
+  field Stream inner
+  public Void .ctor(Byte[] bytes)
+  private Stream get_Current()
+  public virtual Boolean get_CanRead()
+  public virtual Boolean get_CanSeek()
+  public virtual Boolean get_CanWrite()
+  public virtual Int64 get_Length()
+  public virtual Int64 get_Position()
+  public virtual Void set_Position(Int64 value)
+  public virtual Int32 Read(Byte[] buffer, Int32 offset, Int32 count)
+  public virtual Int64 Seek(Int64 offset, SeekOrigin origin)
+  public virtual Void Flush()
+  public virtual Void SetLength(Int64 value)
+  public virtual Void Write(Byte[] buffer, Int32 offset, Int32 count)
+  protected virtual Void Dispose(Boolean disposing)
+class GlassBoard.ThumbnailImages   // fields=0 methods=1
+  public static BitmapImage Read(Byte[] bytes, Int32 maxEdge)
+class GlassBoard.MenuAppearanceChecks   // fields=0 methods=2
+  private static Void Drain()
+  public static Void Run()
+  class GlassBoard.MenuAppearanceChecks/<>c__DisplayClass0_0   // fields=1 methods=2
+    field DispatcherFrame frame
+    public Void .ctor()
+    internal Void <Drain>b__0()
+  class GlassBoard.MenuAppearanceChecks/<>c__DisplayClass1_0   // fields=1 methods=2
+    field Boolean clicked
+    public Void .ctor()
+    internal Void <Run>b__0(Object s, RoutedEventArgs e)
+class GlassBoard.MenuTheme   // fields=4 methods=5
+  field Dictionary`2 themes
+  field Style menu
+  field Style item
+  field Style separator
+  private Void .ctor(Boolean light)
+  private static MenuTheme For(Boolean light)
+  public static Void Install(Window window, Boolean light)
+  public static ContextMenu Create(Boolean light)
+  private static Void .cctor()
+  class GlassBoard.MenuTheme/<>c__DisplayClass4_0   // fields=4 methods=2
+    field String background
+    field String ink
+    field String line
+    field String hover
+    public Void .ctor()
+    internal String <.ctor>b__0(String x)
+class GlassBoard.NativeAudio   // fields=0 methods=7
+  private static Int32 PropVariantClear(Variant& v)
+  private static Void Check(Int32 hr)
+  private static Void Release(Object o)
+  private static String Name(IDevice d)
+  public static AudioSnapshot State()
+  public static Void Set(Nullable`1 level, Nullable`1 muted)
+  public static Void Output(String id)
+  class GlassBoard.NativeAudio/Enumerator   // fields=0 methods=1
+    public Void .ctor()
+  class GlassBoard.NativeAudio/IEnum   // fields=0 methods=5
+    public virtual Int32 EnumAudioEndpoints(Int32 flow, UInt32 mask, ICollection& devices)
+    public virtual Int32 GetDefaultAudioEndpoint(Int32 flow, Int32 role, IDevice& device)
+    public virtual Int32 GetDevice(String id, IDevice& device)
+    public virtual Int32 RegisterEndpointNotificationCallback(IntPtr p)
+    public virtual Int32 UnregisterEndpointNotificationCallback(IntPtr p)
+  class GlassBoard.NativeAudio/ICollection   // fields=0 methods=2
+    public virtual Int32 GetCount(UInt32& count)
+    public virtual Int32 Item(UInt32 index, IDevice& device)
+  class GlassBoard.NativeAudio/IDevice   // fields=0 methods=4
+    public virtual Int32 Activate(Guid& id, UInt32 context, IntPtr args, Object& endpoint)
+    public virtual Int32 OpenPropertyStore(UInt32 mode, IStore& store)
+    public virtual Int32 GetId(String& id)
+    public virtual Int32 GetState(UInt32& state)
+  class GlassBoard.NativeAudio/Key   // fields=2 methods=0
+    field Guid Format
+    field UInt32 Id
+  class GlassBoard.NativeAudio/Variant   // fields=2 methods=0
+    field UInt16 Type
+    field IntPtr Pointer
+  class GlassBoard.NativeAudio/IStore   // fields=0 methods=5
+    public virtual Int32 GetCount(UInt32& count)
+    public virtual Int32 GetAt(UInt32 index, Key& key)
+    public virtual Int32 GetValue(Key& key, Variant& value)
+    public virtual Int32 SetValue(Key& key, Variant& value)
+    public virtual Int32 Commit()
+  class GlassBoard.NativeAudio/IVolume   // fields=0 methods=13
+    public virtual Int32 RegisterControlChangeNotify(IntPtr p)
+    public virtual Int32 UnregisterControlChangeNotify(IntPtr p)
+    public virtual Int32 GetChannelCount(UInt32& n)
+    public virtual Int32 SetMasterVolumeLevel(Single v, Guid& context)
+    public virtual Int32 SetMasterVolumeLevelScalar(Single v, Guid& context)
+    public virtual Int32 GetMasterVolumeLevel(Single& v)
+    public virtual Int32 GetMasterVolumeLevelScalar(Single& v)
+    public virtual Int32 SetChannelVolumeLevel(UInt32 n, Single v, Guid& context)
+    public virtual Int32 SetChannelVolumeLevelScalar(UInt32 n, Single v, Guid& context)
+    public virtual Int32 GetChannelVolumeLevel(UInt32 n, Single& v)
+    public virtual Int32 GetChannelVolumeLevelScalar(UInt32 n, Single& v)
+    public virtual Int32 SetMute(Boolean mute, Guid& context)
+    public virtual Int32 GetMute(Boolean& mute)
+  class GlassBoard.NativeAudio/Policy   // fields=0 methods=1
+    public Void .ctor()
+  class GlassBoard.NativeAudio/IPolicy   // fields=0 methods=12
+    public virtual Int32 GetMixFormat(IntPtr a, IntPtr b)
+    public virtual Int32 GetDeviceFormat(IntPtr a, Int32 b, IntPtr c)
+    public virtual Int32 ResetDeviceFormat(IntPtr a)
+    public virtual Int32 SetDeviceFormat(IntPtr a, IntPtr b, IntPtr c)
+    public virtual Int32 GetProcessingPeriod(IntPtr a, Int32 b, IntPtr c, IntPtr d)
+    public virtual Int32 SetProcessingPeriod(IntPtr a, IntPtr b)
+    public virtual Int32 GetShareMode(IntPtr a, IntPtr b)
+    public virtual Int32 SetShareMode(IntPtr a, IntPtr b)
+    public virtual Int32 GetPropertyValue(IntPtr a, IntPtr b, IntPtr c)
+    public virtual Int32 SetPropertyValue(IntPtr a, IntPtr b, IntPtr c)
+    public virtual Int32 SetDefaultEndpoint(String id, Int32 role)
+    public virtual Int32 SetEndpointVisibility(IntPtr a, Int32 b)
+class GlassBoard.NativeBrightness   // fields=0 methods=2
+  public static Nullable`1 Read()
+  public static Void Set(Double value)
+class GlassBoard.NativeWireless   // fields=0 methods=16
+  private static UInt32 WlanOpenHandle(UInt32 v, IntPtr r, UInt32& negotiated, IntPtr& handle)
+  private static UInt32 WlanCloseHandle(IntPtr h, IntPtr r)
+  private static UInt32 WlanEnumInterfaces(IntPtr h, IntPtr r, IntPtr& list)
+  private static UInt32 WlanGetAvailableNetworkList(IntPtr h, Guid& g, UInt32 flags, IntPtr r, IntPtr& list)
+  private static UInt32 WlanScan(IntPtr h, Guid& g, IntPtr ssid, IntPtr ie, IntPtr r)
+  private static UInt32 WlanDisconnect(IntPtr h, Guid& g, IntPtr r)
+  private static UInt32 WlanSetProfile(IntPtr h, Guid& g, UInt32 flags, String xml, String security, Boolean overwrite, IntPtr reserved, UInt32& reason)
+  private static UInt32 WlanConnect(IntPtr h, Guid& g, Connection& parameters, IntPtr r)
+  private static Void WlanFreeMemory(IntPtr p)
+  private static Void Check(UInt32 code)
+  private static List`1 Interfaces(IntPtr handle)
+  internal static WifiNetwork ReadNetwork(IntPtr item, Guid adapter)
+  public static WifiNetwork[] Networks(Boolean scan)
+  public static Void Disconnect(String adapter)
+  internal static String ProfileXml(String ssid, String profile, String password, Int32 auth, Int32 cipher)
+  public static Void Connect(String adapter, String ssid, String profile, String password, Int32 auth, Int32 cipher)
+  class GlassBoard.NativeWireless/Connection   // fields=6 methods=0
+    field Int32 Mode
+    field String Profile
+    field IntPtr Ssid
+    field IntPtr Bssid
+    field Int32 Bss
+    field UInt32 Flags
+  class GlassBoard.NativeWireless/Handle   // fields=1 methods=2
+    field IntPtr Value
+    public Void .ctor()
+    public Void Dispose()
+  class GlassBoard.NativeWireless/<>c__DisplayClass12_0   // fields=1 methods=2
+    field IntPtr list
+    public Void .ctor()
+    internal Guid <Interfaces>b__0(Int32 i)
+class GlassBoard.NeteaseTimelineRules   // fields=0 methods=5
+  public static Boolean Time(String text, Double& seconds)
+  public static Boolean Progress(String text, Double& current, Double& total)
+  public static Boolean Source(String source)
+  public static Boolean WindowTitle(String name, String track)
+  public static Double RangeTarget(Double seconds, Double duration, Double min, Double max)
+  class GlassBoard.NeteaseTimelineRules/<>c__DisplayClass3_0   // fields=2 methods=2
+    field String name
+    field String track
+    public Void .ctor()
+    internal Boolean <WindowTitle>b__0(String separator)
+class GlassBoard.NeteaseUiReader   // fields=9 methods=7
+  field AutomationElement window
+  field AutomationElement progress
+  field String key
+  field String vendorKey
+  field DateTime changedAt
+  field DateTime lastAdvance
+  field Double previous
+  field RangeValuePattern seekRange
+  field DateTime lastRangeScan
+  private AutomationElement FindWindow(MediaRequest r)
+  private Boolean ReadText(AutomationElement element, Double& current, Double& total)
+  private AutomationElement FindProgress(Double& current, Double& total)
+  private RangeValuePattern FindSeekRange()
+  public MediaSnapshot Read(MediaRequest r)
+  public static Int32 Run()
+  public Void .ctor()
+  class GlassBoard.NeteaseUiReader/<>c__DisplayClass14_0   // fields=1 methods=2
+    field Int32 code
+    public Void .ctor()
+    internal Void <Run>b__0()
+class GlassBoard.BoardFiles   // fields=1 methods=4
+  field String[] Extensions
+  private static Void Part(ZipArchive zip, String path, String xml)
+  public static Void Create(String path)
+  public static String CreateFolder(String parent, String name)
+  private static Void .cctor()
+  class GlassBoard.BoardFiles/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Predicate`1 <>9__3_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <CreateFolder>b__3_0(Char c)
+class GlassBoard.NoteFiles   // fields=0 methods=2
+  public static NoteBook Read(String path, Action`1 log)
+  public static Void Write(String path, NoteBook book)
+class GlassBoard.EntryRecoveryRules   // fields=0 methods=2
+  public static List`1 Candidates(Preferences prefs, IEnumerable`1 historical)
+  public static Int32 Restore(Preferences prefs, IEnumerable`1 chosen)
+  class GlassBoard.EntryRecoveryRules/<>c__DisplayClass0_0   // fields=1 methods=2
+    field Preferences prefs
+    public Void .ctor()
+    internal Boolean <Candidates>b__0(Entry a)
+  class GlassBoard.EntryRecoveryRules/<>c__DisplayClass0_1   // fields=2 methods=3
+    field Entry a
+    field Entry current
+    public Void .ctor()
+    internal Boolean <Candidates>b__1(Entry x)
+    internal Boolean <Candidates>b__2(String g)
+  class GlassBoard.EntryRecoveryRules/<>c__DisplayClass1_0   // fields=1 methods=2
+    field Entry item
+    public Void .ctor()
+    internal Boolean <Restore>b__0(Entry a)
+class GlassBoard.PersonalizationChecks   // fields=0 methods=1
+  public static Void Run()
+class GlassBoard.WidgetStyle   // fields=11 methods=6
+  field String Kind
+  field String TextColor
+  field String Font
+  field Double TextOpacity
+  field Double ClockSize
+  field Boolean Frameless
+  field Boolean TextShadow
+  field Boolean ShowDate
+  field Boolean Hour24
+  field Int32 ClockStyle
+  field Int32 MusicButtons
+  private Void Defaults(StreamingContext c)
+  public Void Normalize()
+  public static String Color(String value)
+  public WidgetStyle Copy()
+  public String Signature()
+  public Void .ctor()
+class GlassBoard.DockAnchorRules   // fields=0 methods=1
+  public static Double Left(Nullable`1 center, Double width, Double fallback, Double areaLeft, Double areaWidth)
+class GlassBoard.BackgroundWorkRules   // fields=0 methods=1
+  public static Double MediaPollSeconds(Boolean visible, Boolean available, Boolean playing)
+class GlassBoard.ClockCatalog   // fields=1 methods=6
+  field String[] Names
+  public static String Weekday(DateTime now, Int32 style)
+  public static String DateLabel(DateTime now, Int32 style)
+  public static Double HourAngle(DateTime now)
+  public static Double MinuteAngle(DateTime now)
+  public static Double DayFraction(DateTime now)
+  private static Void .cctor()
+  class GlassBoard.ClockCatalog/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Func`2 <>9__1_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal String <Weekday>b__1_0(Char c)
+class GlassBoard.BoardEditState   // fields=8 methods=4
+  field List`1 Apps
+  field List`1 Groups
+  field List`1 Removed
+  field List`1 DockOrder
+  field List`1 RemovedIdentities
+  field List`1 DockItems
+  field List`1 DockRunningItems
+  field Dictionary`2 Learned
+  public static BoardEditState Capture(Preferences p)
+  public Void Apply(Preferences p)
+  public String Signature()
+  public Void .ctor()
+class GlassBoard.BoardEditHistory   // fields=3 methods=9
+  field List`1 undo
+  field List`1 redo
+  field Int32 Limit
+  public Boolean get_CanUndo()
+  public Boolean get_CanRedo()
+  public String get_UndoLabel()
+  public String get_RedoLabel()
+  public Void Clear()
+  public Boolean Remember(BoardEditState before, Preferences after, String label)
+  public String Undo(Preferences p)
+  public String Redo(Preferences p)
+  public Void .ctor()
+  class GlassBoard.BoardEditHistory/Item   // fields=2 methods=1
+    field BoardEditState State
+    field String Label
+    public Void .ctor()
+class GlassBoard.TrackArtworkCache`1   // fields=2 methods=4
+  field Dictionary`2 items
+  field Int32 limit
+  public Void .ctor(Int32 capacity)
+  public Void Put(String key, T value, DateTime now)
+  public T Get(String key, DateTime now)
+  public Void Clear()
+  class GlassBoard.TrackArtworkCache`1/Item   // fields=2 methods=1
+    field T Value
+    field DateTime At
+    public Void .ctor()
+  class GlassBoard.TrackArtworkCache`1/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Func`2 <>9__4_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal DateTime <Put>b__4_0(KeyValuePair`2 p)
+class GlassBoard.MusicMetadataRecovery   // fields=0 methods=1
+  public static MediaSnapshot Recover(MediaSnapshot previous, MediaSnapshot current)
+class GlassBoard.BackupFiles   // fields=2 methods=8
+  field Int32 MaxFile
+  field Int32 MaxTotal
+  private static Boolean Allowed(String name)
+  private static T Json(Byte[] bytes)
+  private static Byte[] Encode(T value)
+  public static Dictionary`2 Read(String path)
+  private static Void Validate(Dictionary`2 data)
+  public static Void Create(String folder, String destination)
+  private static Void Atomic(String path, Byte[] bytes)
+  public static Void Restore(String backup, String folder, Action`1 afterCommit)
+  class GlassBoard.BackupFiles/<>c   // fields=15 methods=16
+    field <>c <>9
+    field Func`2 <>9__6_0
+    field Func`2 <>9__7_0
+    field Func`2 <>9__7_1
+    field Func`2 <>9__7_4
+    field Func`2 <>9__7_2
+    field Func`2 <>9__7_3
+    field Func`2 <>9__9_2
+    field Func`2 <>9__9_3
+    field Func`2 <>9__9_4
+    field Func`2 <>9__9_5
+    field Func`2 <>9__9_6
+    field Func`2 <>9__9_0
+    field Func`2 <>9__9_1
+    field Func`2 <>9__9_7
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Validate>b__6_0(KeyValuePair`2 x)
+    internal Boolean <Create>b__7_0(KeyValuePair`2 item)
+    internal IEnumerable`1 <Create>b__7_1(KeyValuePair`2 item)
+    internal Boolean <Create>b__7_4(Entry a)
+    internal Boolean <Create>b__7_2(Byte[] b)
+    internal Int64 <Create>b__7_3(Byte[] b)
+    internal Boolean <Restore>b__9_2(KeyValuePair`2 item)
+    internal IEnumerable`1 <Restore>b__9_3(KeyValuePair`2 item)
+    internal Boolean <Restore>b__9_4(Entry a)
+    internal Boolean <Restore>b__9_5(String k)
+    internal Boolean <Restore>b__9_6(Entry a)
+    internal Boolean <Restore>b__9_0(String k)
+    internal String <Restore>b__9_1(String f)
+    internal Boolean <Restore>b__9_7(KeyValuePair`2 x)
+class GlassBoard.BackupManifest   // fields=4 methods=1
+  field Int32 Version
+  field String AppVersion
+  field String CreatedUtc
+  field Dictionary`2 Icons
+  public Void .ctor()
+class GlassBoard.RunningWindow   // fields=4 methods=1
+  field IntPtr Handle
+  field UInt32 ProcessId
+  field String Path
+  field String Title
+  public Void .ctor()
+class GlassBoard.RunningWindows   // fields=3 methods=30
+  field List`1 windows
+  field BoundedCache`2 targets
+  field BoundedCache`2 last
+  private static Boolean EnumWindows(Callback callback, IntPtr value)
+  private static Boolean IsWindowVisible(IntPtr window)
+  private static Boolean IsWindow(IntPtr window)
+  private static Boolean IsIconic(IntPtr window)
+  private static IntPtr GetWindow(IntPtr window, UInt32 command)
+  private static Int32 GetWindowLong(IntPtr window, Int32 index)
+  private static UInt32 GetWindowThreadProcessId(IntPtr window, UInt32& id)
+  private static Boolean ShowWindowAsync(IntPtr window, Int32 command)
+  private static IntPtr GetForegroundWindow()
+  private static IntPtr GetLastActivePopup(IntPtr window)
+  private static Int32 GetWindowText(IntPtr window, StringBuilder text, Int32 length)
+  private static IntPtr OpenProcess(UInt32 access, Boolean inherit, UInt32 id)
+  private static Boolean QueryFullProcessImageName(IntPtr process, UInt32 flags, StringBuilder path, Int32& length)
+  private static Boolean CloseHandle(IntPtr handle)
+  private static Int32 DwmGetWindowAttribute(IntPtr window, Int32 attribute, Int32& value, Int32 size)
+  private static Boolean FlashWindowEx(FLASHWINFO& info)
+  private static Int32 GetClassName(IntPtr window, StringBuilder text, Int32 length)
+  private static IntPtr SendMessageTimeout(IntPtr window, UInt32 message, IntPtr w, IntPtr l, UInt32 flags, UInt32 timeout, IntPtr& result)
+  private static IntPtr ClassIcon64(IntPtr window, Int32 index)
+  private static UInt32 ClassIcon32(IntPtr window, Int32 index)
+  public static ImageSource Icon(RunningWindow window)
+  public static String ProcessPath(UInt32 id)
+  public static Void Scan()
+  private static Void Resolve(Entry entry)
+  public static List`1 For(Entry entry)
+  public static List`1 Snapshot()
+  public static Boolean IsRunning(Entry entry)
+  public static Boolean ActivateHandle(IntPtr handle)
+  public static Boolean Activate(Entry entry)
+  private static Void .cctor()
+  class GlassBoard.RunningWindows/Callback   // fields=0 methods=4
+    public Void .ctor(Object object, IntPtr method)
+    public virtual Boolean Invoke(IntPtr window, IntPtr value)
+    public virtual IAsyncResult BeginInvoke(IntPtr window, IntPtr value, AsyncCallback callback, Object object)
+    public virtual Boolean EndInvoke(IAsyncResult result)
+  class GlassBoard.RunningWindows/FLASHWINFO   // fields=5 methods=0
+    field UInt32 Size
+    field IntPtr Window
+    field UInt32 Flags
+    field UInt32 Count
+    field UInt32 Timeout
+  class GlassBoard.RunningWindows/TargetInfo   // fields=3 methods=1
+    field DateTime Stamp
+    field String Target
+    field String Arguments
+    public Void .ctor()
+  class GlassBoard.RunningWindows/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__30_1
+    field Func`2 <>9__34_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Int64 <For>b__30_1(RunningWindow w)
+    internal Int64 <Activate>b__34_0(RunningWindow w)
+  class GlassBoard.RunningWindows/<>c__DisplayClass28_0   // fields=2 methods=2
+    field Int32 own
+    field Dictionary`2 byPid
+    public Void .ctor()
+    internal Boolean <Scan>b__0(IntPtr handle, IntPtr value)
+  class GlassBoard.RunningWindows/<>c__DisplayClass30_0   // fields=1 methods=2
+    field String[] paths
+    public Void .ctor()
+    internal Boolean <For>b__0(RunningWindow w)
+class GlassBoard.SettingsPlacementRules   // fields=0 methods=1
+  public static Double[] Vertical(Double workTop, Double workHeight, Double dockTop, Double dockHeight, Double preferredHeight)
+class GlassBoard.ShellIconImages   // fields=0 methods=5
+  private static Int32 SHGetImageList(Int32 size, Guid& id, IImageList& list)
+  private static Boolean DestroyIcon(IntPtr icon)
+  public static BitmapSource Read(Int32 index, UInt32 overlayMask)
+  private static Boolean TinyFootprint(BitmapSource source)
+  private static BitmapSource Limit(BitmapSource source, Int32 maximum)
+  class GlassBoard.ShellIconImages/IImageList   // fields=0 methods=8
+    public virtual Int32 Add(IntPtr image, IntPtr mask, Int32& index)
+    public virtual Int32 ReplaceIcon(Int32 index, IntPtr icon, Int32& result)
+    public virtual Int32 SetOverlayImage(Int32 index, Int32 overlay)
+    public virtual Int32 Replace(Int32 index, IntPtr image, IntPtr mask)
+    public virtual Int32 AddMasked(IntPtr image, UInt32 color, Int32& index)
+    public virtual Int32 Draw(IntPtr parameters)
+    public virtual Int32 Remove(Int32 index)
+    public virtual Int32 GetIcon(Int32 index, UInt32 flags, IntPtr& icon)
+class GlassBoard.StartupService   // fields=3 methods=7
+  field String Key
+  field String Approved
+  field String Name
+  private static Boolean get_RunEnabled()
+  public static Boolean get_Enabled()
+  public static String get_Mode()
+  public static String get_Target()
+  private static Void WriteRun(String value, Byte[] approved)
+  public static Void Set(Boolean enabled)
+  public static Void Set(Boolean enabled, String mode)
+  class GlassBoard.StartupService/Scheduler   // fields=4 methods=8
+    field List`1 objects
+    field Object folder
+    field String user
+    field String name
+    private Object Keep(Object value)
+    private static Object Call(Object o, String method, Object[] args)
+    private static Object Get(Object o, String property)
+    public Void .ctor()
+    public String Read(Boolean& enabled)
+    public Void Register(String xml)
+    public Void Delete()
+    public Void Dispose()
+class GlassBoard.BridgeRequest   // fields=22 methods=1
+  field Int32 Version
+  field Int32 Id
+  field String Action
+  field String Text
+  field String Key
+  field String Adapter
+  field String Profile
+  field String Password
+  field String Title
+  field String Artist
+  field String Album
+  field String Source
+  field String Path
+  field Double Value
+  field Double Position
+  field Double Duration
+  field Boolean Enabled
+  field Boolean Playing
+  field Boolean Translation
+  field Int32 Offset
+  field Int32 Auth
+  field Int32 Cipher
+  public Void .ctor()
+class GlassBoard.BridgeReply   // fields=5 methods=1
+  field Int32 Version
+  field Int32 Id
+  field Boolean Ok
+  field String Error
+  field BridgeResult Result
+  public Void .ctor()
+class GlassBoard.BridgeResult   // fields=3 methods=1
+  field SystemSnapshot System
+  field List`1 Networks
+  field List`1 Devices
+  public Void .ctor()
+class GlassBoard.SystemSnapshot   // fields=4 methods=1
+  field AudioSnapshot Audio
+  field Nullable`1 Brightness
+  field List`1 Radios
+  field List`1 Errors
+  public Void .ctor()
+class GlassBoard.AudioSnapshot   // fields=3 methods=1
+  field Double Volume
+  field Boolean Muted
+  field List`1 Outputs
+  public Void .ctor()
+class GlassBoard.AudioOutput   // fields=3 methods=1
+  field String Id
+  field String Name
+  field Boolean Selected
+  public Void .ctor()
+class GlassBoard.RadioSnapshot   // fields=4 methods=1
+  field String Kind
+  field String Name
+  field Boolean Enabled
+  field Boolean Available
+  public Void .ctor()
+class GlassBoard.WifiNetwork   // fields=8 methods=1
+  field String Name
+  field String Profile
+  field String Adapter
+  field Int32 Signal
+  field Int32 Auth
+  field Int32 Cipher
+  field Boolean Secure
+  field Boolean Connected
+  public Void .ctor()
+class GlassBoard.BluetoothDevice   // fields=4 methods=1
+  field String Id
+  field String Name
+  field Boolean Paired
+  field Boolean Connected
+  public Void .ctor()
+class GlassBoard.SystemBridge   // fields=9 methods=9
+  field SemaphoreSlim gate
+  field Timer idle
+  field DateTime lastUse
+  field Process process
+  field StreamWriter input
+  field Boolean stopped
+  field Int32 serial
+  field DateTime retry
+  field String error
+  public Void .ctor()
+  private Void TrimIdle()
+  public Boolean get_Installed()
+  public Task`1 Send(BridgeRequest request)
+  private Void Start()
+  private Void Kill()
+  public Void Dispose()
+  private Void <.ctor>b__3_0(Object s)
+  private Void <Start>b__14_0(Object s, DataReceivedEventArgs e)
+  class GlassBoard.SystemBridge/BridgeCommandException   // fields=0 methods=1
+    public Void .ctor(String message)
+  class GlassBoard.SystemBridge/<Send>d__13   // fields=8 methods=2
+    field Int32 <>1__state
+    field AsyncTaskMethodBuilder`1 <>t__builder
+    field SystemBridge <>4__this
+    field BridgeRequest request
+    field ConfiguredTaskAwaiter <>u__1
+    field Task`1 <read>5__2
+    field ConfiguredTaskAwaiter <>u__2
+    field ConfiguredTaskAwaiter <>u__3
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.UpdatePlan   // fields=6 methods=1
+  field Int32 Pid
+  field String Target
+  field String Stage
+  field String Backup
+  field String Version
+  field Dictionary`2 Files
+  public Void .ctor()
+class GlassBoard.UpdateApply   // fields=0 methods=3
+  public static Dictionary`2 Extract(Byte[] bytes, String stage, Version version)
+  public static String Safe(String root, String name)
+  public static Void Install(UpdatePlan plan, Action`1 afterFile)
+  class GlassBoard.UpdateApply/<>c   // fields=4 methods=5
+    field <>c <>9
+    field Func`2 <>9__0_1
+    field Func`2 <>9__0_2
+    field Func`2 <>9__2_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal String <Extract>b__0_1(KeyValuePair`2 item)
+    internal String <Extract>b__0_2(KeyValuePair`2 item)
+    internal Int32 <Install>b__2_0(KeyValuePair`2 p)
+  class GlassBoard.UpdateApply/<>c__DisplayClass0_0   // fields=1 methods=2
+    field Dictionary`2 data
+    public Void .ctor()
+    internal Boolean <Extract>b__0(String k)
+class GlassBoard.UpdateAsset   // fields=7 methods=1
+  field String Name
+  field Int64 Size
+  field String ReleaseUrl
+  field String FileUrl
+  field String Digest
+  field String BlobSha
+  field String Type
+  public Void .ctor()
+class GlassBoard.UpdateRelease   // fields=5 methods=1
+  field String Tag
+  field String Notes
+  field Boolean Draft
+  field Boolean Prerelease
+  field List`1 Assets
+  public Void .ctor()
+class GlassBoard.UpdateOffer   // fields=7 methods=1
+  field Version Version
+  field String Url
+  field String Name
+  field String Notes
+  field String Sha256
+  field String BlobSha
+  field Int64 Size
+  public Void .ctor()
+class GlassBoard.UpdateRules   // fields=6 methods=11
+  field String Repository
+  field String Api
+  field String Manifest
+  field String ManifestFallback
+  field Int64 MaxArchive
+  field HashSet`1 allowed
+  public static String Alternate(String url)
+  public static Version PackageVersion(String name)
+  public static Boolean Trusted(String url)
+  private static UpdateOffer Offer(UpdateAsset asset, String notes)
+  public static UpdateOffer Choose(IEnumerable`1 releases, IEnumerable`1 files)
+  public static Boolean Due(Int64 now, Int64 last)
+  public static String Hash(Byte[] bytes)
+  public static String BlobHash(Byte[] bytes)
+  public static Void Verify(Byte[] bytes, UpdateOffer offer)
+  public static Boolean Allowed(String path)
+  private static Void .cctor()
+  class GlassBoard.UpdateRules/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Func`2 <>9__9_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Version <Choose>b__9_0(UpdateOffer o)
+class GlassBoard.UpdateService   // fields=1 methods=8
+  field String <LastDiagnostics>k__BackingField
+  public static String get_LastDiagnostics()
+  private static Void set_LastDiagnostics(String value)
+  private static Byte[] Read(String url, Int64 maximum, CancellationToken token, Boolean direct, Action`2 progress)
+  private static T Json(Byte[] bytes)
+  public static String Explain(Exception error)
+  public static UpdateOffer CheckUsing(Func`3 read)
+  public static Task`1 Check(Boolean direct)
+  public static Task`1 Download(UpdateOffer offer, CancellationToken token, Action`2 progress, Boolean direct)
+  class GlassBoard.UpdateService/<>c   // fields=2 methods=3
+    field <>c <>9
+    field Func`2 <>9__7_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Version <CheckUsing>b__7_1(UpdateOffer o)
+  class GlassBoard.UpdateService/<>c__DisplayClass4_0   // fields=1 methods=2
+    field HttpWebRequest request
+    public Void .ctor()
+    internal Void <Read>b__0()
+  class GlassBoard.UpdateService/<>c__DisplayClass7_0   // fields=1 methods=2
+    field Func`3 read
+    public Void .ctor()
+    internal Task`1 <CheckUsing>b__0(String url)
+  class GlassBoard.UpdateService/<>c__DisplayClass7_1   // fields=2 methods=2
+    field String url
+    field <>c__DisplayClass7_0 CS$<>8__locals1
+    public Void .ctor()
+    internal KeyValuePair`2 <CheckUsing>b__2()
+  class GlassBoard.UpdateService/<>c__DisplayClass8_0   // fields=2 methods=3
+    field Boolean direct
+    field Func`3 <>9__1
+    public Void .ctor()
+    internal UpdateOffer <Check>b__0()
+    internal Byte[] <Check>b__1(String url, Int64 max)
+  class GlassBoard.UpdateService/<>c__DisplayClass9_0   // fields=4 methods=2
+    field UpdateOffer offer
+    field CancellationToken token
+    field Boolean direct
+    field Action`2 progress
+    public Void .ctor()
+    internal Byte[] <Download>b__0()
+  class GlassBoard.UpdateService/<Check>d__8   // fields=4 methods=2
+    field Int32 <>1__state
+    field AsyncTaskMethodBuilder`1 <>t__builder
+    field Boolean direct
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+  class GlassBoard.UpdateService/<Download>d__9   // fields=7 methods=2
+    field Int32 <>1__state
+    field AsyncTaskMethodBuilder`1 <>t__builder
+    field UpdateOffer offer
+    field CancellationToken token
+    field Boolean direct
+    field Action`2 progress
+    field TaskAwaiter`1 <>u__1
+    private Void MoveNext()
+    private Void SetStateMachine(IAsyncStateMachine stateMachine)
+class GlassBoard.RemovalRules   // fields=0 methods=6
+  public static String Identity(Entry entry)
+  public static Boolean Blocked(Preferences prefs, Entry entry)
+  public static Void Remember(Preferences prefs, Entry entry)
+  public static Void Forget(Preferences prefs, Entry entry)
+  public static Void ReconcileActive(Preferences prefs)
+  public static Boolean Same(Entry one, Entry two)
+  class GlassBoard.RemovalRules/<>c__DisplayClass1_0   // fields=1 methods=2
+    field Entry entry
+    public Void .ctor()
+    internal Boolean <Blocked>b__0(String p)
+  class GlassBoard.RemovalRules/<>c__DisplayClass3_0   // fields=1 methods=3
+    field Entry entry
+    public Void .ctor()
+    internal Boolean <Forget>b__0(String key)
+    internal Boolean <Forget>b__1(String p)
+class GlassBoard.RemovalJournal   // fields=4 methods=2
+  field Int64 SaveRevision
+  field List`1 Paths
+  field List`1 Identities
+  field List`1 ActivePaths
+  public Void Merge(Preferences prefs)
+  public Void .ctor()
+  class GlassBoard.RemovalJournal/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__4_0
+    field Func`2 <>9__4_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Merge>b__4_0(String p)
+    internal Boolean <Merge>b__4_1(String p)
+class GlassBoard.DocumentRules   // fields=1 methods=2
+  field HashSet`1 extensions
+  public static Boolean Supported(String path)
+  private static Void .cctor()
+class GlassBoard.GameModeRules   // fields=0 methods=1
+  public static Boolean Suppressed(Boolean manual, Boolean automatic, Boolean fullscreen, Boolean desktop)
+class GlassBoard.WeatherPresentation   // fields=0 methods=4
+  public static String Place(String requested, GeoPlace resolved)
+  public static String Description(Int32 code, String description)
+  private static String WmoDescription(Int32 code)
+  public static String Icon(Int32 code, String description)
+class GlassBoard.WidgetManager   // fields=14 methods=19
+  field Controller C
+  field NotesRepository Notes
+  field WeatherEngine Weather
+  field MusicEngine Music
+  field WidgetRegistry`1 windows
+  field DispatcherTimer timer
+  field Boolean closed
+  field Boolean syncing
+  field Boolean pending
+  field Boolean recreate
+  field Boolean queued
+  field DateTime lastWeatherCheck
+  field String LastError
+  field List`1 reminderWindows
+  internal List`1 get_SnapshotWindows()
+  public Void .ctor(Controller c)
+  private Void ShowReminder(List`1 messages)
+  public Void QueueSync()
+  public Void SetVisible(Boolean visible)
+  public Void Reopen()
+  public Void Sync()
+  private Void Reconcile()
+  private Void TryStop(WidgetWindow w)
+  private Void RefreshMusic()
+  public Boolean get_MusicVisible()
+  public Void RefreshNotes()
+  public Void Assign(String kind, Int32 panel)
+  public Void Enable(String kind, Boolean value)
+  public Void Closed(WidgetWindow window, Boolean disable)
+  public Void Dispose()
+  private Void <.ctor>b__15_0()
+  private Void <.ctor>b__15_1(Object s, EventArgs e)
+  private Void <QueueSync>b__18_0()
+  class GlassBoard.WidgetManager/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__22_1
+    field Func`2 <>9__26_0
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Reconcile>b__22_1(ClockAlarm a)
+    internal Boolean <get_MusicVisible>b__26_0(WidgetWindow w)
+  class GlassBoard.WidgetManager/<>c__DisplayClass17_0   // fields=5 methods=5
+    field WidgetManager <>4__this
+    field List`1 messages
+    field Window w
+    field DateTime until
+    field DispatcherTimer sound
+    public Void .ctor()
+    internal Void <ShowReminder>b__0()
+    internal Void <ShowReminder>b__1()
+    internal Void <ShowReminder>b__2(Object s, EventArgs e)
+    internal Void <ShowReminder>b__3(Object s, EventArgs e)
+  class GlassBoard.WidgetManager/<>c__DisplayClass22_0   // fields=1 methods=2
+    field WidgetOptions o
+    public Void .ctor()
+    internal Boolean <Reconcile>b__0(String k)
+class GlassBoard.GeoPlace   // fields=4 methods=1
+  field String Name
+  field String Country
+  field Double Latitude
+  field Double Longitude
+  public Void .ctor()
+class GlassBoard.GeoReply   // fields=1 methods=1
+  field List`1 Results
+  public Void .ctor()
+class GlassBoard.WeatherCurrent   // fields=5 methods=1
+  field Double Temperature
+  field Int32 Code
+  field Double Wind
+  field String Time
+  field String Description
+  public Void .ctor()
+class GlassBoard.WeatherReply   // fields=1 methods=1
+  field WeatherCurrent Current
+  public Void .ctor()
+class GlassBoard.WeatherSnapshot   // fields=3 methods=1
+  field GeoPlace Place
+  field WeatherCurrent Current
+  field String Provider
+  public Void .ctor()
+class GlassBoard.WttrText   // fields=1 methods=1
+  field String Value
+  public Void .ctor()
+class GlassBoard.WttrArea   // fields=4 methods=1
+  field List`1 Name
+  field List`1 Country
+  field String Latitude
+  field String Longitude
+  public Void .ctor()
+class GlassBoard.WttrCurrent   // fields=5 methods=1
+  field String Temperature
+  field String Wind
+  field List`1 Description
+  field List`1 Chinese
+  field List`1 Localized
+  public Void .ctor()
+class GlassBoard.WttrReply   // fields=2 methods=1
+  field List`1 Current
+  field List`1 Areas
+  public Void .ctor()
+class GlassBoard.WeatherClient   // fields=3 methods=11
+  field Object gate
+  field Dictionary`2 places
+  field Dictionary`2 aliases
+  public static String NormalizeCity(String city)
+  public static T Read(Stream stream)
+  private static T Get(String url)
+  public static Boolean Coordinates(String value, GeoPlace& place)
+  private static GeoPlace Resolve(String city, Func`2 reader)
+  private static String Text(List`1 values)
+  public static WeatherSnapshot FromWttr(WttrReply reply)
+  public static String Failure(Exception exception)
+  public static WeatherSnapshot Fetch(String city)
+  public static WeatherSnapshot Fetch(String city, Func`2 geoReader, Func`2 forecastReader, Func`2 backupReader)
+  private static Void .cctor()
+  class GlassBoard.WeatherClient/<>c   // fields=3 methods=4
+    field <>c <>9
+    field Func`2 <>9__8_0
+    field Func`2 <>9__8_1
+    private static Void .cctor()
+    public Void .ctor()
+    internal Boolean <Text>b__8_0(WttrText x)
+    internal String <Text>b__8_1(WttrText x)
+  class GlassBoard.WeatherClient/<>c__DisplayClass7_0   // fields=2 methods=2
+    field String city
+    field Func`2 <>9__0
+    public Void .ctor()
+    internal Boolean <Resolve>b__0(GeoPlace x)
+class GlassBoard.SystemMedia   // fields=0 methods=3
+  private static UInt32 SendInput(UInt32 count, INPUT[] input, Int32 size)
+  public static Void Shortcut(UInt16 modifier, UInt16 key)
+  public static Void Key(UInt16 key)
+  class GlassBoard.SystemMedia/MOUSEINPUT   // fields=6 methods=0
+    field Int32 X
+    field Int32 Y
+    field UInt32 Data
+    field UInt32 Flags
+    field UInt32 Time
+    field IntPtr Extra
+  class GlassBoard.SystemMedia/KEYBDINPUT   // fields=5 methods=0
+    field UInt16 Key
+    field UInt16 Scan
+    field UInt32 Flags
+    field UInt32 Time
+    field IntPtr Extra
+  class GlassBoard.SystemMedia/UNION   // fields=2 methods=0
+    field MOUSEINPUT Mouse
+    field KEYBDINPUT Keyboard
+  class GlassBoard.SystemMedia/INPUT   // fields=2 methods=0
+    field UInt32 Type
+    field UNION Value
+class <PrivateImplementationDetails>   // fields=9 methods=0
+  field __StaticArrayInitTypeSize=10 090A0FCE56C2AA4E414DA0FB77DC62D8B84AE96855CD887503BA46A5C3EABEC4
+  field __StaticArrayInitTypeSize=32 245B07B0891A02D1DA755EA740C500286879D0833D61E45EB5642625668216E0
+  field __StaticArrayInitTypeSize=24 36D31CA55702C21C00115143B62F7D70B7FFDB759698622B049AFACB782E419F
+  field __StaticArrayInitTypeSize=32 38CE7D96AFDD6EB645B9B491BBED5764A6EF1F544AE82D114C183CA4E060ED4E
+  field __StaticArrayInitTypeSize=28 45F2FD5DEDAEB4FF1736DAE9DCCEF722CB54E662580A131E33D8F9523FCEBE4B
+  field __StaticArrayInitTypeSize=18 57B0A7E913A6CBB7C5554095EB31FFE93AB6628DCBEC34C82369E40829116FDC
+  field __StaticArrayInitTypeSize=20 8B3F999AF20955BEEDF969300106B38C2F3CEB65086FEDFCB9EA839A0BDBCD69
+  field __StaticArrayInitTypeSize=16 BAED642339816AFFB3FE8719792D0E4CE82F12DB72B7373D244EAA65445800FE
+  field __StaticArrayInitTypeSize=28 F2D468C1FA934D051BCF2347106865DE143CCD9C8421E89298AFA7AC5936E707
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=10   // fields=0 methods=0
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=16   // fields=0 methods=0
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=18   // fields=0 methods=0
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=20   // fields=0 methods=0
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=24   // fields=0 methods=0
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=28   // fields=0 methods=0
+  class <PrivateImplementationDetails>/__StaticArrayInitTypeSize=32   // fields=0 methods=0

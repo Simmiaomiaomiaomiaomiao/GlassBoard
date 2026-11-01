@@ -1,0 +1,13 @@
+# ZCode / mimosa 本地安全钩子状态，不属于项目内容
+.mimosa/
+
+# 构建中间产物
+bin/
+obj/
+*.pdb
+
+# 个人配置备份与运行日志，不上传
+backups/config_2026*/
+backups/*.gbbackup
+patches/fg_trace.log
+patches/windfix.log
