@@ -520,9 +520,8 @@ public sealed class WidgetWindow : GlassWindow
 		};
 		base.Closed += delegate
 		{
-			bool disable = !stopped;
 			stopped = true;
-			M.Closed(this, disable);
+			M.Closed(this, disable: false);
 		};
 	}
 
@@ -940,9 +939,9 @@ public sealed class WidgetWindow : GlassWindow
 		stackPanel.Children.Add(options);
 		Button button = Glyph("close", delegate
 		{
-			M.Enable(kind, value: false);
+			Close();
 		}, 26.0);
-		button.ToolTip = "关闭这个组件";
+		button.ToolTip = "隐藏这个组件（设置里关闭才会永久生效）";
 		stackPanel.Children.Add(button);
 		stackPanel.Visibility = (ControlsHidden ? Visibility.Collapsed : Visibility.Visible);
 		grid.Children.Add(stackPanel);
