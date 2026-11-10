@@ -861,7 +861,7 @@ public class BoardWindow : GlassWindow
 			currentGroup = "全部";
 		}
 		columns = BoardIconRules.Columns(base.Width - 104.0, C.Prefs.BoardIconSize, C.Prefs.BoardIconGap);
-		int num = BoardIconRules.Rows(base.Height - (double)(C.Prefs.BoardHideGroups ? 180 : 258), C.Prefs.BoardIconSize, C.Prefs.BoardIconGap);
+		int num = BoardIconRules.Rows(base.Height - (double)(C.Prefs.BoardHideGroups ? 216 : 294), C.Prefs.BoardIconSize, C.Prefs.BoardIconGap);
 		capacity = columns * num;
 		Build(num);
 		Search.Text = text;
@@ -1092,6 +1092,10 @@ public class BoardWindow : GlassWindow
 		};
 		layout.RowDefinitions.Add(new RowDefinition
 		{
+			Height = new GridLength(36.0)
+		});
+		layout.RowDefinitions.Add(new RowDefinition
+		{
 			Height = new GridLength(55.0)
 		});
 		layout.RowDefinitions.Add(new RowDefinition
@@ -1116,7 +1120,55 @@ public class BoardWindow : GlassWindow
 			Height = new GridLength(32.0)
 		});
 		ContentGrid.Children.Add(layout);
+		Grid navigation = new Grid
+		{
+			Margin = new Thickness(4.0, 0.0, 4.0, 0.0)
+		};
+		navigation.ColumnDefinitions.Add(new ColumnDefinition());
+		navigation.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+		StackPanel brand = new StackPanel
+		{
+			Orientation = Orientation.Horizontal,
+			VerticalAlignment = VerticalAlignment.Center
+		};
+		brand.Children.Add(new TextBlock
+		{
+			Text = "GlassBoard",
+			Foreground = base.TextBrush,
+			FontSize = 19.0,
+			FontWeight = FontWeights.SemiBold,
+			VerticalAlignment = VerticalAlignment.Center,
+			Margin = new Thickness(0.0, 0.0, 12.0, 0.0)
+		});
+		brand.Children.Add(new TextBlock
+		{
+			Text = "APPLICATION BOARD",
+			Foreground = base.MutedBrush,
+			FontSize = 9.0,
+			FontWeight = FontWeights.SemiBold,
+			VerticalAlignment = VerticalAlignment.Center
+		});
+		navigation.Children.Add(brand);
+		StackPanel navigationActions = new StackPanel
+		{
+			Orientation = Orientation.Horizontal,
+			VerticalAlignment = VerticalAlignment.Center,
+			HorizontalAlignment = HorizontalAlignment.Right
+		};
+		Grid.SetColumn(navigationActions, 1);
+		navigation.Children.Add(navigationActions);
+		navigationActions.Children.Add(Button("工作区", delegate
+		{
+			C.ManageWorkspaces();
+		}, 82.0));
+		navigationActions.Children.Add(Button("小组件", delegate
+		{
+			C.ConfigureWidgets();
+		}, 82.0));
+		Grid.SetRow(navigation, 0);
+		layout.Children.Add(navigation);
 		Grid grid = new Grid();
+		Grid.SetRow(grid, 1);
 		grid.ColumnDefinitions.Add(new ColumnDefinition());
 		grid.ColumnDefinitions.Add(new ColumnDefinition
 		{
@@ -1230,7 +1282,7 @@ public class BoardWindow : GlassWindow
 			VerticalAlignment = VerticalAlignment.Center,
 			Visibility = (C.Prefs.BoardHideGroups ? Visibility.Collapsed : Visibility.Visible)
 		};
-		Grid.SetRow(wrapPanel, 1);
+		Grid.SetRow(wrapPanel, 2);
 		layout.Children.Add(wrapPanel);
 		groups = new ComboBox
 		{
@@ -1315,7 +1367,7 @@ public class BoardWindow : GlassWindow
 			VerticalAlignment = VerticalAlignment.Center,
 			HorizontalAlignment = HorizontalAlignment.Center
 		};
-		Grid.SetRow(bulkBar, 2);
+		Grid.SetRow(bulkBar, 3);
 		layout.Children.Add(bulkBar);
 		selectAll = Button("全选结果", delegate
 		{
@@ -1368,7 +1420,7 @@ public class BoardWindow : GlassWindow
 		{
 			Margin = new Thickness(0.0, 10.0, 0.0, 4.0)
 		};
-		Grid.SetRow(dockPanel, 3);
+		Grid.SetRow(dockPanel, 4);
 		layout.Children.Add(dockPanel);
 		folderSignature = "";
 		folderBar = new WrapPanel
@@ -1407,7 +1459,7 @@ public class BoardWindow : GlassWindow
 			Orientation = Orientation.Horizontal,
 			HorizontalAlignment = HorizontalAlignment.Center
 		};
-		Grid.SetRow(stackPanel2, 4);
+		Grid.SetRow(stackPanel2, 5);
 		layout.Children.Add(stackPanel2);
 		stackPanel2.Children.Add(Button("‹", delegate
 		{
@@ -1432,7 +1484,7 @@ public class BoardWindow : GlassWindow
 		{
 			Width = new GridLength(230.0)
 		});
-		Grid.SetRow(grid4, 5);
+		Grid.SetRow(grid4, 6);
 		layout.Children.Add(grid4);
 		Status = new TextBlock
 		{
