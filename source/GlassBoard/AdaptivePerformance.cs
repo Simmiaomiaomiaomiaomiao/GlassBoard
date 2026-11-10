@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace GlassBoard
 {
     internal enum PerformanceMode { Balanced, Eco, Protection }
-    internal enum GlassRenderMode { NativeBackdrop, LightweightGlass, Solid }
+    internal enum GlassRenderMode { RichGlassSnapshot, LightweightGlass, Solid }
 
     /// <summary>Central resource policy. Thresholds are conservative starting points for 16 GB systems.</summary>
     internal sealed class AdaptivePerformance : IDisposable
@@ -17,7 +17,7 @@ namespace GlassBoard
         public GlassRenderMode RenderMode
         {
             get { return Mode == PerformanceMode.Protection ? GlassRenderMode.Solid :
-                         Mode == PerformanceMode.Eco ? GlassRenderMode.LightweightGlass : GlassRenderMode.NativeBackdrop; }
+                         Mode == PerformanceMode.Eco ? GlassRenderMode.LightweightGlass : GlassRenderMode.RichGlassSnapshot; }
         }
         public event Action<PerformanceMode> ModeChanged;
 
