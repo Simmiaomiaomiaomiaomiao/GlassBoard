@@ -18,11 +18,29 @@ public static class MenuAppearanceChecks
 	private static void Drain()
 	{
 		DispatcherFrame frame = new DispatcherFrame();
-		Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (Action)delegate
+		bool timedOut = false;
+		DispatcherTimer watchdog = new DispatcherTimer(DispatcherPriority.Send)
 		{
+			Interval = TimeSpan.FromSeconds(5.0)
+		};
+		watchdog.Tick += delegate
+		{
+			timedOut = true;
+			watchdog.Stop();
+			frame.Continue = false;
+		};
+		Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ContextIdle, (Action)delegate
+		{
+			watchdog.Stop();
 			frame.Continue = false;
 		});
+		watchdog.Start();
 		Dispatcher.PushFrame(frame);
+		watchdog.Stop();
+		if (timedOut)
+		{
+			throw new TimeoutException("菜单 UI Dispatcher 未能在 5 秒内完成排空；可能是当前桌面会话不支持 WPF Popup。");
+		}
 	}
 
 	public static void Run()
