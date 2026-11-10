@@ -42,7 +42,16 @@ jobs:
           Copy-Item src publish/src -Recurse -Force
           Copy-Item data publish/data -Recurse -Force
           Copy-Item tests/bin/Release/net48/GlassBoard.SelfTestRunner.* publish/ -Force
+          Copy-Item LICENSE publish/ -Force
+          Copy-Item THIRD_PARTY_NOTICES.md publish/ -Force
+          Copy-Item README.md publish/ -Force
+          Copy-Item Update.md publish/ -Force
+          $supportFiles = @('CheckMemory.cmd','CheckWindows.cmd','CollectDiagnostics.cmd','RecoverWidgets.cmd','RestoreDesktop.cmd','Start.cmd')
+          foreach ($file in $supportFiles) {
+            if (Test-Path $file) { Copy-Item $file publish/ -Force }
+          }
           if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
+          if (!(Test-Path publish/RecoverWidgets.cmd)) { throw 'Recovery utility missing' }
       - name: Run WPF self-test
         id: selftest
         timeout-minutes: 3
