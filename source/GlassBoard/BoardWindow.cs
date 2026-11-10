@@ -64,6 +64,8 @@ public class BoardWindow : GlassWindow
 
 	private TextBlock Status;
 
+	private TextBlock performanceLabel;
+
 	private TextBlock Empty;
 
 	private Grid layout;
@@ -1126,6 +1128,7 @@ public class BoardWindow : GlassWindow
 		};
 		navigation.ColumnDefinitions.Add(new ColumnDefinition());
 		navigation.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+		navigation.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 		StackPanel brand = new StackPanel
 		{
 			Orientation = Orientation.Horizontal,
@@ -1149,13 +1152,34 @@ public class BoardWindow : GlassWindow
 			VerticalAlignment = VerticalAlignment.Center
 		});
 		navigation.Children.Add(brand);
+		Border performanceBadge = new Border
+		{
+			CornerRadius = new CornerRadius(11.0),
+			Background = new SolidColorBrush(Color.FromArgb(30, 113, 185, 255)),
+			BorderBrush = new SolidColorBrush(Color.FromArgb(72, 145, 198, 255)),
+			BorderThickness = new Thickness(1.0),
+			Padding = new Thickness(10.0, 5.0, 10.0, 5.0),
+			Margin = new Thickness(0.0, 0.0, 12.0, 0.0),
+			VerticalAlignment = VerticalAlignment.Center
+		};
+		performanceLabel = new TextBlock
+		{
+			Text = C.PerformanceModeCaption,
+			Foreground = base.TextBrush,
+			FontSize = 11.0,
+			FontWeight = FontWeights.SemiBold,
+			VerticalAlignment = VerticalAlignment.Center
+		};
+		performanceBadge.Child = performanceLabel;
+		Grid.SetColumn(performanceBadge, 1);
+		navigation.Children.Add(performanceBadge);
 		StackPanel navigationActions = new StackPanel
 		{
 			Orientation = Orientation.Horizontal,
 			VerticalAlignment = VerticalAlignment.Center,
 			HorizontalAlignment = HorizontalAlignment.Right
 		};
-		Grid.SetColumn(navigationActions, 1);
+		Grid.SetColumn(navigationActions, 2);
 		navigation.Children.Add(navigationActions);
 		navigationActions.Children.Add(Button("工作区", delegate
 		{
@@ -1581,6 +1605,14 @@ public class BoardWindow : GlassWindow
 	{
 		string q = ((C.Prefs.BoardHideSearch || Search == null) ? "" : Search.Text.Trim());
 		return C.Prefs.Apps.Where((Entry a) => (C.Prefs.BoardHideGroups || currentGroup == "全部" || FeatureRules.InGroup(a, currentGroup)) && LayoutRules.Matches(a.Name, q)).ToList();
+	}
+
+	public void UpdatePerformanceLabel(string text)
+	{
+		if (performanceLabel != null)
+		{
+			performanceLabel.Text = text;
+		}
 	}
 
 	public void SetStatus(string text)
