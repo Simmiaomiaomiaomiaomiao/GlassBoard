@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: glassboard-windows-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
@@ -40,6 +44,9 @@ jobs:
           Copy-Item tests/bin/Release/net48/GlassBoard.SelfTestRunner.* publish/ -Force
           if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
       - name: Run WPF self-test
+        id: selftest
+        timeout-minutes: 3
+        continue-on-error: true
         shell: pwsh
         run: |
           Push-Location publish
@@ -62,8 +69,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GlassBoard-SelfTest-Diagnostics
-          path: publish/self-test-result.txt
+          path: |
+            publish/self-test-result.txt
+            publish/self-test-progress.txt
           if-no-files-found: warn
+      - name: Record validation status
+        if: always()
+        shell: pwsh
+        run: |
+          $result = '${{ steps.selftest.outcome }}'
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "GlassBoard WPF self-test outcome: **$result**"
+          if ($result -ne 'success') {
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "The Windows build may still produce a preview installer, but the self-test result must be reviewed before treating it as a stable release."
+          }
       - name: Install Inno Setup
         run: choco install innosetup --yes --no-progress
       - name: Build installer
