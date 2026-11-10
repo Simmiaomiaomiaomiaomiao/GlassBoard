@@ -40,17 +40,17 @@ jobs:
         run: |
           Push-Location publish
           try {
-            & .\GlassBoard.exe --self-test
-            $testExit = $LASTEXITCODE
+            $exe = (Resolve-Path .\GlassBoard.exe).Path
+            $process = Start-Process -FilePath $exe -ArgumentList '--self-test' -WorkingDirectory (Get-Location).Path -PassThru -Wait
+            $testExit = $process.ExitCode
+            Write-Output "SELF_TEST_PID=$($process.Id)"
             Write-Output "SELF_TEST_EXIT=$testExit"
-            Write-Output "SELF_TEST_BASE=$((Get-Location).Path)"
             if (Test-Path .\self-test-result.txt) {
               Write-Output "SELF_TEST_RESULT_BEGIN"
               [Console]::Out.WriteLine([System.IO.File]::ReadAllText((Resolve-Path .\self-test-result.txt)))
               Write-Output "SELF_TEST_RESULT_END"
             } else {
               Write-Output "SELF_TEST_RESULT_FILE_NOT_FOUND"
-              Get-ChildItem -Force | Select-Object Name,Length | Format-Table | Out-String | Write-Output
             }
             if ($testExit -ne 0) { throw "Self-test failed with exit code $testExit" }
           }
