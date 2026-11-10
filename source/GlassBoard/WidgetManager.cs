@@ -103,6 +103,17 @@ public sealed class WidgetManager : IDisposable
 		});
 	}
 
+	public void ApplyAdaptiveRenderMode()
+	{
+		foreach (WidgetWindow window in windows.Values)
+		{
+			if (window.IsVisible)
+			{
+				window.ApplyAdaptiveRenderMode(C.Prefs.Light);
+			}
+		}
+	}
+
 	public void SetVisible(bool visible)
 	{
 		foreach (WidgetWindow value in windows.Values)
