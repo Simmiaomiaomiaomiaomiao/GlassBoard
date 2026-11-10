@@ -38,6 +38,8 @@ public class Controller
 
 	private WidgetManager widgets;
 
+	private AdaptivePerformanceTimer adaptivePerformance;
+
 	private bool removalMigrated;
 
 	private bool glassSuppressed;
@@ -109,6 +111,20 @@ public class Controller
 	}
 
 	public bool GlassSuppressed => glassSuppressed;
+
+	public string PerformanceModeCaption
+	{
+		get
+		{
+			if (adaptivePerformance == null) return "自适应材质";
+			switch (adaptivePerformance.Policy.Mode)
+			{
+				case PerformanceMode.Eco: return "轻量玻璃";
+				case PerformanceMode.Protection: return "保护模式";
+				default: return "平衡材质";
+			}
+		}
+	}
 
 	public bool CanUndoRemoval => editHistory.CanUndo;
 
@@ -1282,10 +1298,24 @@ public class Controller
 		}
 		Board = new BoardWindow(this);
 		Dock = new DockWindow(this);
+		adaptivePerformance = new AdaptivePerformanceTimer();
+		GlassWindow.SetAdaptiveRenderMode(adaptivePerformance.Policy.RenderMode);
+		adaptivePerformance.Policy.ModeChanged += delegate(PerformanceMode mode)
+		{
+			GlassWindow.SetAdaptiveRenderMode(adaptivePerformance.Policy.RenderMode);
+			Dock.ApplyAdaptiveRenderMode(Prefs.Light);
+			Board.ApplyAdaptiveRenderMode(Prefs.Light);
+			Board.UpdatePerformanceLabel(PerformanceModeCaption);
+			if (widgets != null)
+			{
+				widgets.ApplyAdaptiveRenderMode();
+			}
+			Store.Trace("PERFORMANCE mode=" + mode + " render=" + adaptivePerformance.Policy.RenderMode);
+		};
 		glassSuppressed = FullscreenState.Active();
 		Tray = new NotifyIcon
 		{
-			Text = "GlassBoard v0.9.17 · 玻璃启动台",
+			Text = "GlassBoard v0.9.18-preview.1 · 玻璃启动台",
 			Icon = (Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location) ?? SystemIcons.Application),
 			Visible = true
 		};
@@ -1971,7 +2001,7 @@ public class Controller
 			Board.Hide();
 			Window w = new Window
 			{
-				Title = "GlassBoard · 个性化与控制 v0.9.17",
+				Title = "GlassBoard · 个性化与控制 v0.9.18-preview.1",
 				Width = Math.Min(940.0, SystemParameters.WorkArea.Width - 40.0),
 				Height = Math.Min(790.0, SystemParameters.WorkArea.Height - 50.0),
 				MinWidth = 560.0,
@@ -2866,6 +2896,11 @@ public class Controller
 			return;
 		}
 		ShuttingDown = true;
+		if (adaptivePerformance != null)
+		{
+			adaptivePerformance.Dispose();
+			adaptivePerformance = null;
+		}
 		if (updateCancel != null)
 		{
 			updateCancel.Cancel();

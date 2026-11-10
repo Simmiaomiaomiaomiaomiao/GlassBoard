@@ -1783,11 +1783,13 @@ public class DockWindow : GlassWindow
 				{
 					border.Clip = clip;
 					border.CornerRadius = Surface.CornerRadius;
-					border.Effect = new BlurEffect
-					{
-						Radius = base.MaterialBlur,
-						RenderingBias = RenderingBias.Performance
-					};
+					border.Effect = (CurrentAdaptiveRenderMode == GlassRenderMode.RichGlassSnapshot && base.MaterialBlur > 0.0)
+						? new BlurEffect
+						{
+							Radius = base.MaterialBlur,
+							RenderingBias = RenderingBias.Performance
+						}
+						: null;
 				}
 			}
 		}

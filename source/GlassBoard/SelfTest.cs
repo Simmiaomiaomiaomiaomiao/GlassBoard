@@ -116,15 +116,74 @@ public static class SelfTest
 		}
 	}
 
+	private static void TraceStage(string stage)
+	{
+		try
+		{
+			File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-progress.txt"),
+				DateTime.UtcNow.ToString("O") + " " + stage + Environment.NewLine, Encoding.UTF8);
+		}
+		catch { }
+	}
+
+	public static int RunHeadless()
+	{
+		try
+		{
+			TraceStage("HEADLESS START");
+			if (LayoutRules.Pages(0, 35) != 1 || LayoutRules.Pages(35, 35) != 1 || LayoutRules.Pages(36, 35) != 2 || LayoutRules.Pages(70, 35) != 2)
+				throw new Exception("分页边界失败");
+			if (!LayoutRules.Matches("Microsoft Visual Studio Code", "code MICROSOFT") || !LayoutRules.Matches("剪映专业版", "剪映") || LayoutRules.Matches("Steam", "maya"))
+				throw new Exception("搜索规则失败");
+			if (LayoutRules.GlassOpacity(-1.0) != 0.0 || LayoutRules.GlassOpacity(100.0) != 100.0 || LayoutRules.GlassOpacity(double.NaN) != 72.0)
+				throw new Exception("透明度边界失败");
+			BoundedCache<string, int> cache = new BoundedCache<string, int>(2, StringComparer.OrdinalIgnoreCase);
+			cache.Put("first", 1); cache.Put("second", 2);
+			int cached;
+			if (!cache.TryGet("first", out cached) || cached != 1) throw new Exception("LRU 缓存读取失败");
+			cache.Put("third", 3);
+			if (cache.TryGet("second", out cached) || !cache.TryGet("third", out cached) || cached != 3 || cache.Count != 2)
+				throw new Exception("LRU 容量淘汰失败");
+			if (BackgroundWorkRules.MediaPollSeconds(true, true, true) != 1.5 || BackgroundWorkRules.MediaPollSeconds(true, true, false) != 3.0 || BackgroundWorkRules.MediaPollSeconds(false, true, true) != 10.0)
+				throw new Exception("后台媒体轮询策略失败");
+			Preferences preferences = new Preferences { Light = true, DockGap = 25.0, Imported = true, OpacityPercent = 40.0 };
+			preferences.Removed.Add("C:\\工具.lnk");
+			preferences.Apps.Add(new Entry { Name = "中文 软件", Path = "C:\\测试目录\\工具.lnk", Pinned = true });
+			using (MemoryStream stream = new MemoryStream())
+			{
+				DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Preferences));
+				serializer.WriteObject(stream, preferences); stream.Position = 0;
+				Preferences roundTrip = (Preferences)serializer.ReadObject(stream);
+				if (roundTrip.Apps.Count != 1 || roundTrip.Apps[0].Name != "中文 软件" || !roundTrip.Apps[0].Pinned || roundTrip.DockGap != 25.0 || roundTrip.OpacityPercent != 40.0 || roundTrip.Removed.Count != 1)
+					throw new Exception("中文配置序列化往返失败");
+			}
+			TraceStage("HEADLESS PASS");
+			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-result.txt"), "PASS: deterministic headless checks for pagination, search, glass opacity bounds, bounded LRU cache, background media polling and Unicode configuration serialization. Interactive WPF/Dock tests require a signed-in desktop session.\r\n", Encoding.UTF8);
+			return 0;
+		}
+		catch (Exception ex)
+		{
+			TraceStage("HEADLESS FAIL: " + ex.GetType().Name + " " + ex.Message);
+			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-result.txt"), ex.ToString(), Encoding.UTF8);
+			return 1;
+		}
+	}
 	public static int Run()
 	{
 		try
 		{
+			TraceStage("START");
+			TraceStage("CheckMemoryResources");
 			CheckMemoryResources();
+			TraceStage("MenuAppearanceChecks");
 			MenuAppearanceChecks.Run();
+			TraceStage("DockBehaviorChecks");
 			DockBehaviorChecks.Run();
+			TraceStage("FeedbackChecks");
 			FeedbackChecks.Run();
+			TraceStage("PersonalizationChecks");
 			PersonalizationChecks.Run();
+			TraceStage("ButtonTestWindow");
 			ButtonTestWindow buttonTestWindow = new ButtonTestWindow();
 			try
 			{
@@ -301,11 +360,13 @@ public static class SelfTest
 			{
 				throw new Exception("透明度边界失败");
 			}
+			TraceStage("PASS");
 			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-result.txt"), "PASS: transparent material bounds and widget recovery menu; Dock rendering/order/mouse-capture release and native process path/reuse; light/dark nested menus, submenu open/close, checkmarks, disabled items, header sliders, shortcut overlay cache and legacy configuration; shared theme styles, bounded thumbnails and stream-independent pixels, hidden board release/reopen; recordable glass window affinity before/after backdrop/show/hide; WPF light/dark button/combo/text/check/slider templates, value bindings, button handlers, visibility switch, configuration, removed entries, opacity bounds, pages and search\r\n", Encoding.UTF8);
 			return 0;
 		}
 		catch (Exception ex)
 		{
+			TraceStage("FAIL: " + ex.GetType().Name + " " + ex.Message);
 			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-result.txt"), ex.ToString());
 			return 1;
 		}

@@ -128,7 +128,7 @@ public static class UpdateService
 
 	public static UpdateOffer CheckUsing(Func<string, long, byte[]> read)
 	{
-		string[] array = new string[4] { "https://api.github.com/repos/xinxiao1011/GlassBoard/releases?per_page=20", "https://api.github.com/repos/xinxiao1011/GlassBoard/contents", "https://raw.githubusercontent.com/xinxiao1011/GlassBoard/main/update.json", "https://github.com/xinxiao1011/GlassBoard/raw/refs/heads/main/update.json" };
+		string[] array = new string[4] { "https://api.github.com/repos/Simmiaomiaomiaomiaomiao/GlassBoard/releases?per_page=20", "https://api.github.com/repos/Simmiaomiaomiaomiaomiao/GlassBoard/contents", "https://raw.githubusercontent.com/Simmiaomiaomiaomiaomiao/GlassBoard/main/update.json", "https://github.com/Simmiaomiaomiaomiaomiao/GlassBoard/raw/refs/heads/main/update.json" };
 		List<UpdateOffer> list = new List<UpdateOffer>();
 		List<string> list2 = new List<string>();
 		int num = 0;

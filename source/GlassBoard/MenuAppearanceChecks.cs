@@ -18,11 +18,29 @@ public static class MenuAppearanceChecks
 	private static void Drain()
 	{
 		DispatcherFrame frame = new DispatcherFrame();
-		Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (Action)delegate
+		bool timedOut = false;
+		DispatcherTimer watchdog = new DispatcherTimer(DispatcherPriority.Send)
 		{
+			Interval = TimeSpan.FromSeconds(5.0)
+		};
+		watchdog.Tick += delegate
+		{
+			timedOut = true;
+			watchdog.Stop();
+			frame.Continue = false;
+		};
+		Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ContextIdle, (Action)delegate
+		{
+			watchdog.Stop();
 			frame.Continue = false;
 		});
+		watchdog.Start();
 		Dispatcher.PushFrame(frame);
+		watchdog.Stop();
+		if (timedOut)
+		{
+			throw new TimeoutException("菜单 UI Dispatcher 未能在 5 秒内完成排空；可能是当前桌面会话不支持 WPF Popup。");
+		}
 	}
 
 	public static void Run()
@@ -181,7 +199,9 @@ public static class MenuAppearanceChecks
 		object obj4 = null;
 		try
 		{
-			string text2 = Path.Combine(text, "中文 快捷方式.lnk");
+			// WScript.Shell's legacy automation layer may use the runner's active ANSI code page for file paths.
+			// Keep this COM interoperability fixture ASCII; Unicode names are covered by the WPF/config tests.
+			string text2 = Path.Combine(text, "GlassBoard Shortcut.lnk");
 			Type typeFromProgID = Type.GetTypeFromProgID("WScript.Shell");
 			obj3 = Activator.CreateInstance(typeFromProgID);
 			obj4 = typeFromProgID.InvokeMember("CreateShortcut", BindingFlags.InvokeMethod, null, obj3, new object[1] { text2 });

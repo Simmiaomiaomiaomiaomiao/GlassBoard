@@ -16,6 +16,21 @@ public static class Program
 		{
 			return SelfTest.Run();
 		}
+		if (args.Length != 0 && args[0] == "--uninstall-cleanup")
+		{
+			try
+			{
+				StartupService.Set(enabled: false);
+				TaskbarAutoHide.Restore();
+				DesktopVisibility.RestoreOriginal();
+				return 0;
+			}
+			catch (Exception ex)
+			{
+				Store.Log(ex);
+				return 1;
+			}
+		}
 		if (args.Length != 0 && args[0] == "--restore-shell")
 		{
 			try
@@ -47,7 +62,7 @@ public static class Program
 		{
 			if (!createdNew)
 			{
-				MessageBox.Show("已有 GlassBoard 在运行，本次启动的 v0.9.17 尚未运行。\n请先从托盘退出已有程序，再启动此版本。", "GlassBoard v0.9.17");
+				MessageBox.Show("已有 GlassBoard 在运行，本次启动的 v0.9.18-preview.1 尚未运行。\n请先从托盘退出已有程序，再启动此版本。", "GlassBoard v0.9.18-preview.1");
 				return 0;
 			}
 			try

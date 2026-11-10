@@ -1,0 +1,111 @@
+name: Windows build and installer
+
+on:
+  push:
+    branches: [ main, glassboard-v1-performance-foundation, glassboard-v1-preview-final ]
+    tags: [ 'v*' ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: glassboard-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Install .NET Framework 4.8 targeting pack
+        shell: pwsh
+        run: choco install netfx-4.8-devpack -y --no-progress
+      - name: Build WPF application
+        shell: pwsh
+        run: dotnet build source/GlassBoard.csproj -c Release
+      - name: Build STA self-test runner
+        shell: pwsh
+        run: dotnet build tests/GlassBoard.SelfTestRunner.csproj -c Release
+      - name: Stage application
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force publish | Out-Null
+          Copy-Item source/bin/Release/net48/* publish/ -Recurse -Force
+          Copy-Item Interop.UIAutomationClient.dll publish/ -Force
+          Copy-Item GlassBoard.Updater.exe publish/ -Force
+          Copy-Item src publish/src -Recurse -Force
+          Copy-Item data publish/data -Recurse -Force
+          Copy-Item tests/bin/Release/net48/GlassBoard.SelfTestRunner.* publish/ -Force
+          Copy-Item LICENSE publish/ -Force
+          Copy-Item THIRD_PARTY_NOTICES.md publish/ -Force
+          Copy-Item README.md publish/ -Force
+          Copy-Item Update.md publish/ -Force
+          $supportFiles = @('CheckMemory.cmd','CheckWindows.cmd','CollectDiagnostics.cmd','RecoverWidgets.cmd','RestoreDesktop.cmd','Start.cmd')
+          foreach ($file in $supportFiles) {
+            if (Test-Path $file) { Copy-Item $file publish/ -Force }
+          }
+          if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
+          if (!(Test-Path publish/RecoverWidgets.cmd)) { throw 'Recovery utility missing' }
+      - name: Run deterministic headless core tests
+        id: selftest
+        timeout-minutes: 2
+        shell: pwsh
+        run: |
+          Push-Location publish
+          try {
+            & .\GlassBoard.SelfTestRunner.exe --headless
+            $testExit = $LASTEXITCODE
+            Write-Output "SELF_TEST_EXIT=$testExit"
+            if (Test-Path .\self-test-result.txt) {
+              Write-Output "SELF_TEST_RESULT_BEGIN"
+              [Console]::Out.WriteLine([System.IO.File]::ReadAllText((Resolve-Path .\self-test-result.txt)))
+              Write-Output "SELF_TEST_RESULT_END"
+            } else {
+              Write-Output "SELF_TEST_RESULT_FILE_NOT_FOUND"
+            }
+            if ($testExit -ne 0) { throw "Self-test failed with exit code $testExit" }
+          }
+          finally { Pop-Location }
+      - name: Upload self-test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GlassBoard-SelfTest-Diagnostics
+          path: |
+            publish/self-test-result.txt
+            publish/self-test-progress.txt
+          if-no-files-found: warn
+      - name: Record validation status
+        if: always()
+        shell: pwsh
+        run: |
+          $result = '${{ steps.selftest.outcome }}'
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "GlassBoard headless core smoke-test outcome: **$result**"
+          if ($result -ne 'success') {
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "CI covers deterministic pagination, search, glass-opacity, LRU cache, background polling and Unicode-config regression tests. Interactive WPF windows, popups, mixed-DPI placement and mouse/drag behavior still require verification in a signed-in desktop session."
+          }
+      - name: Remove test-only files from installer payload
+        shell: pwsh
+        run: |
+          Remove-Item publish/GlassBoard.SelfTestRunner.* -Force -ErrorAction SilentlyContinue
+          Remove-Item publish/self-test-result.txt -Force -ErrorAction SilentlyContinue
+          Remove-Item publish/self-test-progress.txt -Force -ErrorAction SilentlyContinue
+      - name: Install Inno Setup
+        run: choco install innosetup --yes --no-progress
+      - name: Build installer
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts | Out-Null
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" installer/GlassBoard.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Inno Setup compilation failed' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GlassBoard-Setup
+          path: artifacts/GlassBoard-Setup.exe
+          if-no-files-found: error
