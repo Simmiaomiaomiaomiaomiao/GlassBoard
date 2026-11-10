@@ -25,6 +25,9 @@ jobs:
       - name: Build WPF application
         shell: pwsh
         run: dotnet build source/GlassBoard.csproj -c Release
+      - name: Build STA self-test runner
+        shell: pwsh
+        run: dotnet build tests/GlassBoard.SelfTestRunner.csproj -c Release
       - name: Stage application
         shell: pwsh
         run: |
@@ -34,16 +37,15 @@ jobs:
           Copy-Item GlassBoard.Updater.exe publish/ -Force
           Copy-Item src publish/src -Recurse -Force
           Copy-Item data publish/data -Recurse -Force
+          Copy-Item tests/bin/Release/net48/GlassBoard.SelfTestRunner.* publish/ -Force
           if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
       - name: Run WPF self-test
         shell: pwsh
         run: |
           Push-Location publish
           try {
-            $exe = (Resolve-Path .\GlassBoard.exe).Path
-            $process = Start-Process -FilePath $exe -ArgumentList '--self-test' -WorkingDirectory (Get-Location).Path -PassThru -Wait
-            $testExit = $process.ExitCode
-            Write-Output "SELF_TEST_PID=$($process.Id)"
+            & .\GlassBoard.SelfTestRunner.exe
+            $testExit = $LASTEXITCODE
             Write-Output "SELF_TEST_EXIT=$testExit"
             if (Test-Path .\self-test-result.txt) {
               Write-Output "SELF_TEST_RESULT_BEGIN"
