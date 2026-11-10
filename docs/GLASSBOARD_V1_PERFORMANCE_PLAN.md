@@ -43,3 +43,7 @@ These values must be calibrated on real 8 GB / 16 GB / 32 GB systems and with de
 4. Open/close Board repeatedly and test 30-minute idle soak.
 5. Record Private Bytes, Working Set, CPU time, GPU 3D utilization, GPU dedicated/shared memory, and frame/interaction responsiveness.
 6. Confirm LocalAppData user configuration is preserved during ordinary upgrades and removed only when the user explicitly deletes it.
+
+
+## CI validation split
+The Windows Actions workflow runs `GlassBoard.SelfTestRunner.exe --headless` for deterministic rules, bounded-cache behavior, media polling policy and Unicode configuration serialization. The full `SelfTest.Run()` suite also opens WPF windows, context menus and performs simulated pointer/drag operations; it is retained for validation on a signed-in interactive Windows desktop, not treated as a passing headless CI test. Mixed-DPI monitor placement and actual RAM/CPU/GPU usage must also be measured on target hardware.
