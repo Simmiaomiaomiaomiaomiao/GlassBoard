@@ -19,6 +19,18 @@ namespace GlassBoard;
 
 public class GlassWindow : Window
 {
+	private static GlassRenderMode adaptiveRenderMode = GlassRenderMode.RichGlassSnapshot;
+
+	public static void SetAdaptiveRenderMode(GlassRenderMode mode)
+	{
+		adaptiveRenderMode = mode;
+	}
+
+	public void ApplyAdaptiveRenderMode(bool light)
+	{
+		Backdrop(light);
+	}
+
 	protected Grid Root = new Grid();
 
 	protected Border Surface = new Border();
@@ -212,7 +224,16 @@ public class GlassWindow : Window
 		LightTheme = light;
 		SetGlassOpacity(GlassPercent);
 		Surface.BorderBrush = ((GlassPercent == 0.0) ? ((System.Windows.Media.Brush)System.Windows.Media.Brushes.Transparent) : ((System.Windows.Media.Brush)new LinearGradientBrush(System.Windows.Media.Color.FromArgb((byte)Math.Min(255.0, 145.0 * EdgeStrength), byte.MaxValue, byte.MaxValue, byte.MaxValue), System.Windows.Media.Color.FromArgb((byte)Math.Min(255.0, 35.0 * EdgeStrength), byte.MaxValue, byte.MaxValue, byte.MaxValue), 90.0)));
-		if (base.IsVisible)
+		if (adaptiveRenderMode != GlassRenderMode.RichGlassSnapshot)
+		{
+			(from b in Root.Children.OfType<Border>()
+				where b.Tag as string == "backdrop"
+				select b).ToList().ForEach(delegate(Border b) { Root.Children.Remove(b); });
+			RefreshBackdropStyle();
+			return;
+		}
+		bool hasSnapshot = Root.Children.OfType<Border>().Any(b => b.Tag as string == "backdrop");
+		if (base.IsVisible && hasSnapshot)
 		{
 			RefreshBackdropStyle();
 			return;
@@ -266,7 +287,7 @@ public class GlassWindow : Window
 				Opacity = (light ? 0.8 : 0.66)
 			};
 			border.Clip = new RectangleGeometry(new Rect(0.0, 0.0, base.Width - 28.0, base.Height - 28.0), Surface.CornerRadius.TopLeft, Surface.CornerRadius.TopLeft);
-			border.Effect = ((MaterialBlur > 0.0) ? new BlurEffect
+			border.Effect = ((adaptiveRenderMode == GlassRenderMode.RichGlassSnapshot && MaterialBlur > 0.0) ? new BlurEffect
 			{
 				Radius = MaterialBlur,
 				RenderingBias = RenderingBias.Performance
@@ -320,9 +341,11 @@ public class GlassWindow : Window
 	public void SetGlassOpacity(double percent)
 	{
 		GlassPercent = LayoutRules.GlassOpacity(percent);
-		Surface.Background = GlassMaterials.Fill(CurrentMaterial, LightTheme, GlassPercent);
+		Surface.Background = (adaptiveRenderMode == GlassRenderMode.Solid)
+			? (System.Windows.Media.Brush)new SolidColorBrush(LightTheme ? System.Windows.Media.Color.FromRgb(239, 243, 249) : System.Windows.Media.Color.FromRgb(27, 36, 52))
+			: GlassMaterials.Fill(CurrentMaterial, LightTheme, GlassPercent);
 		Surface.BorderBrush = ((GlassPercent == 0.0) ? System.Windows.Media.Brushes.Transparent : Polish.Line(LightTheme));
-		Surface.Effect = ((GlassPercent == 0.0 || !CurrentMaterial.Shadow) ? null : new DropShadowEffect
+		Surface.Effect = ((adaptiveRenderMode == GlassRenderMode.Solid || GlassPercent == 0.0 || !CurrentMaterial.Shadow) ? null : new DropShadowEffect
 		{
 			BlurRadius = 25.0,
 			ShadowDepth = 7.0,
