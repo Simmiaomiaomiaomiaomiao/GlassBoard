@@ -21,7 +21,7 @@ CloseApplications=yes
 RestartApplications=no
 UninstallDisplayIcon={app}\{#AppExeName}
 SetupLogging=yes
-AppMutex=Local\\GlassBoard.Desktop.v1
+AppMutex=Local\GlassBoard.Desktop.v1
 
 [Files]
 Source: "..\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
