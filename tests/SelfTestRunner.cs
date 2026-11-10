@@ -5,8 +5,10 @@ using GlassBoard;
 internal static class SelfTestRunner
 {
     [STAThread]
-    private static int Main()
+    private static int Main(string[] args)
     {
+        if (args != null && args.Length > 0 && string.Equals(args[0], "--headless", StringComparison.OrdinalIgnoreCase))
+            return SelfTest.RunHeadless();
         Application application = new Application();
         application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         try
