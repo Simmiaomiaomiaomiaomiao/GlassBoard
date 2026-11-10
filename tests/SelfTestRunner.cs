@@ -1,6 +1,6 @@
 using System;
-using GlassBoard;
 using System.Windows;
+using GlassBoard;
 
 internal static class SelfTestRunner
 {
@@ -16,14 +16,15 @@ internal static class SelfTestRunner
             Console.Out.Flush();
             return result;
         }
-        finally
-        {
-            application.Shutdown();
-        }
         catch (Exception ex)
         {
             Console.Error.WriteLine(ex);
+            Console.Error.Flush();
             return 1;
+        }
+        finally
+        {
+            application.Shutdown();
         }
     }
 }
