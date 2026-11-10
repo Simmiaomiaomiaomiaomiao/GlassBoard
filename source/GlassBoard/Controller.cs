@@ -38,6 +38,8 @@ public class Controller
 
 	private WidgetManager widgets;
 
+	private AdaptivePerformanceTimer adaptivePerformance;
+
 	private bool removalMigrated;
 
 	private bool glassSuppressed;
@@ -1282,6 +1284,19 @@ public class Controller
 		}
 		Board = new BoardWindow(this);
 		Dock = new DockWindow(this);
+		adaptivePerformance = new AdaptivePerformanceTimer();
+		GlassWindow.SetAdaptiveRenderMode(adaptivePerformance.Policy.RenderMode);
+		adaptivePerformance.Policy.ModeChanged += delegate(PerformanceMode mode)
+		{
+			GlassWindow.SetAdaptiveRenderMode(adaptivePerformance.Policy.RenderMode);
+			Dock.ApplyAdaptiveRenderMode(Prefs.Light);
+			Board.ApplyAdaptiveRenderMode(Prefs.Light);
+			if (widgets != null)
+			{
+				widgets.ApplyAdaptiveRenderMode();
+			}
+			Store.Trace("PERFORMANCE mode=" + mode + " render=" + adaptivePerformance.Policy.RenderMode);
+		};
 		glassSuppressed = FullscreenState.Active();
 		Tray = new NotifyIcon
 		{
@@ -2866,6 +2881,11 @@ public class Controller
 			return;
 		}
 		ShuttingDown = true;
+		if (adaptivePerformance != null)
+		{
+			adaptivePerformance.Dispose();
+			adaptivePerformance = null;
+		}
 		if (updateCancel != null)
 		{
 			updateCancel.Cancel();
