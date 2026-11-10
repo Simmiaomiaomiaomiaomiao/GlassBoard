@@ -1,0 +1,52 @@
+name: Windows build and installer
+
+on:
+  push:
+    branches: [ main, glassboard-v1-performance-foundation ]
+    tags: [ 'v*' ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Install .NET Framework 4.8 targeting pack
+        shell: pwsh
+        run: choco install netfx-4.8-devpack -y --no-progress
+      - name: Build WPF application
+        shell: pwsh
+        run: dotnet build source/GlassBoard.csproj -c Release
+      - name: Stage application
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force publish | Out-Null
+          Copy-Item source/bin/Release/net48/* publish/ -Recurse -Force
+          Copy-Item Interop.UIAutomationClient.dll publish/ -Force
+          Copy-Item src publish/src -Recurse -Force
+          Copy-Item data publish/data -Recurse -Force
+          if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
+      - name: Run WPF self-test
+        shell: pwsh
+        run: |
+          Push-Location publish
+          try { & .\GlassBoard.exe --self-test; if ($LASTEXITCODE -ne 0) { throw 'Self-test failed' } }
+          finally { Pop-Location }
+      - name: Install Inno Setup
+        run: choco install innosetup --yes --no-progress
+      - name: Build installer
+        shell: pwsh
+        run: '& "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" installer/GlassBoard.iss'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GlassBoard-Setup
+          path: artifacts/GlassBoard-Setup.exe
+          if-no-files-found: error
