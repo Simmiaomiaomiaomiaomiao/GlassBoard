@@ -1,6 +1,6 @@
 # GlassBoard
 
-**v0.9.17 测试版** · Windows 10 / 11（64 位）· GPL-3.0 开源
+**v0.9.18-preview.1 预览版** · Windows 10 / 11（64 位）· GPL-3.0 开源
 
 **把散在桌面上的图标收进一条悬浮的 Dock，桌面只留壁纸。**
 # 这是什么
@@ -94,8 +94,7 @@ GlassBoard 是一个 Windows 桌面整理与美化的小工具。装好之后，
 
 ## 下载
 
-到本页 **Releases** 下载最新版的 `GlassBoard_v0.9.17_User.zip`。
-如果 Releases 里还没有，就在仓库文件列表里找同名文件。
+在你的 Fork 仓库中打开 **Actions → Windows build and installer**，选择最新成功的运行记录，在 **Artifacts** 中下载 `GlassBoard-Setup`。该安装包是未签名的预览版，正式使用前请先备份配置。
 
 > 只从本页下载。别处转来的包不保证是原版。
 
