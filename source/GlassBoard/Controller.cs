@@ -112,6 +112,20 @@ public class Controller
 
 	public bool GlassSuppressed => glassSuppressed;
 
+	public string PerformanceModeCaption
+	{
+		get
+		{
+			if (adaptivePerformance == null) return "自适应材质";
+			switch (adaptivePerformance.Policy.Mode)
+			{
+				case PerformanceMode.Eco: return "轻量玻璃";
+				case PerformanceMode.Protection: return "保护模式";
+				default: return "平衡材质";
+			}
+		}
+	}
+
 	public bool CanUndoRemoval => editHistory.CanUndo;
 
 	public bool CanRedoBoard => editHistory.CanRedo;
@@ -1291,6 +1305,7 @@ public class Controller
 			GlassWindow.SetAdaptiveRenderMode(adaptivePerformance.Policy.RenderMode);
 			Dock.ApplyAdaptiveRenderMode(Prefs.Light);
 			Board.ApplyAdaptiveRenderMode(Prefs.Light);
+			Board.UpdatePerformanceLabel(PerformanceModeCaption);
 			if (widgets != null)
 			{
 				widgets.ApplyAdaptiveRenderMode();
