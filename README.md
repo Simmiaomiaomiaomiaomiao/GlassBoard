@@ -238,7 +238,7 @@ GlassBoard 是一个 Windows 桌面整理与美化的小工具。装好之后，
 - 不需要注册账号，没有登录，没有使用统计（无遥测）
 - 你的布局、分组、图标都只存在本机 `%LOCALAPPDATA%\GlassBoard\`，不会上传
 - 联网只用于两件事：
-  1. **检查更新**：访问 GitHub 的项目地址，判断有没有新版本
+  1. **检查更新**：访问 `Simmiaomiaomiaomiaomiao/GlassBoard`，判断此 Fork 有没有发布新版本
   2. **天气组件取数据**（如果你启用了它）：把城市名发给公开天气服务
 - 全程使用 HTTPS，不经过任何第三方服务器
 
@@ -261,7 +261,7 @@ GlassBoard 是一个 Windows 桌面整理与美化的小工具。装好之后，
 - 使用教程：[GlassBoard_v0.9.17_使用教程.md](GlassBoard_v0.9.17_使用教程.md)
 - 第三方组件声明：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
-当前分支构建为 **v0.9.18-preview.1**，属于预览版；性能自适应与多显示器 DPI 行为仍需在真实设备上验证。
+当前分支构建为 **v0.9.18-preview.1**，属于预览版；CI 已验证 headless 核心规则与安装包编译，完整 WPF 窗口/鼠标交互、混合 DPI 和目标电脑性能仍需在真实桌面验收。
 
 ---
 
