@@ -62,7 +62,7 @@ public static class Program
 		{
 			if (!createdNew)
 			{
-				MessageBox.Show("已有 GlassBoard 在运行，本次启动的 v0.9.17 尚未运行。\n请先从托盘退出已有程序，再启动此版本。", "GlassBoard v0.9.17");
+				MessageBox.Show("已有 GlassBoard 在运行，本次启动的 v0.9.18-preview.1 尚未运行。\n请先从托盘退出已有程序，再启动此版本。", "GlassBoard v0.9.18-preview.1");
 				return 0;
 			}
 			try
