@@ -181,7 +181,9 @@ public static class MenuAppearanceChecks
 		object obj4 = null;
 		try
 		{
-			string text2 = Path.Combine(text, "中文 快捷方式.lnk");
+			// WScript.Shell's legacy automation layer may use the runner's active ANSI code page for file paths.
+			// Keep this COM interoperability fixture ASCII; Unicode names are covered by the WPF/config tests.
+			string text2 = Path.Combine(text, "GlassBoard Shortcut.lnk");
 			Type typeFromProgID = Type.GetTypeFromProgID("WScript.Shell");
 			obj3 = Activator.CreateInstance(typeFromProgID);
 			obj4 = typeFromProgID.InvokeMember("CreateShortcut", BindingFlags.InvokeMethod, null, obj3, new object[1] { text2 });
