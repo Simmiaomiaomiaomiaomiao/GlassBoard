@@ -43,7 +43,15 @@ namespace GlassBoard
 
         public void Sample(bool fullscreen, bool batterySaver)
         {
-            if (fullscreen || batterySaver) { SetMode(PerformanceMode.Eco); return; }
+            if (fullscreen || batterySaver)
+            {
+                MEMORYSTATUSEX pressureMemory = new MEMORYSTATUSEX { dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX)) };
+                if (GlobalMemoryStatusEx(ref pressureMemory) && pressureMemory.ullAvailPhys / 1073741824.0 < 1.5)
+                    SetMode(PerformanceMode.Protection);
+                else
+                    SetMode(PerformanceMode.Eco);
+                return;
+            }
             MEMORYSTATUSEX memory = new MEMORYSTATUSEX { dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX)) };
             if (!GlobalMemoryStatusEx(ref memory)) return;
             double availableGb = memory.ullAvailPhys / 1073741824.0;
