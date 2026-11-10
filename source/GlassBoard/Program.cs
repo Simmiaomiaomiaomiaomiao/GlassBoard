@@ -16,6 +16,21 @@ public static class Program
 		{
 			return SelfTest.Run();
 		}
+		if (args.Length != 0 && args[0] == "--uninstall-cleanup")
+		{
+			try
+			{
+				StartupService.Set(enabled: false);
+				TaskbarAutoHide.Restore();
+				DesktopVisibility.RestoreOriginal();
+				return 0;
+			}
+			catch (Exception ex)
+			{
+				Store.Log(ex);
+				return 1;
+			}
+		}
 		if (args.Length != 0 && args[0] == "--restore-shell")
 		{
 			try
