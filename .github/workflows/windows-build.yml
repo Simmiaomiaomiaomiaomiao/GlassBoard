@@ -31,6 +31,7 @@ jobs:
           New-Item -ItemType Directory -Force publish | Out-Null
           Copy-Item source/bin/Release/net48/* publish/ -Recurse -Force
           Copy-Item Interop.UIAutomationClient.dll publish/ -Force
+          Copy-Item GlassBoard.Updater.exe publish/ -Force
           Copy-Item src publish/src -Recurse -Force
           Copy-Item data publish/data -Recurse -Force
           if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
