@@ -12,7 +12,7 @@ namespace GlassBoard
         public AdaptivePerformanceTimer()
         {
             timer.Interval = TimeSpan.FromSeconds(5);
-            timer.Tick += delegate { policy.Sample(FullscreenState.IsFullscreen(), false); };
+            timer.Tick += delegate { policy.Sample(FullscreenState.Active(), false); };
             timer.Start();
         }
         public void Dispose() { timer.Stop(); policy.Dispose(); }
