@@ -116,15 +116,32 @@ public static class SelfTest
 		}
 	}
 
+	private static void TraceStage(string stage)
+	{
+		try
+		{
+			File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-progress.txt"),
+				DateTime.UtcNow.ToString("O") + " " + stage + Environment.NewLine, Encoding.UTF8);
+		}
+		catch { }
+	}
+
 	public static int Run()
 	{
 		try
 		{
+			TraceStage("START");
+			TraceStage("CheckMemoryResources");
 			CheckMemoryResources();
+			TraceStage("MenuAppearanceChecks");
 			MenuAppearanceChecks.Run();
+			TraceStage("DockBehaviorChecks");
 			DockBehaviorChecks.Run();
+			TraceStage("FeedbackChecks");
 			FeedbackChecks.Run();
+			TraceStage("PersonalizationChecks");
 			PersonalizationChecks.Run();
+			TraceStage("ButtonTestWindow");
 			ButtonTestWindow buttonTestWindow = new ButtonTestWindow();
 			try
 			{
@@ -301,11 +318,13 @@ public static class SelfTest
 			{
 				throw new Exception("透明度边界失败");
 			}
+			TraceStage("PASS");
 			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-result.txt"), "PASS: transparent material bounds and widget recovery menu; Dock rendering/order/mouse-capture release and native process path/reuse; light/dark nested menus, submenu open/close, checkmarks, disabled items, header sliders, shortcut overlay cache and legacy configuration; shared theme styles, bounded thumbnails and stream-independent pixels, hidden board release/reopen; recordable glass window affinity before/after backdrop/show/hide; WPF light/dark button/combo/text/check/slider templates, value bindings, button handlers, visibility switch, configuration, removed entries, opacity bounds, pages and search\r\n", Encoding.UTF8);
 			return 0;
 		}
 		catch (Exception ex)
 		{
+			TraceStage("FAIL: " + ex.GetType().Name + " " + ex.Message);
 			File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "self-test-result.txt"), ex.ToString());
 			return 1;
 		}
