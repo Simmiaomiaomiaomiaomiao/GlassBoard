@@ -39,8 +39,29 @@ jobs:
         shell: pwsh
         run: |
           Push-Location publish
-          try { & .\GlassBoard.exe --self-test; if ($LASTEXITCODE -ne 0) { if (Test-Path .\self-test-result.txt) { Get-Content .\self-test-result.txt }; throw 'Self-test failed' } }
+          try {
+            & .\GlassBoard.exe --self-test
+            $testExit = $LASTEXITCODE
+            Write-Output "SELF_TEST_EXIT=$testExit"
+            Write-Output "SELF_TEST_BASE=$((Get-Location).Path)"
+            if (Test-Path .\self-test-result.txt) {
+              Write-Output "SELF_TEST_RESULT_BEGIN"
+              [Console]::Out.WriteLine([System.IO.File]::ReadAllText((Resolve-Path .\self-test-result.txt)))
+              Write-Output "SELF_TEST_RESULT_END"
+            } else {
+              Write-Output "SELF_TEST_RESULT_FILE_NOT_FOUND"
+              Get-ChildItem -Force | Select-Object Name,Length | Format-Table | Out-String | Write-Output
+            }
+            if ($testExit -ne 0) { throw "Self-test failed with exit code $testExit" }
+          }
           finally { Pop-Location }
+      - name: Upload self-test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GlassBoard-SelfTest-Diagnostics
+          path: publish/self-test-result.txt
+          if-no-files-found: warn
       - name: Install Inno Setup
         run: choco install innosetup --yes --no-progress
       - name: Build installer
