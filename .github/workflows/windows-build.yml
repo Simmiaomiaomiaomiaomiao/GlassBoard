@@ -59,7 +59,7 @@ jobs:
         run: |
           Push-Location publish
           try {
-            & .\GlassBoard.SelfTestRunner.exe
+            & .\GlassBoard.SelfTestRunner.exe --headless
             $testExit = $LASTEXITCODE
             Write-Output "SELF_TEST_EXIT=$testExit"
             if (Test-Path .\self-test-result.txt) {
@@ -86,9 +86,9 @@ jobs:
         shell: pwsh
         run: |
           $result = '${{ steps.selftest.outcome }}'
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "GlassBoard WPF self-test outcome: **$result**"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "GlassBoard headless core smoke-test outcome: **$result**"
           if ($result -ne 'success') {
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "This CI run validates deterministic core rules. Interactive WPF window, popup, DPI and mouse behavior still require real-desktop verification."
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "CI covers deterministic pagination, search, glass-opacity, LRU cache, background polling and Unicode-config regression tests. Interactive WPF windows, popups, mixed-DPI placement and mouse/drag behavior still require verification in a signed-in desktop session."
           }
       - name: Remove test-only files from installer payload
         shell: pwsh
