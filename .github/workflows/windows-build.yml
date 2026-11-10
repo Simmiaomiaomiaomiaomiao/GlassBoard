@@ -39,7 +39,7 @@ jobs:
         shell: pwsh
         run: |
           Push-Location publish
-          try { & .\GlassBoard.exe --self-test; if ($LASTEXITCODE -ne 0) { throw 'Self-test failed' } }
+          try { & .\GlassBoard.exe --self-test; if ($LASTEXITCODE -ne 0) { if (Test-Path .\self-test-result.txt) { Get-Content .\self-test-result.txt }; throw 'Self-test failed' } }
           finally { Pop-Location }
       - name: Install Inno Setup
         run: choco install innosetup --yes --no-progress
