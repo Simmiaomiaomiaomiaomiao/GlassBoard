@@ -2,7 +2,7 @@ name: Windows build and installer
 
 on:
   push:
-    branches: [ main, glassboard-v1-performance-foundation ]
+    branches: [ main, glassboard-v1-performance-foundation, glassboard-v1-preview-final ]
     tags: [ 'v*' ]
   pull_request:
   workflow_dispatch:
