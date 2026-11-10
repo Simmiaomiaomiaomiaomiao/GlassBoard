@@ -26,6 +26,8 @@ public class GlassWindow : Window
 		adaptiveRenderMode = mode;
 	}
 
+	internal GlassRenderMode CurrentAdaptiveRenderMode => adaptiveRenderMode;
+
 	public void ApplyAdaptiveRenderMode(bool light)
 	{
 		if (!base.IsVisible && adaptiveRenderMode == GlassRenderMode.RichGlassSnapshot)
