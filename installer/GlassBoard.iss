@@ -11,8 +11,8 @@ DefaultDirName={localappdata}\Programs\GlassBoard
 DefaultGroupName={#AppName}
 OutputDir=..\artifacts
 OutputBaseFilename=GlassBoard-Setup
-ArchitecturesInstallIn64BitMode=x64
-ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64compatible
+ArchitecturesAllowed=x64compatible
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -21,6 +21,7 @@ CloseApplications=yes
 RestartApplications=no
 UninstallDisplayIcon={app}\{#AppExeName}
 SetupLogging=yes
+AppMutex=Local\\GlassBoard.Desktop.v1
 
 [Files]
 Source: "..\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -36,4 +37,4 @@ Name: "{autodesktop}\GlassBoard"; Filename: "{app}\{#AppExeName}"; Tasks: deskto
 Filename: "{app}\{#AppExeName}"; Description: "Launch GlassBoard"; Flags: postinstall nowait skipifsilent
 
 [UninstallRun]
-Filename: "{app}\GlassBoard.exe"; Parameters: "--uninstall-cleanup"; Flags: runhidden waituntilterminated
+Filename: "{app}\GlassBoard.exe"; Parameters: "--uninstall-cleanup"; Flags: runhidden waituntilterminated; RunOnceId: "RestoreShellState"
