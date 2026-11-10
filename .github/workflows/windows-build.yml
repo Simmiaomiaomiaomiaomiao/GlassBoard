@@ -52,10 +52,9 @@ jobs:
           }
           if (!(Test-Path publish/GlassBoard.Updater.exe)) { throw 'Updater missing' }
           if (!(Test-Path publish/RecoverWidgets.cmd)) { throw 'Recovery utility missing' }
-      - name: Run WPF self-test
+      - name: Run deterministic headless core tests
         id: selftest
-        timeout-minutes: 3
-        continue-on-error: true
+        timeout-minutes: 2
         shell: pwsh
         run: |
           Push-Location publish
@@ -89,7 +88,7 @@ jobs:
           $result = '${{ steps.selftest.outcome }}'
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "GlassBoard WPF self-test outcome: **$result**"
           if ($result -ne 'success') {
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "The Windows build may still produce a preview installer, but the self-test result must be reviewed before treating it as a stable release."
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "This CI run validates deterministic core rules. Interactive WPF window, popup, DPI and mouse behavior still require real-desktop verification."
           }
       - name: Remove test-only files from installer payload
         shell: pwsh
