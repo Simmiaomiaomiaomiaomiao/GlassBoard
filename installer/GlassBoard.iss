@@ -1,5 +1,5 @@
 #define AppName "GlassBoard"
-#define AppVersion "1.0.0-preview.1"
+#define AppVersion "0.9.18-preview.1"
 #define AppExeName "GlassBoard.exe"
 
 [Setup]
@@ -17,6 +17,8 @@ Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=lowest
+CloseApplications=yes
+RestartApplications=no
 UninstallDisplayIcon={app}\{#AppExeName}
 SetupLogging=yes
 
@@ -34,4 +36,4 @@ Name: "{autodesktop}\GlassBoard"; Filename: "{app}\{#AppExeName}"; Tasks: deskto
 Filename: "{app}\{#AppExeName}"; Description: "Launch GlassBoard"; Flags: postinstall nowait skipifsilent
 
 [UninstallRun]
-Filename: "{app}\GlassBoard.exe"; Parameters: "--restore-shell"; Flags: runhidden
+Filename: "{app}\GlassBoard.exe"; Parameters: "--uninstall-cleanup"; Flags: runhidden waituntilterminated
