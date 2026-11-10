@@ -91,6 +91,12 @@ jobs:
           if ($result -ne 'success') {
             Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "The Windows build may still produce a preview installer, but the self-test result must be reviewed before treating it as a stable release."
           }
+      - name: Remove test-only files from installer payload
+        shell: pwsh
+        run: |
+          Remove-Item publish/GlassBoard.SelfTestRunner.* -Force -ErrorAction SilentlyContinue
+          Remove-Item publish/self-test-result.txt -Force -ErrorAction SilentlyContinue
+          Remove-Item publish/self-test-progress.txt -Force -ErrorAction SilentlyContinue
       - name: Install Inno Setup
         run: choco install innosetup --yes --no-progress
       - name: Build installer
