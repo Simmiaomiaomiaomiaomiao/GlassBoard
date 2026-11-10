@@ -21,13 +21,17 @@ public class GlassWindow : Window
 {
 	private static GlassRenderMode adaptiveRenderMode = GlassRenderMode.RichGlassSnapshot;
 
-	public static void SetAdaptiveRenderMode(GlassRenderMode mode)
+	internal static void SetAdaptiveRenderMode(GlassRenderMode mode)
 	{
 		adaptiveRenderMode = mode;
 	}
 
 	public void ApplyAdaptiveRenderMode(bool light)
 	{
+		if (!base.IsVisible && adaptiveRenderMode == GlassRenderMode.RichGlassSnapshot)
+		{
+			return;
+		}
 		Backdrop(light);
 	}
 
